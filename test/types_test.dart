@@ -379,6 +379,142 @@ void main() {
       expect(resultMap, equals(['key']));
     });
   });
+
+  group('NotEmptyExtension', () {
+    test('calls the function with a non-null, non-empty string', () {
+      var called = false;
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const String? value = 'test';
+      value.notEmpty((v) {
+        called = true;
+        expect(v, value);
+      });
+      expect(called, isTrue);
+    });
+
+    test('does not call the function with a null string', () {
+      var called = false;
+      const String? value = null;
+      value.notEmpty((v) {
+        called = true;
+      });
+      expect(called, isFalse);
+    });
+
+    test('does not call the function with an empty string', () {
+      var called = false;
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const String? value = '';
+      value.notEmpty((v) {
+        called = true;
+      });
+      expect(called, isFalse);
+    });
+
+    test('calls the function with the correct type', () {
+      var called = false;
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const String? value = 'test';
+      value.notEmpty((v) {
+        called = true;
+        expect(v, isA<String>());
+        expect(v, value);
+      });
+      expect(called, isTrue);
+    });
+  });
+
+  group('UnwrappedExtension', () {
+    test('calls the function with a non-null value', () {
+      var called = false;
+      const value = 42;
+      value.unwrapped((v) {
+        called = true;
+        expect(v, value);
+      });
+      expect(called, isTrue);
+    });
+
+    test('does not call the function with a null value', () {
+      var called = false;
+      const int? value = null;
+      value.unwrapped((v) {
+        called = true;
+      });
+      expect(called, isFalse);
+    });
+
+    test('calls the function with the correct type', () {
+      var called = false;
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const String? value = 'test';
+      value.unwrapped((v) {
+        called = true;
+        expect(v, isA<String>());
+        expect(v, value);
+      });
+      expect(called, isTrue);
+    });
+  });
+
+  group('executeIfAs', () {
+    test('returns the result of onConditionMet when condition is met', () {
+      final result = executeIfAs(
+        () => true,
+        onConditionMet: () => 'Condition met',
+        onConditionNotMet: () => 'Condition not met',
+      );
+      expect(result, 'Condition met');
+    });
+
+    test('returns the result of onConditionNotMet when condition is not met',
+        () {
+      final result = executeIfAs(
+        () => false,
+        onConditionMet: () => 'Condition met',
+        onConditionNotMet: () => 'Condition not met',
+      );
+      expect(result, 'Condition not met');
+    });
+
+    test('returns the correct type when condition is met', () {
+      final result = executeIfAs(
+        () => true,
+        onConditionMet: () => 42,
+        onConditionNotMet: () => 0,
+      );
+      expect(result, isA<int>());
+      expect(result, 42);
+    });
+
+    test('returns the correct type when condition is not met', () {
+      final result = executeIfAs(
+        () => false,
+        onConditionMet: () => 42,
+        onConditionNotMet: () => 0,
+      );
+      expect(result, isA<int>());
+      expect(result, 0);
+    });
+
+    test('returns different types based on condition', () {
+      final result = executeIfAs(
+        () => true,
+        onConditionMet: () => 'Condition met',
+        onConditionNotMet: () => 0,
+      );
+      expect(result, isA<String>());
+      expect(result, 'Condition met');
+
+      final result2 = executeIfAs(
+        () => false,
+        onConditionMet: () => 'Condition met',
+        onConditionNotMet: () => 0,
+      );
+      expect(result2, isA<int>());
+      expect(result2, 0);
+    });
+  });
 }
 
 class CustomObject {

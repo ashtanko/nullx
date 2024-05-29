@@ -24,7 +24,7 @@ jobs:
           path: coverage/lcov.info
           min_coverage: 20
 
-      - uses: codecov/codecov-action@v4.0.1
+      - uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: coverage/lcov.info

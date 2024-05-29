@@ -3,50 +3,80 @@ import 'package:test/test.dart';
 
 void main() {
   group('NullableMapExtension', () {
-    test('mapNonNull transforms non-null elements', () {
+    test('mapNonNull maps non-null values correctly', () {
       final list = [1, null, 3, null];
-      final result = list.mapNonNull((item) => item * 2);
-
-      expect(result, equals([2, 6]));
+      final newList = list.mapNonNull((item) => item * 2).toList();
+      expect(newList, [2, 6]);
     });
 
-    test('mapNonNull ignores null elements', () {
-      final list = [null, null];
-      final result = list.mapNonNull((item) => item.let((it) => it));
-
-      expect(result, isEmpty);
+    test('mapNonNull returns an empty iterable if all elements are null', () {
+      final list = [null, null, null];
+      final newList = list.mapNonNull((item) => item).toList();
+      expect(newList, []);
     });
 
-    test('mapNonNull with all non-null elements', () {
-      final list = [1, 2, 3, 4];
-      final result = list.mapNonNull((item) => item * 2);
-
-      expect(result, equals([2, 4, 6, 8]));
-    });
-
-    test('mapNonNull with empty list', () {
+    test('mapNonNull handles empty iterables', () {
       final list = <int?>[];
-      final result = list.mapNonNull((item) => item * 2);
+      final newList = list.mapNonNull((item) => item).toList();
+      expect(newList, []);
+    });
+  });
 
-      expect(result, isEmpty);
+  group('WhatIfNotNullOrEmptyExtension', () {
+    test('whatIfNotNullOrEmpty calls whatIf if list is not null and not empty',
+        () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final List<int>? list = [1, 2, 3];
+      var called = false;
+      list.whatIfNotNullOrEmpty((l) {
+        called = true;
+        expect(l, [1, 2, 3]);
+      }, () {
+        fail('whatIfNot should not be called');
+      });
+      expect(called, isTrue);
     });
 
-    test('whatIfNotNullOrEmptyListTest', () {
-      List<String>? list;
+    test('whatIfNotNullOrEmpty calls whatIfNot if list is null', () {
+      const List<int>? list = null;
+      var called = false;
+      list.whatIfNotNullOrEmpty((l) {
+        fail('whatIf should not be called');
+      }, () {
+        called = true;
+      });
+      expect(called, isTrue);
+    });
 
-      list.whatIfNotNullOrEmpty(
-        (values) => list = ['NotNullOrEmpty'],
-        () => list = ['NullOrEmpty'],
-      );
+    test('whatIfNotNullOrEmpty calls whatIfNot if list is empty', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final List<int>? list = [];
+      var called = false;
+      list.whatIfNotNullOrEmpty((l) {
+        fail('whatIf should not be called');
+      }, () {
+        called = true;
+      });
+      expect(called, isTrue);
+    });
+  });
 
-      expect(list?[0], 'NullOrEmpty');
+  group('CollectionExtensions', () {
+    test('isNullOrEmpty returns true if list is null', () {
+      const List<int>? list = null;
+      expect(list.isNullOrEmpty, isTrue);
+    });
 
-      list.whatIfNotNullOrEmpty(
-        (values) => list = ['Not${values[0]}'],
-        () => list = ['NullOrEmpty'],
-      );
+    test('isNullOrEmpty returns true if list is empty', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final List<int>? list = [];
+      expect(list.isNullOrEmpty, isTrue);
+    });
 
-      expect(list?[0], 'NotNullOrEmpty');
+    test('isNullOrEmpty returns false if list is not empty', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final List<int>? list = [1, 2, 3];
+      expect(list.isNullOrEmpty, isFalse);
     });
   });
 }

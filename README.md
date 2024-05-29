@@ -8,6 +8,7 @@ nullx is a Dart toolkit that enhances handling of nullable types, providing util
 [![CodeFactor](https://www.codefactor.io/repository/github/ashtanko/nullx/badge)](https://www.codefactor.io/repository/github/ashtanko/nullx)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/badee387cb23488c9091051b572c47f1)](https://app.codacy.com/gh/ashtanko/nullx/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![codecov](https://codecov.io/github/ashtanko/nullx/graph/badge.svg?token=D4JQVJUE1M)](https://codecov.io/github/ashtanko/nullx)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/badee387cb23488c9091051b572c47f1)](https://app.codacy.com/gh/ashtanko/nullx/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 
 ## Features
 

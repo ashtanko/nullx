@@ -241,7 +241,7 @@ void main() {
     final CustomObject? nullableObject = CustomObject(42);
 
     final int result = nullableObject.conditionNotNullWith(
-      (obj) => obj.value * 2,
+      (obj) => obj.val * 2,
       () => -1,
     );
 
@@ -252,7 +252,7 @@ void main() {
     CustomObject? nullableObject;
 
     final int result = nullableObject.conditionNotNullWith(
-      (obj) => obj.value * 2,
+      (obj) => obj.val * 2,
       () => -99,
     );
 
@@ -518,7 +518,7 @@ void main() {
 }
 
 class CustomObject {
-  final int value;
+  final int val;
 
-  CustomObject(this.value);
+  CustomObject(this.val);
 }

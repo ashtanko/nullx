@@ -1,6 +1,6 @@
 name: Coverage
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   coverage:
@@ -17,7 +17,7 @@ jobs:
         run: |
           dart pub global activate coverage
           dart pub global run coverage:test_with_coverage
-        uses: codecov/codecov-action@v4.0.1
+      - uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: coverage/lcov.info

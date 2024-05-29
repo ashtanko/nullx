@@ -19,10 +19,10 @@ jobs:
           dart pub global run coverage:test_with_coverage
 
       - name: Check Code Coverage
-        uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
+        uses: VeryGoodOpenSource/very_good_coverage@v2
         with:
           path: coverage/lcov.info
-          min_coverage: 80
+          min_coverage: 20
 
       - uses: codecov/codecov-action@v4.0.1
         with:

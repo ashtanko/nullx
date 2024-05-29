@@ -211,6 +211,17 @@ void main() {
       );
       expect(result, equals(-1));
     });
+
+    test(
+        'should return conditionFalse result if object is null and defaultCondition is true',
+        () {
+      const int? number = null;
+      final result = number.conditionNotNullAs<int>(
+        conditionTrue: (value) => value * 2,
+        conditionFalse: () => -1,
+      );
+      expect(result, equals(-1));
+    });
   });
 
   test('conditionNotNullWith - not null', () {

@@ -1,0 +1,63 @@
+name: Dart CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        version: ["2.12", "2.19", "3.0", "beta"]
+
+    container:
+      image: dart:${{ matrix.version }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: dart pub get
+      - name: Run tests
+        run: dart pub run test
+
+  test-windows:
+    timeout-minutes: 5
+    runs-on: windows-latest
+
+    steps:
+      - name: Install dart
+        run: |
+          choco install dart-sdk
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: C:\tools\dart-sdk\bin\dart.exe pub get
+      - name: Run tests
+        run: C:\tools\dart-sdk\bin\dart.exe pub run test
+
+  test-macos:
+    timeout-minutes: 5
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Tap Google's Dart formula repository
+        run: brew tap dart-lang/dart
+      - name: Install the Dart formula
+        run: brew install dart
+      - name: Install dependencies
+        run: dart pub get
+      - name: Run tests
+        run: dart pub run test
+
+  format:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+
+    container:
+      image: dart:stable
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Format
+        run: dart format --set-exit-if-changed --fix .

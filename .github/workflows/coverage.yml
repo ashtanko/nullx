@@ -1,0 +1,22 @@
+name: Coverage
+
+on: [push, pull_request]
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    container:
+      image: dart:3.0
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: dart pub get
+      - name: Collect coverage
+        run: |
+          dart pub global activate coverage
+          dart pub global run coverage:test_with_coverage
+      - uses: codecov/codecov-action@v3
+        with:
+          file: coverage/lcov.info

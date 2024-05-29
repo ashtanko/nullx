@@ -1,0 +1,14 @@
+name: nullx
+description: nullx is a Dart toolkit that enhances handling of nullable types, providing utilities for null-checking, navigating nullable structures, and robust error handling, for cleaner and more resilient code
+version: 0.1.0+1
+repository: https://github.com/ashtanko/nullx
+
+environment:
+  sdk: '>=2.12.0 <4.0.0'
+
+dependencies:
+  # path: ^1.8.0
+
+dev_dependencies:
+  lint: '>=1.5.0 <3.0.0'
+  test: ^1.16.4

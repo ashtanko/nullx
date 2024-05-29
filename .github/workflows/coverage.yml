@@ -17,7 +17,26 @@ jobs:
         run: |
           dart pub global activate coverage
           dart pub global run coverage:test_with_coverage
+
+      - name: Install lcov
+        run: sudo apt-get install -y lcov
+
+      - name: Run tests
+        run: flutter test --coverage
+
+      - name: Check Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
+        with:
+          path: coverage/lcov.info
+          min_coverage: 80
+
       - uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: coverage/lcov.info
+
+      - name: Run codacy-coverage-reporter
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: ./coverage/lcov.info

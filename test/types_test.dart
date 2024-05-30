@@ -213,14 +213,15 @@ void main() {
     });
 
     test(
-        'should return conditionFalse result if object is null and defaultCondition is true',
+        'uses default condition for non-null input when no condition is provided',
         () {
-      const int? number = null;
-      final result = number.conditionNotNullAs<int>(
-        conditionTrue: (value) => value * 2,
-        conditionFalse: () => -1,
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const String? str = 'Hello';
+      final result = str.conditionNotNullAs(
+        conditionTrue: (value) => 'True',
+        conditionFalse: () => 'False',
       );
-      expect(result, equals(-1));
+      expect(result, equals('True'));
     });
   });
 

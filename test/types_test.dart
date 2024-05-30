@@ -526,6 +526,36 @@ void main() {
       expect(result2, 0);
     });
   });
+
+  group('NullableStringExtensions', () {
+    test('isNullOrEmpty returns true for null string', () {
+      const String? str = null;
+      expect(str.isNullOrEmpty, isTrue);
+    });
+
+    test('isNullOrEmpty returns true for empty string', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const String? str = '';
+      expect(str.isNullOrEmpty, isTrue);
+    });
+
+    test('isNullOrEmpty returns false for non-empty string', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const String? str = 'Hello';
+      expect(str.isNullOrEmpty, isFalse);
+    });
+
+    test('orDefault returns the string if not null', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const String? str = 'Hello';
+      expect(str.orDefault('Default'), equals('Hello'));
+    });
+
+    test('orDefault returns default value for null string', () {
+      const String? str = null;
+      expect(str.orDefault('Default'), equals('Default'));
+    });
+  });
 }
 
 class CustomObject {

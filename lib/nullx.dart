@@ -3,7 +3,7 @@
 /// and robust error handling, for cleaner and more resilient code
 library nullx;
 
-export 'src/collection.dart';
+export 'src/collections.dart';
 export 'src/exception.dart';
 export 'src/types.dart';
 export 'src/utils.dart';

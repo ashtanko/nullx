@@ -270,3 +270,20 @@ extension NullableLetExtension<T, R> on T? {
     return null;
   }
 }
+
+/// Extension on `String?` to add utility methods.
+///
+/// This extension provides two methods:
+/// - `isNullOrEmpty`: a getter that checks if the string is null or empty.
+/// - `orDefault`: a method that returns the string if it's not null, otherwise it returns a default value.
+extension NullableStringExtensions on String? {
+  /// Checks if the string is null or empty.
+  ///
+  /// Returns `true` if the string is null or an empty string, `false` otherwise.
+  bool get isNullOrEmpty => this == null || this!.isEmpty;
+
+  /// Returns the string if it's not null, otherwise it returns a default value.
+  ///
+  /// [defaultValue] is the value to be returned when the string is null.
+  String orDefault(String defaultValue) => this ?? defaultValue;
+}

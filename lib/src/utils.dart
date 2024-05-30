@@ -12,3 +12,15 @@ import 'package:nullx/nullx.dart';
 Never todo({String reason = 'An operation is not implemented.'}) {
   throw NotImplementedError(reason);
 }
+
+/// Tries to cast the input [x] to the specified type [T].
+///
+/// If the input [x] is of type [T], it returns the input as [T].
+/// Otherwise, it returns null.
+///
+/// Example:
+/// ```dart
+/// int? number = tryCast<int>('123'); // returns null
+/// String? text = tryCast<String>('Hello'); // returns 'Hello'
+/// ```
+T? tryCast<T>(dynamic x) => x is T ? x : null;

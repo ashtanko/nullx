@@ -1,6 +1,6 @@
 name: Dart CI
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   test:
@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        version: ["2.12", "2.19", "3.0", "beta"]
+        version: [ "2.12", "2.19", "3.0", "beta" ]
 
     container:
       image: dart:${{ matrix.version }}
@@ -45,6 +45,17 @@ jobs:
         run: brew tap dart-lang/dart
       - name: Install the Dart formula
         run: brew install dart
+      - name: Install dependencies
+        run: dart pub get
+      - name: Run tests
+        run: dart pub run test
+
+  test-linux:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
       - name: Install dependencies
         run: dart pub get
       - name: Run tests

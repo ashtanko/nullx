@@ -27,6 +27,26 @@ extension NullableMapExtension<T, R> on Iterable<T?> {
     return where((element) => element != null)
         .map((element) => block(element as T));
   }
+
+  /// Maps over the iterable, applying [block] to each non-null element and its index.
+  ///
+  /// The [block] function should take a non-null `T` and an `int` index, and return a `R`.
+  ///
+  /// Returns a new iterable with the results of applying [block] to
+  /// each non-null element of the original iterable and its index.
+  ///
+  /// Example usage:
+  ///
+  /// ```dart
+  /// var list = [1, null, 3, null];
+  /// var newList = list.mapNonNullIndexed((item, index) => item * index);
+  /// print(newList); // prints: [0, 6]
+  /// ```
+  Iterable<R> mapNonNullIndexed(R Function(T, int) block) {
+    var index = 0;
+    return where((element) => element != null)
+        .map((element) => block(element as T, index++));
+  }
 }
 
 /// Extension on `List<T>?` to add a `whatIfNotNullOrEmpty` method.

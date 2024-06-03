@@ -25,10 +25,14 @@ void unwrapped<T>(T? nullableValue, void Function(T) value) {
   }
 }
 
-/// Executes a function based on a condition.
+/// Executes one of two functions based on a condition.
 ///
-/// Executes [onConditionMet] if the [condition] function returns true,
-/// otherwise executes [onConditionNotMet].
+/// This function takes a condition function that returns a boolean, and two other functions
+/// that are executed based on the result of the condition function. If the condition function
+/// returns true, it executes the [onConditionMet] function. If the condition function returns
+/// false, it executes the [onConditionNotMet] function.
+///
+/// This function is useful when you need to perform different operations based on a condition.
 ///
 /// Example:
 /// ```dart
@@ -54,15 +58,38 @@ void executeIf(
   }
 }
 
+/// Executes one of two functions based on a condition and returns a value of type [T].
+///
+/// This function takes a condition function that returns a boolean, and two other functions
+/// that return a value of type [T]. If the condition function returns true, it executes the
+/// [ifTrue] function and returns its result. If the condition function returns false,
+/// it executes the [ifFalse] function and returns its result.
+///
+/// This function is useful when you need to perform different operations and return a result
+/// based on a condition.
+///
+/// Example:
+/// ```dart
+/// var age = 20;
+/// var result = executeIfAs<String>(
+///   () => age >= 18,
+///   ifTrue: () => 'You are an adult.',
+///   ifFalse: () => 'You are not an adult.',
+/// );
+/// print(result); // prints: 'You are an adult.'
+/// ```
+///
+/// Generic type [T] can be any type and is used for the return type of the [ifTrue] and
+/// [ifFalse] functions.
 T executeIfAs<T>(
   bool Function() condition, {
-  required T Function() onConditionMet,
-  required T Function() onConditionNotMet,
+  required T Function() ifTrue,
+  required T Function() ifFalse,
 }) {
   if (condition()) {
-    return onConditionMet();
+    return ifTrue();
   } else {
-    return onConditionNotMet();
+    return ifFalse();
   }
 }
 
@@ -133,59 +160,102 @@ extension NotEmptyExtension<T extends String> on T? {
   }
 }
 
-/// Extension on `T?` to add `conditionNotNullWith` and `conditionNotNullAs` methods.
+/// Extension on `T?` to add condition-based methods.
 ///
-/// These methods provide a convenient way to handle nullable types and perform
-/// different actions based on the nullability of the value.
+/// This extension provides a set of methods that allow for condition-based operations
+/// on nullable types. These methods include `conditionNotNullWith` and `conditionNotNullAs`,
+/// which execute one of two functions based on the nullability of the value and/or a condition,
+/// and return a value of a specified type.
 ///
-/// The `conditionNotNullWith` method takes two functions: `conditionTrue` and `conditionFalse`.
-/// If the value is not null, it applies the `conditionTrue` function to the value.
-/// If the value is null, it calls the `conditionFalse` function.
-///
-/// The `conditionNotNullAs` method is similar to `conditionNotNullWith`, but it also
-/// accepts an optional `condition` function. If the `condition` function is provided
-/// and returns true for the non-null value, it applies the `conditionTrue` function to the value.
-/// Otherwise, it calls the `conditionFalse` function.
+/// These methods are useful when you need to perform different operations and return a result
+/// based on the nullability of a value and/or a condition.
 ///
 /// Example usage:
 ///
 /// ```dart
 /// var nullableInt = 1;
-/// var result = nullableInt.conditionNotNullWith(
-///   (item) => item * 2,  // conditionTrue
-///   () => 0,             // conditionFalse
+/// var result = nullableInt.conditionNotNullWith<int>(
+///   isTrue: (item) => item * 2,
+///   isFalse: () => 0,
 /// );
 /// print(result); // prints: 2
 ///
-/// result = nullableInt.conditionNotNullAs(
+/// result = nullableInt.conditionNotNullAs<int>(
 ///   condition: (item) => item > 1,
-///   conditionTrue: (item) => item * 2,
-///   conditionFalse: () => 0,
+///   isTrue: (item) => item * 2,
+///   isFalse: () => 0,
 /// );
 /// print(result); // prints: 0
 /// ```
+///
+/// Generic type [T] can be any type and is used for the type of the nullable value.
 extension ConditionExtension<T> on T? {
+  /// Executes one of two functions based on the nullability of the value and returns a value of type [R].
+  ///
+  /// This function takes two functions that return a value of type [R]. If the value is not null,
+  /// it executes the [isTrue] function and returns its result. If the value is null, it executes
+  /// the [isFalse] function and returns its result.
+  ///
+  /// This function is useful when you need to perform different operations and return a result
+  /// based on the nullability of a value.
+  ///
+  /// Example:
+  /// ```dart
+  /// var nullableInt = 1;
+  /// var result = nullableInt.conditionNotNullWith<int>(
+  ///   isTrue: (item) => item * 2,
+  ///   isFalse: () => 0,
+  /// );
+  /// print(result); // prints: 2
+  /// ```
+  ///
+  /// Generic type [R] can be any type and is used for the return type of the [isTrue] and
+  /// [isFalse] functions.
   R conditionNotNullWith<R>(
-    R Function(T) conditionTrue,
-    R Function() conditionFalse,
+    R Function(T) isTrue,
+    R Function() isFalse,
   ) {
     if (this != null) {
-      return conditionTrue(this as T);
+      return isTrue(this as T);
     } else {
-      return conditionFalse();
+      return isFalse();
     }
   }
 
+  /// Executes one of two functions based on a condition and returns a value of type [R].
+  ///
+  /// This function takes an optional condition function that returns a boolean for a value of type [T],
+  /// and two other functions that return a value of type [R]. If the condition function is provided
+  /// and returns true for the non-null value, it executes the [isTrue] function and returns its result.
+  /// If the condition function is not provided, is false, or the value is null, it executes the [isFalse]
+  /// function and returns its result.
+  ///
+  /// This function is useful when you need to perform different operations and return a result
+  /// based on a condition and the nullability of a value.
+  ///
+  /// Example:
+  /// ```dart
+  /// var nullableInt = 1;
+  /// var result = nullableInt.conditionNotNullAs<int>(
+  ///   condition: (item) => item > 1,
+  ///   isTrue: (item) => item * 2,
+  ///   isFalse: () => 0,
+  /// );
+  /// print(result); // prints: 0
+  /// ```
+  ///
+  /// Generic type [R] can be any type and is used for the return type of the [isTrue] and
+  /// [isFalse] functions.
   R conditionNotNullAs<R>({
     bool Function(T)? condition,
-    required R Function(T) conditionTrue,
-    required R Function() conditionFalse,
+    required R Function(T) isTrue,
+    required R Function() isFalse,
   }) {
     final defaultCondition = condition ?? ((T value) => true);
     if (this != null && defaultCondition(this as T)) {
-      return conditionTrue(this as T);
+      return isTrue(this as T);
     } else {
-      return conditionFalse();
+      return isFalse();
     }
   }
 }

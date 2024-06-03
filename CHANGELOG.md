@@ -1,15 +1,16 @@
 # Changelog
 
-## <a id="v0.1.1"></a>[v0.1.1] - 2024-05-30
+## 0.1.2
 
-### Added
+- Change the parameter names of `conditionNotNullAs` and `conditionNotNullWith`
+  methods to improve readability.
+- Add more examples.
 
-- new util functions
-- nullable string extensions
+## 0.1.1
 
-### Fixed
+- Add new util functions.
+- Add nullable string extensions.
 
-
-## <a id="v0.1.0+1"></a>[v0.1.0+1] - 2024-05-29
+## 0.1.0+1
 
 - Initial release.

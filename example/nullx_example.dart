@@ -2,10 +2,37 @@ import 'package:nullx/nullx.dart';
 
 void main() {
   // ignore: unnecessary_nullable_for_final_variable_declarations
+  const int? nullableInt = 10;
+  nullableInt.let((item) => item * 2);
+  // print(result); // prints: 2
+
+  final list = [1, null, 3, null];
+  list.mapNonNull((item) => item * 2); // prints: [2, 6]
+
+  final list2 = [1, null, 3, null];
+  list2.mapNonNullIndexed((item, index) => item * index); // prints: [0, 6]
+
+  // ignore: unnecessary_nullable_for_final_variable_declarations
+  List<int>? nullableList = [1, 2, 3];
+  nullableList.whatIfNotNullOrEmpty(
+    (list) => list,
+    () => 'List is null or empty', // whatIfNot
+  );
+  // prints: [1, 2, 3]
+
+  nullableList.isNullOrEmpty; // prints: false
+
+  nullableList = null;
+  nullableList.isNullOrEmpty; // prints: true
+
+  nullableList = [];
+  nullableList.isNullOrEmpty; // prints: true
+
+  // ignore: unnecessary_nullable_for_final_variable_declarations
   const String? nullableString = 'example';
 
   // Unwraps the nullable string and performs an operation on it
-  unwrapped(nullableString, (value) {});
+  unwrapped(nullableString, (value) {}); // prints: 'example'
 
   // A list of nullable strings
   final List<String?> strings = [null, 'one', null, 'two', null];
@@ -37,6 +64,32 @@ void main() {
 
   // Performs an operation on the age if it's not null
   age.let((a) => a);
+
+  nullableInt.letNonNull((value) => value * 2); // prints: 2
+
+  const int userAge = 20;
+  executeIf(
+    () => userAge >= 18,
+    onConditionMet: () {
+      // prints 'You are an adult.'
+    },
+    onConditionNotMet: () {
+      // prints 'You are not an adult.'
+    },
+  );
+
+  executeIfAs<String>(
+    () => userAge >= 18,
+    ifTrue: () => 'You are an adult.',
+    ifFalse: () => 'You are not an adult.',
+  );
+  // prints: 'You are an adult.'
+
+  void printValue(String value) {
+    // prints 'The value is: $value'
+  }
+
+  notEmpty(nullableString, printValue); // prints: example
 
   // A placeholder for future code
   todo();

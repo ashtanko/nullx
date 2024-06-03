@@ -1,8 +1,14 @@
 name: nullx
 homepage: https://shtanko.dev
-description: nullx is a Dart toolkit that enhances handling of nullable types, null-checking etc.
-version: 0.1.1
+description: >-
+  nullx is a simple package that enhances handling of nullable types, null-checking etc.
+version: 0.1.2
 repository: https://github.com/ashtanko/nullx
+
+topics:
+  - null-safety
+  - nullable
+  - collections
 
 platforms:
   android:

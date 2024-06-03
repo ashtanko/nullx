@@ -183,8 +183,8 @@ void main() {
       const int? number = 10;
       final result = number.conditionNotNullAs<int>(
         condition: (value) => value > 5,
-        conditionTrue: (value) => value * 2,
-        conditionFalse: () => -1,
+        isTrue: (value) => value * 2,
+        isFalse: () => -1,
       );
       expect(result, equals(20));
     });
@@ -196,8 +196,8 @@ void main() {
       const int? number = 3;
       final result = number.conditionNotNullAs<int>(
         condition: (value) => value > 5,
-        conditionTrue: (value) => value * 2,
-        conditionFalse: () => -1,
+        isTrue: (value) => value * 2,
+        isFalse: () => -1,
       );
       expect(result, equals(-1));
     });
@@ -206,8 +206,8 @@ void main() {
       const int? number = null;
       final result = number.conditionNotNullAs<int>(
         condition: (value) => value > 5,
-        conditionTrue: (value) => value * 2,
-        conditionFalse: () => -1,
+        isTrue: (value) => value * 2,
+        isFalse: () => -1,
       );
       expect(result, equals(-1));
     });
@@ -218,8 +218,8 @@ void main() {
       // ignore: unnecessary_nullable_for_final_variable_declarations
       const String? str = 'Hello';
       final result = str.conditionNotNullAs(
-        conditionTrue: (value) => 'True',
-        conditionFalse: () => 'False',
+        isTrue: (value) => 'True',
+        isFalse: () => 'False',
       );
       expect(result, equals('True'));
     });
@@ -473,8 +473,8 @@ void main() {
     test('returns the result of onConditionMet when condition is met', () {
       final result = executeIfAs(
         () => true,
-        onConditionMet: () => 'Condition met',
-        onConditionNotMet: () => 'Condition not met',
+        ifTrue: () => 'Condition met',
+        ifFalse: () => 'Condition not met',
       );
       expect(result, 'Condition met');
     });
@@ -483,8 +483,8 @@ void main() {
         () {
       final result = executeIfAs(
         () => false,
-        onConditionMet: () => 'Condition met',
-        onConditionNotMet: () => 'Condition not met',
+        ifTrue: () => 'Condition met',
+        ifFalse: () => 'Condition not met',
       );
       expect(result, 'Condition not met');
     });
@@ -492,8 +492,8 @@ void main() {
     test('returns the correct type when condition is met', () {
       final result = executeIfAs(
         () => true,
-        onConditionMet: () => 42,
-        onConditionNotMet: () => 0,
+        ifTrue: () => 42,
+        ifFalse: () => 0,
       );
       expect(result, isA<int>());
       expect(result, 42);
@@ -502,8 +502,8 @@ void main() {
     test('returns the correct type when condition is not met', () {
       final result = executeIfAs(
         () => false,
-        onConditionMet: () => 42,
-        onConditionNotMet: () => 0,
+        ifTrue: () => 42,
+        ifFalse: () => 0,
       );
       expect(result, isA<int>());
       expect(result, 0);
@@ -512,16 +512,16 @@ void main() {
     test('returns different types based on condition', () {
       final result = executeIfAs(
         () => true,
-        onConditionMet: () => 'Condition met',
-        onConditionNotMet: () => 0,
+        ifTrue: () => 'Condition met',
+        ifFalse: () => 0,
       );
       expect(result, isA<String>());
       expect(result, 'Condition met');
 
       final result2 = executeIfAs(
         () => false,
-        onConditionMet: () => 'Condition met',
-        onConditionNotMet: () => 0,
+        ifTrue: () => 'Condition met',
+        ifFalse: () => 0,
       );
       expect(result2, isA<int>());
       expect(result2, 0);

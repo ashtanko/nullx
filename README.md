@@ -27,6 +27,56 @@ dependencies:
 
 Here is a simple example of how to use nullx:
 
+### Collections
+
+```dart
+import 'package:nullx/nullx.dart';
+
+void main() {
+  final list = [1, null, 3, null];
+  list.mapNonNull((item) => item * 2); // prints: [2, 6]
+}
+```
+
+```dart
+import 'package:nullx/nullx.dart';
+
+void main() {
+  final list = [1, null, 3, null];
+  list.mapNonNullIndexed((item, index) => item * index); // prints: [0, 6]
+}
+```
+
+```dart
+import 'package:nullx/nullx.dart';
+
+void main() {
+  final List<int>? nullableList = [1, 2, 3];
+  nullableList.whatIfNotNullOrEmpty(
+    (list) => print(list), // whatIf
+    () => print('List is null or empty'), // whatIfNot
+  );
+  // prints: [1, 2, 3]
+}
+```
+
+```dart
+import 'package:nullx/nullx.dart';
+
+void main() {
+  List<int>? nullableList = [1, 2, 3];
+  print(nullableList.isNullOrEmpty); // prints: false
+
+  nullableList = null;
+  print(nullableList.isNullOrEmpty); // prints: true
+
+  nullableList = [];
+  print(nullableList.isNullOrEmpty); // prints: true
+}
+```
+
+### Types
+
 ```dart
 import 'package:nullx/nullx.dart';
 
@@ -44,7 +94,67 @@ import 'package:nullx/nullx.dart';
 
 void main() {
     const int? nullableInt = 10;
-    final resultInt = nullableInt.letNonNull((value) => value * 2);
+    final resultInt = nullableInt.letNonNull((value) => value * 2); // prints: 2
+}
+```
+
+```dart
+import 'package:nullx/nullx.dart';
+
+void main() {
+  const int userAge = 20;
+  executeIf(
+    () => userAge >= 18,
+    onConditionMet: () {
+      // prints 'You are an adult.'
+    },
+    onConditionNotMet: () {
+      // prints 'You are not an adult.'
+    },
+  );
+}
+```
+
+```dart
+import 'package:nullx/nullx.dart';
+
+void main() {
+  var userAge = 20;
+  final result = executeIfAs<String>(
+    () => userAge >= 18,
+    onConditionMet: () => 'You are an adult.',
+    onConditionNotMet: () => 'You are not an adult.',
+  );
+}
+```
+
+```dart
+import 'package:nullx/nullx.dart';
+
+void main() {
+    void printValue(String value) {
+      // prints 'The value is: $value'
+    }
+
+    notEmpty(nullableString, printValue);
+}
+```
+
+```dart
+import 'package:nullx/nullx.dart';
+
+void main() {
+    const String? nullableString = 'example';
+    unwrapped(nullableString, (value) {}); // prints: 'example'
+}
+```
+
+```dart
+import 'package:nullx/nullx.dart';
+
+void main() {
+    var nullableString = 'Hello';
+    nullableString.notEmpty((item) => print(item)); // prints: Hello
 }
 ```
 

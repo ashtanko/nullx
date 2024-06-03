@@ -1,4 +1,4 @@
-.PHONY: format doc analyze info test publish coverage
+.PHONY: format doc analyze info test publish coverage tag
 
 # Format the Dart code using dart_style package
 # https://pub.dev/packages/dart_style/install
@@ -30,5 +30,6 @@ publish:
 coverage:
 	dart pub global run coverage:test_with_coverage
 
+# Tag the release version in git
 tag:
-    git tag -a v$(version) -m "Release version $(version)" && git push origin v$(version)
+	git tag -a v$(version) -m "Release version $(version)" && git push origin v$(version)

@@ -8,7 +8,6 @@ repository: https://github.com/ashtanko/nullx
 topics:
   - null-safety
   - nullable
-  - null
   - types
   - collections
 

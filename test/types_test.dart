@@ -557,6 +557,79 @@ void main() {
       expect(str.orDefault('Default'), equals('Default'));
     });
   });
+
+  group('NullableIntX extension', () {
+    test('orZero returns zero when integer is null', () {
+      const int? nullableInt = null;
+      expect(nullableInt.orZero, equals(0));
+    });
+
+    test('orZero returns the integer when it is not null', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const int? nullableInt = 5;
+      expect(nullableInt.orZero, equals(5));
+    });
+
+    test('or returns default value when integer is null', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const int? nullableInt = null;
+      expect(nullableInt.or(defaultValue: 10), equals(10));
+    });
+
+    test('or returns the integer when it is not null', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const int? nullableInt = 5;
+      expect(nullableInt.or(defaultValue: 10), equals(5));
+    });
+  });
+
+  group('NullableDoubleX extension', () {
+    test('orZero returns zero when double is null', () {
+      const double? nullableDouble = null;
+      expect(nullableDouble.orZero, equals(0.0));
+    });
+
+    test('orZero returns the double when it is not null', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const double? nullableDouble = 5.5;
+      expect(nullableDouble.orZero, equals(5.5));
+    });
+
+    test('or returns default value when double is null', () {
+      const double? nullableDouble = null;
+      expect(nullableDouble.or(defaultValue: 10.5), equals(10.5));
+    });
+
+    test('or returns the double when it is not null', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const double? nullableDouble = 5.5;
+      expect(nullableDouble.or(defaultValue: 10.5), equals(5.5));
+    });
+  });
+
+  group('NullableBoolX extension', () {
+    test('orFalse returns false when boolean is null', () {
+      const bool? nullableBool = null;
+      expect(nullableBool.orFalse, isFalse);
+    });
+
+    test('orFalse returns the boolean when it is not null', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const bool? nullableBool = true;
+      expect(nullableBool.orFalse, isTrue);
+    });
+
+    test('or returns default value when boolean is null', () {
+      const bool? nullableBool = null;
+      expect(nullableBool.or(defaultValue: true), isTrue);
+    });
+
+    test('or returns the boolean when it is not null', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const bool? nullableBool = false;
+      expect(nullableBool.or(defaultValue: true), isFalse);
+    });
+  });
 }
 
 class CustomObject {

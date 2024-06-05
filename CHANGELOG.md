@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3
+- Add extension functions on nullable int, double, and bool.
+- Add getter `orZero` and method `or` on int, double, and bool.
+
 ## 0.1.2
 
 - Change the parameter names of `conditionNotNullAs` and `conditionNotNullWith`

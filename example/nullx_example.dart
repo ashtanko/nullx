@@ -91,6 +91,18 @@ void main() {
 
   notEmpty(nullableString, printValue); // prints: example
 
+  const int? nullableInt2 = null;
+  nullableInt2.orZero; // Outputs: 0
+  nullableInt2.or(defaultValue: 5); // Outputs: 5
+
+  const double? nullableDouble = null;
+  nullableDouble.orZero; // Outputs: 0.0
+  nullableDouble.or(defaultValue: 5.5); // Outputs: 5.5
+
+  const bool? nullableBool = null;
+  nullableBool.orFalse; // Outputs: false
+  nullableBool.or(defaultValue: true); // Outputs: true
+
   // A placeholder for future code
   todo();
 }

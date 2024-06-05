@@ -357,3 +357,87 @@ extension NullableStringExtensions on String? {
   /// [defaultValue] is the value to be returned when the string is null.
   String orDefault(String defaultValue) => this ?? defaultValue;
 }
+
+/// Extension on `int?` to add utility methods.
+///
+/// This extension provides two methods:
+/// - `orZero`: a getter that returns the integer if it's not null, otherwise it returns zero.
+/// - `or`: a method that returns the integer if it's not null, otherwise it returns a default value.
+///
+/// Example usage:
+/// ```dart
+/// int? nullableInt = null;
+/// print(nullableInt.orZero); // Outputs: 0
+/// print(nullableInt.or(defaultValue: 5)); // Outputs: 5
+///
+/// nullableInt = 10;
+/// print(nullableInt.orZero); // Outputs: 10
+/// print(nullableInt.or(defaultValue: 5)); // Outputs: 10
+/// ```
+extension NullableIntX on int? {
+  /// Returns the integer if it's not null, otherwise it returns zero.
+  int get orZero => or();
+
+  /// Returns the integer if it's not null, otherwise it returns a default value.
+  ///
+  /// [defaultValue] is the value to be returned when the integer is null. The default value is zero.
+  int or({int defaultValue = 0}) {
+    return this ?? defaultValue;
+  }
+}
+
+/// Extension on `double?` to add utility methods.
+///
+/// This extension provides two methods:
+/// - `orZero`: a getter that returns the double if it's not null, otherwise it returns zero.
+/// - `or`: a method that returns the double if it's not null, otherwise it returns a default value.
+///
+/// Example usage:
+/// ```dart
+/// double? nullableDouble = null;
+/// print(nullableDouble.orZero); // Outputs: 0.0
+/// print(nullableDouble.or(defaultValue: 5.5)); // Outputs: 5.5
+///
+/// nullableDouble = 10.5;
+/// print(nullableDouble.orZero); // Outputs: 10.5
+/// print(nullableDouble.or(defaultValue: 5.5)); // Outputs: 10.5
+/// ```
+extension NullableDoubleX on double? {
+  /// Returns the double if it's not null, otherwise it returns zero.
+  double get orZero => or();
+
+  /// Returns the double if it's not null, otherwise it returns a default value.
+  ///
+  /// [defaultValue] is the value to be returned when the double is null. The default value is zero.
+  double or({double defaultValue = 0}) {
+    return this ?? defaultValue;
+  }
+}
+
+/// Extension on `bool?` to add utility methods.
+///
+/// This extension provides two methods:
+/// - `orFalse`: a getter that returns the boolean if it's not null, otherwise it returns false.
+/// - `or`: a method that returns the boolean if it's not null, otherwise it returns a default value.
+///
+/// Example usage:
+/// ```dart
+/// bool? nullableBool = null;
+/// print(nullableBool.orFalse); // Outputs: false
+/// print(nullableBool.or(defaultValue: true)); // Outputs: true
+///
+/// nullableBool = true;
+/// print(nullableBool.orFalse); // Outputs: true
+/// print(nullableBool.or(defaultValue: false)); // Outputs: true
+/// ```
+extension NullableBoolX on bool? {
+  /// Returns the boolean if it's not null, otherwise it returns false.
+  bool get orFalse => or();
+
+  /// Returns the boolean if it's not null, otherwise it returns a default value.
+  ///
+  /// [defaultValue] is the value to be returned when the boolean is null. The default value is false.
+  bool or({bool defaultValue = false}) {
+    return this ?? defaultValue;
+  }
+}

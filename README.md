@@ -158,6 +158,24 @@ void main() {
 }
 ```
 
+```dart
+import 'package:nullx/nullx.dart';
+
+void main() {
+    const int? nullableInt = null;
+    nullableInt.orZero; // Outputs: 0
+    nullableInt.or(defaultValue: 5); // Outputs: 5
+
+    const double? nullableDouble = null;
+    nullableDouble.orZero; // Outputs: 0.0
+    nullableDouble.or(defaultValue: 5.5); // Outputs: 5.5
+
+    const bool? nullableBool = null;
+    nullableBool.orFalse; // Outputs: false
+    nullableBool.or(defaultValue: true); // Outputs: true
+}
+```
+
 ## Contributing
 
 Contributions are welcome! Please read the contributing guide to learn how to contribute to the project and set up a development environment.

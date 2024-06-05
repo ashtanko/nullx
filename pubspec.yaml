@@ -2,12 +2,14 @@ name: nullx
 homepage: https://shtanko.dev
 description: >-
   nullx is a simple package that enhances handling of nullable types, null-checking etc.
-version: 0.1.2
+version: 0.1.3
 repository: https://github.com/ashtanko/nullx
 
 topics:
   - null-safety
   - nullable
+  - null
+  - types
   - collections
 
 platforms:

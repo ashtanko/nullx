@@ -85,11 +85,8 @@ void main() {
   );
   // prints: 'You are an adult.'
 
-  void printValue(String value) {
-    // prints 'The value is: $value'
-  }
-
-  notEmpty(nullableString, printValue); // prints: example
+  // ignore: avoid_print
+  notEmpty(nullableString, (s) => print(s)); // prints: 'The value is: example'
 
   const int? nullableInt2 = null;
   nullableInt2.orZero; // Outputs: 0

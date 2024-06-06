@@ -28,9 +28,11 @@ extension NullableMapExtension<T, R> on Iterable<T?> {
         .map((element) => block(element as T));
   }
 
-  /// Maps over the iterable, applying [block] to each non-null element and its index.
+  /// Maps over the iterable, applying [block] to each non-null element and
+  /// its index.
   ///
-  /// The [block] function should take a non-null `T` and an `int` index, and return a `R`.
+  /// The [block] function should take a non-null `T` and an `int` index,
+  /// and return a `R`.
   ///
   /// Returns a new iterable with the results of applying [block] to
   /// each non-null element of the original iterable and its index.
@@ -52,10 +54,11 @@ extension NullableMapExtension<T, R> on Iterable<T?> {
 /// Extension on `List<T>?` to add a `whatIfNotNullOrEmpty` method.
 ///
 /// This extension provides a convenient way to handle nullable lists.
-/// The `whatIfNotNullOrEmpty` method takes two functions: `whatIf` and `whatIfNot`.
+/// The `whatIfNotNullOrEmpty` method takes two functions: `whatIf` and
+/// `whatIfNot`.
 ///
-/// If the list is not null and not empty, it applies the `whatIf` function to the list.
-/// If the list is null or empty, it calls the `whatIfNot` function.
+/// If the list is not null and not empty, it applies the `whatIf` function
+/// to the list. If the list is null or empty, it calls the `whatIfNot` function.
 ///
 /// Example usage:
 ///
@@ -82,8 +85,10 @@ extension WhatIfNotNullOrEmptyExtension<T> on List<T>? {
 
 /// Extension on `Iterable<T>?` to add an `isNullOrEmpty` getter.
 ///
-/// This extension provides a convenient way to check if an iterable is null or empty.
-/// The `isNullOrEmpty` getter returns true if the iterable is null or if it is empty.
+/// This extension provides a convenient way to check if an iterable is null
+/// or empty.
+/// The `isNullOrEmpty` getter returns true if the iterable is null or if it
+/// is empty.
 ///
 /// Example usage:
 ///

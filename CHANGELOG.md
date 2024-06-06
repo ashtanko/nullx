@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.4
+- Fix code documentation.
+- Add LetX extension functions.
+- Add AlsoX extension functions.
+
 ## 0.1.3
 - Add extension functions on nullable int, double, and bool.
 - Add getter `orZero` and method `or` on int, double, and bool.

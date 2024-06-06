@@ -630,6 +630,36 @@ void main() {
       expect(nullableBool.or(defaultValue: true), isFalse);
     });
   });
+
+  group('LetX extension', () {
+    test('run applies closure to non-null value', () {
+      const nonNullInt = 1;
+      final result = nonNullInt.run((item) => item * 2);
+      expect(result, equals(2));
+    });
+
+    test('run applies closure to non-null string', () {
+      const nonNullString = 'Hello';
+      final result = nonNullString.run((item) => item.toUpperCase());
+      expect(result, equals('HELLO'));
+    });
+  });
+
+  group('AlsoX extension', () {
+    test('also applies closure to value and returns the same value', () {
+      var value = 1;
+      final result = value.also((item) => value = item * 2);
+      expect(result, equals(1));
+      expect(value, equals(2));
+    });
+
+    test('also applies closure to string and returns the same string', () {
+      var value = 'Hello';
+      final result = value.also((item) => value = item.toUpperCase());
+      expect(result, equals('Hello'));
+      expect(value, equals('HELLO'));
+    });
+  });
 }
 
 class CustomObject {

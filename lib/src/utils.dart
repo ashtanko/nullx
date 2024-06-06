@@ -1,6 +1,7 @@
 import 'package:nullx/nullx.dart';
 
-/// Throws a [NotImplementedError] indicating that an operation is not implemented.
+/// Throws a [NotImplementedError] indicating that an operation is
+/// not implemented.
 ///
 /// If a [reason] is provided, it will be included in the error message.
 ///

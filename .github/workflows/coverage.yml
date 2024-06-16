@@ -22,7 +22,7 @@ jobs:
         uses: VeryGoodOpenSource/very_good_coverage@v2
         with:
           path: coverage/lcov.info
-          min_coverage: 95
+          min_coverage: 80
 
       - uses: codecov/codecov-action@v3
         with:

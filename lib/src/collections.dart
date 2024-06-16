@@ -51,26 +51,30 @@ extension NullableMapExtension<T, R> on Iterable<T?> {
   }
 }
 
-/// Extension on `List<T>?` to add a `whatIfNotNullOrEmpty` method.
-///
-/// This extension provides a convenient way to handle nullable lists.
-/// The `whatIfNotNullOrEmpty` method takes two functions: `whatIf` and
-/// `whatIfNot`.
-///
-/// If the list is not null and not empty, it applies the `whatIf` function
-/// to the list. If the list is null or empty, it calls the `whatIfNot` function.
-///
-/// Example usage:
-///
-/// ```dart
-/// List<int>? nullableList = [1, 2, 3];
-/// nullableList.whatIfNotNullOrEmpty(
-///   (list) => print(list),  // whatIf
-///   () => print('List is null or empty'),  // whatIfNot
-/// );
-/// // prints: [1, 2, 3]
-/// ```
+/// Extension on `List<T>?`.
 extension WhatIfNotNullOrEmptyExtension<T> on List<T>? {
+  /// Executes the [whatIf] function if the list is not null and not empty,
+  /// otherwise executes the [whatIfNot] function.
+  ///
+  /// This function is useful when you need to perform an operation on a list
+  /// that could be null or empty.
+  ///
+  /// The [whatIf] function should accept a single argument of type `List<T>`,
+  /// which represents the non-null and non-empty list.
+  ///
+  /// The [whatIfNot] function should be a function that takes no arguments
+  /// and is called when the list is null or empty.
+  ///
+  /// Example usage:
+  ///
+  /// ```dart
+  /// List<int>? nullableList = [1, 2, 3];
+  /// nullableList.whatIfNotNullOrEmpty(
+  ///   (list) => print(list),  // whatIf
+  ///   () => print('List is null or empty'),  // whatIfNot
+  /// );
+  /// // prints: [1, 2, 3]
+  /// ```
   void whatIfNotNullOrEmpty(
     void Function(List<T>) whatIf,
     void Function() whatIfNot,

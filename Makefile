@@ -29,7 +29,3 @@ publish:
 # Generate test coverage report using the coverage package
 coverage:
 	dart pub global run coverage:test_with_coverage
-
-# Tag the release version in git
-tag:
-	git tag -a v$(version) -m "Release version $(version)" && git push origin v$(version)

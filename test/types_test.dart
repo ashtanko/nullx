@@ -2,176 +2,33 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Nullable types tests', () {
-    setUp(() {
-      // Additional setup goes here.
-    });
+  group('callWhen', () {
+    test('calls onMet when condition is true', () {
+      var onMetCalled = false;
+      var onNotMetCalled = false;
 
-    test('Should call the provided function if the nullableBoolean is not null',
-        () {
-      // ignore: unnecessary_nullable_for_final_variable_declarations
-      const bool? nullableBoolean = true;
-      bool called = false;
-
-      unwrapped(nullableBoolean, (value) {
-        called = true;
-      });
-
-      expect(called, true);
-    });
-
-    test('Should not call the provided function if the nullableBoolean is null',
-        () {
-      // ignore: avoid_init_to_null
-      const bool? nullableBoolean = null;
-      bool called = false;
-
-      unwrapped(nullableBoolean, (value) {
-        called = true;
-      });
-
-      expect(called, false);
-    });
-
-    test('Should call the provided function if the nullableInt is not null',
-        () {
-      // ignore: unnecessary_nullable_for_final_variable_declarations
-      const int? nullableInt = 42;
-      bool called = false;
-
-      unwrapped(nullableInt, (value) {
-        called = true;
-      });
-
-      expect(called, true);
-    });
-
-    test('Should not call the provided function if the nullableInt is null',
-        () {
-      // ignore: avoid_init_to_null
-      const int? nullableInt = null;
-      bool called = false;
-
-      unwrapped(nullableInt, (value) {
-        called = true;
-      });
-
-      expect(called, false);
-    });
-
-    test('Should call the provided function if the nullableString is not null',
-        () {
-      // ignore: unnecessary_nullable_for_final_variable_declarations
-      const String? nullableString = 'hello';
-      bool called = false;
-
-      unwrapped(nullableString, (value) {
-        called = true;
-      });
-
-      expect(called, true);
-    });
-
-    test('Should not call the provided function if the nullableString is null',
-        () {
-      // ignore: avoid_init_to_null
-      const String? nullableString = null;
-      bool called = false;
-
-      unwrapped(nullableString, (value) {
-        called = true;
-      });
-
-      expect(called, false);
-    });
-  });
-
-  group('executeIf tests', () {
-    test('executeIfNotSingleLambdaTest', () {
-      String? nullableString;
-
-      executeIf(
-        () => nullableString == null || nullableString!.isEmpty,
-        onConditionMet: () => nullableString = 'conditionMet',
-        onConditionNotMet: () => nullableString = 'conditionNotMet',
+      callWhen(
+        condition: () => true,
+        onMet: () => onMetCalled = true,
+        onNotMet: () => onNotMetCalled = true,
       );
 
-      expect(nullableString, 'conditionMet');
+      expect(onMetCalled, isTrue);
+      expect(onNotMetCalled, isFalse);
+    });
 
-      nullableString = '';
-      executeIf(
-        () => nullableString == null || nullableString!.isNotEmpty,
-        onConditionMet: () => nullableString = 'conditionMet',
-        onConditionNotMet: () => nullableString = 'conditionNotMet',
+    test('calls onNotMet when condition is false', () {
+      var onMetCalled = false;
+      var onNotMetCalled = false;
+
+      callWhen(
+        condition: () => false,
+        onMet: () => onMetCalled = true,
+        onNotMet: () => onNotMetCalled = true,
       );
 
-      expect(nullableString, 'conditionNotMet');
-    });
-
-    test('executeIf - condition met', () {
-      bool conditionMet = false;
-
-      executeIf(
-        () => true, // Condition always met
-        onConditionMet: () => conditionMet = true,
-        onConditionNotMet: () => conditionMet = false,
-      );
-
-      expect(conditionMet, true); // Expecting conditionMet to be true
-    });
-
-    test('executeIf - condition not met', () {
-      bool conditionMet = false;
-
-      executeIf(
-        () => false, // Condition never met
-        onConditionMet: () => conditionMet = true,
-        onConditionNotMet: () => conditionMet = false,
-      );
-
-      expect(conditionMet, false); // Expecting conditionMet to be false
-    });
-  });
-
-  group('String types tests', () {
-    test(
-        'Should call the provided function if the nullableString is not null and not empty',
-        () {
-      // ignore: unnecessary_nullable_for_final_variable_declarations
-      const String? nullableString = 'hello';
-      bool called = false;
-
-      notEmpty(nullableString, (value) {
-        called = true;
-      });
-
-      expect(called, true);
-    });
-
-    test('Should not call the provided function if the nullableString is null',
-        () {
-      // ignore: avoid_init_to_null
-      const String? nullableString = null;
-      bool called = false;
-
-      notEmpty(nullableString, (value) {
-        called = true;
-      });
-
-      expect(called, false);
-    });
-
-    test('Should not call the provided function if the nullableString is empty',
-        () {
-      // ignore: unnecessary_nullable_for_final_variable_declarations
-      const String? nullableString = '';
-      bool called = false;
-
-      notEmpty(nullableString, (value) {
-        called = true;
-      });
-
-      expect(called, false);
+      expect(onMetCalled, isFalse);
+      expect(onNotMetCalled, isTrue);
     });
   });
 
@@ -230,8 +87,8 @@ void main() {
     const String? nullableString = 'notNull';
 
     final int length = nullableString.conditionNotNullWith(
-      (it) => it.length,
-      () => 0,
+      isTrue: (it) => it.length,
+      isFalse: () => 0,
     );
 
     expect(length, 7); // Expecting length to be 7
@@ -241,8 +98,8 @@ void main() {
     String? nullableString;
 
     final int length = nullableString.conditionNotNullWith(
-      (it) => it.length,
-      () => 0,
+      isTrue: (it) => it.length,
+      isFalse: () => 0,
     );
 
     expect(length, 0); // Expecting length to be 0
@@ -253,8 +110,8 @@ void main() {
     final CustomObject? nullableObject = CustomObject(42);
 
     final int result = nullableObject.conditionNotNullWith(
-      (obj) => obj.val * 2,
-      () => -1,
+      isTrue: (obj) => obj.val * 2,
+      isFalse: () => -1,
     );
 
     expect(result, 84); // Expecting result to be 84
@@ -264,8 +121,8 @@ void main() {
     CustomObject? nullableObject;
 
     final int result = nullableObject.conditionNotNullWith(
-      (obj) => obj.val * 2,
-      () => -99,
+      isTrue: (obj) => obj.val * 2,
+      isFalse: () => -99,
     );
 
     expect(result, -99); // Expecting result to be 84

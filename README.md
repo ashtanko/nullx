@@ -162,6 +162,25 @@ void main() {
 import 'package:nullx/nullx.dart';
 
 void main() {
+  const int userAge = 20;
+  // Unwraps the nullable string and performs an operation on it
+  callWhen(
+    condition: () => userAge >= 18,
+    onMet: () {
+      // prints 'You are an adult.'
+    },
+    onNotMet: () {
+      // prints 'You are not an adult.'
+    },
+  );
+}
+
+```
+
+```dart
+import 'package:nullx/nullx.dart';
+
+void main() {
     const int? nullableInt = null;
     nullableInt.orZero; // Outputs: 0
     nullableInt.or(defaultValue: 5); // Outputs: 5

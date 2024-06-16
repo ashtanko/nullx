@@ -12,6 +12,19 @@
 /// ```
 typedef Closure<R, T> = R Function(T it);
 
+/// A function type alias for a closure that takes an argument of type [T] and
+/// returns void.
+///
+/// This is a generic function type where [T] is the type of the argument.
+///
+/// Example usage:
+///
+/// ```dart
+/// VoidClosure<int> printNumber = (int number) {
+///   print('Number is: $number');
+/// };
+/// printNumber(5); // prints: 'Number is: 5'
+/// ```
 typedef VoidClosure<T> = void Function(T value);
 
 /// Calls the provided [value] function if the [nullableValue] is not null.
@@ -36,6 +49,7 @@ typedef VoidClosure<T> = void Function(T value);
 ///
 /// Generic type [T] can be inferred automatically based on the type of the
 /// provided [nullableValue].
+@Deprecated('use unwrapped extension instead, see [UnwrappedExtension]')
 void unwrapped<T>(T? nullableValue, VoidClosure value) {
   if (nullableValue != null) {
     value(nullableValue);
@@ -65,6 +79,7 @@ void unwrapped<T>(T? nullableValue, VoidClosure value) {
 ///   },
 /// );
 /// ```
+@Deprecated('use callWhen instead')
 void executeIf(
   bool Function() condition, {
   required void Function() onConditionMet,
@@ -74,6 +89,34 @@ void executeIf(
     onConditionMet();
   } else {
     onConditionNotMet();
+  }
+}
+
+/// Executes one of two functions based on a condition.
+/// The [onMet] function is called when the condition is met, and the [onNotMet]
+/// function is called when the condition is not met.
+///
+/// Example:
+/// ```dart
+/// callWhen(
+///  condition: () => age >= 18,
+///  onMet: () {
+///  print('You are an adult.');
+///  },
+///  onNotMet: () {
+///  print('You are not an adult.');
+///  },
+///  );
+///  ```
+void callWhen({
+  required bool Function() condition,
+  required void Function() onMet,
+  required void Function() onNotMet,
+}) {
+  if (condition()) {
+    onMet();
+  } else {
+    onNotMet();
   }
 }
 
@@ -134,6 +177,7 @@ T executeIfAs<T>(
 ///
 /// The provided [value] function should accept a single argument of type [T],
 /// which represents the non-null and non-empty string value.
+@Deprecated('use NotEmptyExtension instead, see [NotEmptyExtension]')
 void notEmpty<T extends String>(T? nullableValue, VoidClosure value) {
   if (nullableValue != null && nullableValue.isNotEmpty) {
     value(nullableValue);
@@ -239,10 +283,10 @@ extension ConditionExtension<T> on T? {
   ///
   /// Generic type [R] can be any type and is used for the return type of the
   /// [isTrue] and [isFalse] functions.
-  R conditionNotNullWith<R>(
-    R Function(T) isTrue,
-    R Function() isFalse,
-  ) {
+  R conditionNotNullWith<R>({
+    required R Function(T) isTrue,
+    required R Function() isFalse,
+  }) {
     if (this != null) {
       return isTrue(this as T);
     } else {
@@ -291,29 +335,48 @@ extension ConditionExtension<T> on T? {
 }
 
 /// Extension on `T` to add `takeIf` and `takeUnless` methods.
-///
-/// These methods provide a convenient way to conditionally return the value.
-///
-/// The `takeIf` method takes a predicate function and returns the value if the
-/// predicate is true. If the predicate is false, it returns null.
-///
-/// The `takeUnless` method is the opposite of `takeIf`. It takes a predicate
-/// function and returns the value if the predicate is false. If the predicate
-/// is true, it returns null.
-///
-/// Example usage:
-///
-/// ```dart
-/// var value = 5;
-/// print(value.takeIf((item) => item > 3)); // prints: 5
-/// print(value.takeUnless((item) => item > 3)); // prints: null
-/// ```
 extension TakeIfExtension<T> on T {
+  /// Evaluates the given [predicate] function on the value of type [T] and
+  /// returns the value if the [predicate] is true, otherwise returns null.
+  ///
+  /// This function is useful when you need to conditionally return the value
+  /// based on a certain condition.
+  ///
+  /// The [predicate] function should accept a single argument of type [T],
+  /// which represents the value, and return a boolean.
+  ///
+  /// Example usage:
+  ///
+  /// ```dart
+  /// var value = 5;
+  /// print(value.takeIf((item) => item > 3)); // prints: 5
+  /// ```
+  ///
+  /// @param predicate the function to test on the value
+  /// @return the value if the [predicate] is true, otherwise null
   @pragma('vm:prefer-inline')
   T? takeIf(bool Function(T) predicate) {
     return predicate(this) ? this : null;
   }
 
+  /// Evaluates the given [predicate] function on the value of type [T] and
+  /// returns the value if the [predicate] is false, otherwise returns null.
+  ///
+  /// This function is useful when you need to conditionally return the value
+  /// based on a certain condition.
+  ///
+  /// The [predicate] function should accept a single argument of type [T],
+  /// which represents the value, and return a boolean.
+  ///
+  /// Example usage:
+  ///
+  /// ```dart
+  /// var value = 5;
+  /// print(value.takeUnless((item) => item > 3)); // prints: null
+  /// ```
+  ///
+  /// @param predicate the function to test on the value
+  /// @return the value if the [predicate] is false, otherwise null
   @pragma('vm:prefer-inline')
   T? takeUnless(bool Function(T) predicate) {
     return !predicate(this) ? this : null;
@@ -321,23 +384,29 @@ extension TakeIfExtension<T> on T {
 }
 
 /// Extension on `T?` to add a `let` method.
-///
-/// This extension provides a convenient way to apply a transformation to a
-/// nullable value. The `let` method takes a function and applies it to the
-/// value if it is not null.
-///
-/// The function should take a non-null `T` and return a `R`.
-///
-/// If the value is null, the `let` method returns null.
-///
-/// Example usage:
-///
-/// ```dart
-/// var nullableInt = 1;
-/// var result = nullableInt.let((item) => item * 2);
-/// print(result); // prints: 2
-/// ```
 extension LetExtension<T, R> on T? {
+  /// Applies the [block] function to this value and returns the result if this
+  /// value is not null.
+  ///
+  /// This function is useful when you need to perform a transformation on a
+  /// nullable value.
+  /// The [block] function should accept a single argument of type [T], which
+  /// represents the non-null value,
+  /// and return a value of type [R].
+  ///
+  /// If this value is null, the `let` method returns null.
+  ///
+  /// Example usage:
+  ///
+  /// ```dart
+  /// var nullableInt = 1;
+  /// var result = nullableInt.let((item) => item * 2);
+  /// print(result); // prints: 2
+  /// ```
+  ///
+  /// @param block the function to apply on the value
+  /// @return the result of the [block] function if this value is not null,
+  /// otherwise null
   @pragma('vm:prefer-inline')
   R? let(R Function(T) block) {
     if (this != null) {
@@ -347,6 +416,7 @@ extension LetExtension<T, R> on T? {
   }
 }
 
+/// Extension on `T` to add a `run` method.
 extension LetX<T extends Object> on T {
   /// Extension on `T` where `T` extends `Object` to add a `run` method.
   ///
@@ -369,6 +439,7 @@ extension LetX<T extends Object> on T {
   }
 }
 
+/// Extension on `T` to add an `also` method.
 extension AlsoX<T extends Object?> on T {
   /// Extension on `T` to add an `also` method.
   ///
@@ -394,23 +465,27 @@ extension AlsoX<T extends Object?> on T {
 }
 
 /// Extension on `T?` to add a `letNonNull` method.
-///
-/// This extension provides a convenient way to apply a transformation to a
-/// nullable value. The `letNonNull` method takes a function and applies it to
-/// the value if it is not null.
-///
-/// The function should take a non-null `T` and return a nullable `R`.
-///
-/// If the value is null, the `letNonNull` method returns null.
-///
-/// Example usage:
-///
-/// ```dart
-/// var nullableInt = 1;
-/// var result = nullableInt.letNonNull((item) => item * 2);
-/// print(result); // prints: 2
-/// ```
 extension NullableLetExtension<T, R> on T? {
+  /// Applies the [block] function to this value and returns the result if this
+  /// value is not null.
+  ///
+  /// This function is useful when you need to perform a transformation on a
+  /// nullable value. The [block] function should accept a single argument of
+  /// type [T], which represents the non-null value, and return a value of type [R].
+  ///
+  /// If this value is null, the `letNonNull` method returns null.
+  ///
+  /// Example usage:
+  ///
+  /// ```dart
+  /// var nullableInt = 1;
+  /// var result = nullableInt.letNonNull((item) => item * 2);
+  /// print(result); // prints: 2
+  /// ```
+  ///
+  /// @param block the function to apply on the value
+  /// @return the result of the [block] function if this value is not null,
+  /// otherwise null
   @pragma('vm:prefer-inline')
   R? letNonNull(R? Function(T) block) {
     if (this != null) {

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.5
+- Fix code documentation.
+- Deprecate `notEmpty`, `executeIf`, 'unwrapped' methods.
+- Add new extension `callWhen` on nullable objects.
+- Make examples more readable.
+
 ## 0.1.4
 - Fix code documentation.
 - Add LetX extension functions.

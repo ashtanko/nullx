@@ -271,6 +271,48 @@ void main() {
     });
   });
 
+  group('ifNull', () {
+    test('ifNull calls action when the value is null', () {
+      const int? value = null;
+      bool wasCalled = false;
+
+      value.ifNull(() {
+        wasCalled = true;
+      });
+
+      expect(wasCalled, isTrue);
+    });
+
+    test('ifNull does not call action when the value is not null', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const int? value = 10;
+      bool wasCalled = false;
+
+      value.ifNull(() {
+        wasCalled = true;
+      });
+
+      expect(wasCalled, isFalse);
+    });
+
+    test('ifNull returns the original value when the value is null', () {
+      const int? value = null;
+
+      final result = value.ifNull(() {});
+
+      expect(result, isNull);
+    });
+
+    test('ifNull returns the original value when the value is not null', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const int? value = 10;
+
+      final result = value.ifNull(() {});
+
+      expect(result, equals(10));
+    });
+  });
+
   test('conditionNotNullWith - not null', () {
     // ignore: unnecessary_nullable_for_final_variable_declarations
     const String? nullableString = 'notNull';

@@ -2,8 +2,6 @@ import 'package:nullx/nullx.dart';
 
 void main() {
   /// Variables
-  ///
-  ///
 
   // ignore: unnecessary_nullable_for_final_variable_declarations
   const int? nullableInt = 10;
@@ -27,8 +25,6 @@ void main() {
   const List<String?>? emptyStringList = [];
 
   /// Collections
-  ///
-  ///
 
   // Maps over the list, applying a function to each non-null element,
   nullableIntList?.mapNonNull((item) => item * 2); // prints: [2, 6]
@@ -74,9 +70,6 @@ void main() {
   nullableBool.or(defaultValue: true); // Outputs: true
 
   /// Types
-  ///
-  ///
-
   // Unwraps the nullable string and performs an operation on it
   callWhen(
     condition: () => userAge >= 18,
@@ -177,8 +170,6 @@ void main() {
   nullBool.or(defaultValue: true); // Outputs: true
 
   /// Utils
-  ///
-  ///
 
   // Tries to cast the dynamic value to a String
   final String? name = tryCast<String>(value);

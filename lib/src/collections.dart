@@ -87,25 +87,81 @@ extension WhatIfNotNullOrEmptyExtension<T> on List<T>? {
   }
 }
 
-/// Extension on `Iterable<T>?` to add an `isNullOrEmpty` getter.
+/// Extension on `Iterable<T>?`.
+extension CollectionExtensions<T> on Iterable<T?>? {
+  ///
+  /// This extension provides a convenient way to check if an iterable is null
+  /// or empty.
+  /// The `isNullOrEmpty` getter returns true if the iterable is null or if it
+  /// is empty.
+  ///
+  /// Example usage:
+  ///
+  /// ```dart
+  /// List<int>? nullableList = [1, 2, 3];
+  /// print(nullableList.isNullOrEmpty); // prints: false
+  ///
+  /// nullableList = null;
+  /// print(nullableList.isNullOrEmpty); // prints: true
+  ///
+  /// nullableList = [];
+  /// print(nullableList.isNullOrEmpty); // prints: true
+  /// ```
+  bool get isNullOrEmpty => this == null || this!.isEmpty;
+
+  /// Filters non-null elements of the iterable and adds them to the
+  /// destination list.
+  ///
+  /// The [destination] list should be a list where the non-null elements will
+  /// be added.
+  ///
+  /// Returns the destination list with the non-null elements added.
+  ///
+  /// If the iterable is null or empty, it returns the original
+  /// destination list.
+  ///
+  /// Example usage:
+  ///
+  /// ```dart
+  /// var list = [1, null, 3, null];
+  /// var destination = <int>[];
+  /// list.filterNotNullTo(destination);
+  /// print(destination); // prints: [1, 3]
+  /// ```
+  C filterNotNullTo<C extends List<T>>(C destination) {
+    if (this.isNullOrEmpty) return destination;
+    for (final element in this!) {
+      if (element != null) {
+        destination.add(element);
+      }
+    }
+    return destination;
+  }
+
+  /// Filters non-null elements of the iterable
+  Iterable<T> filterNotNull() {
+    return filterNotNullTo(<T>[]);
+  }
+}
+
+/// Creates a new list containing all non-null elements from the provided list.
 ///
-/// This extension provides a convenient way to check if an iterable is null
-/// or empty.
-/// The `isNullOrEmpty` getter returns true if the iterable is null or if it
-/// is empty.
+/// The [elements] list should be a list that may contain null elements.
+///
+/// The [growable] parameter determines whether the returned list is growable.
+/// If [growable] is true, the returned list is growable.
+/// If [growable] is false, the returned list is fixed-length.
+///
+/// Returns a new list with all non-null elements from the original list.
+/// If the original list is null or empty, it returns an empty list.
 ///
 /// Example usage:
 ///
 /// ```dart
-/// List<int>? nullableList = [1, 2, 3];
-/// print(nullableList.isNullOrEmpty); // prints: false
-///
-/// nullableList = null;
-/// print(nullableList.isNullOrEmpty); // prints: true
-///
-/// nullableList = [];
-/// print(nullableList.isNullOrEmpty); // prints: true
+/// var list = [1, null, 3, null];
+/// var newList = listOfNotNull(list);
+/// print(newList); // prints: [1, 3]
 /// ```
-extension CollectionExtensions<T> on Iterable<T>? {
-  bool get isNullOrEmpty => this == null || this!.isEmpty;
+List<T> listOfNotNull<T>(List<T?> elements, {bool growable = true}) {
+  return elements.filterNotNull().toList(growable: growable);
 }

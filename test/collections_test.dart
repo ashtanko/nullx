@@ -80,21 +80,125 @@ void main() {
   });
 
   group('CollectionExtensions', () {
-    test('isNullOrEmpty returns true if list is null', () {
-      const List<int>? list = null;
-      expect(list.isNullOrEmpty, isTrue);
+    group('isNullOrEmpty', () {
+      test('isNullOrEmpty returns true if list is null', () {
+        const List<int>? list = null;
+        expect(list.isNullOrEmpty, isTrue);
+      });
+
+      test('isNullOrEmpty returns true if list is empty', () {
+        // ignore: unnecessary_nullable_for_final_variable_declarations
+        final List<int>? list = [];
+        expect(list.isNullOrEmpty, isTrue);
+      });
+
+      test('isNullOrEmpty returns false if list is not empty', () {
+        // ignore: unnecessary_nullable_for_final_variable_declarations
+        final List<int>? list = [1, 2, 3];
+        expect(list.isNullOrEmpty, isFalse);
+      });
     });
 
-    test('isNullOrEmpty returns true if list is empty', () {
-      // ignore: unnecessary_nullable_for_final_variable_declarations
-      final List<int>? list = [];
-      expect(list.isNullOrEmpty, isTrue);
+    group('filterNotNullTo', () {
+      test('adds non-null elements to destination', () {
+        final source = [1, null, 3, null];
+        final destination = <int>[];
+        source.filterNotNullTo(destination);
+        expect(destination, equals([1, 3]));
+      });
+
+      test('adds non-null elements to destination with result', () {
+        final source = [1, null, 3, null];
+        final destination = <int>[];
+        final res = source.filterNotNullTo(destination);
+        expect(destination, equals([1, 3]));
+        expect(res, equals([1, 3]));
+      });
+
+      test('returns the same destination if source is empty', () {
+        final source = <int?>[];
+        final destination = <int>[];
+        source.filterNotNullTo(destination);
+        expect(destination, isEmpty);
+      });
+
+      test('returns the same destination if source is null', () {
+        const List<int?>? source = null;
+        final destination = <int>[];
+        source.filterNotNullTo(destination);
+        expect(destination, isEmpty);
+      });
+
+      test('does not add null elements to destination', () {
+        final source = <int?>[null, null, null];
+        final destination = <int>[];
+        source.filterNotNullTo(destination);
+        expect(destination, isEmpty);
+      });
     });
 
-    test('isNullOrEmpty returns false if list is not empty', () {
-      // ignore: unnecessary_nullable_for_final_variable_declarations
-      final List<int>? list = [1, 2, 3];
-      expect(list.isNullOrEmpty, isFalse);
+    group('filterNotNull', () {
+      test('filters non-null elements from iterable', () {
+        final source = [1, null, 3, null];
+        final result = source.filterNotNull();
+        expect(result, equals([1, 3]));
+      });
+
+      test('returns an empty iterable if source is empty', () {
+        final source = <int?>[];
+        final result = source.filterNotNull();
+        expect(result, isEmpty);
+      });
+
+      test('returns an empty iterable if source is null', () {
+        const List<int?>? source = null;
+        final result = source.filterNotNull();
+        expect(result, isEmpty);
+      });
+
+      test('does not include null elements in the result', () {
+        final source = <int?>[null, null, null];
+        final result = source.filterNotNull();
+        expect(result, isEmpty);
+      });
+    });
+  });
+
+  group('listOfNotNull', () {
+    test('filters non-null elements from list', () {
+      final source = [1, null, 3, null];
+      final result = listOfNotNull(source);
+      expect(result, equals([1, 3]));
+    });
+
+    test('returns an empty list if source is empty', () {
+      final source = <int?>[];
+      final result = listOfNotNull(source);
+      expect(result, isEmpty);
+    });
+
+    test('does not include null elements in the result', () {
+      final source = <int?>[null, null, null];
+      final result = listOfNotNull(source);
+      expect(result, isEmpty);
+    });
+
+    test('returns a growable list if growable is true', () {
+      final source = [1, null, 3, null];
+      final result = listOfNotNull(source);
+      expect(result, equals([1, 3]));
+      result.add(4);
+      expect(result, equals([1, 3, 4])); // check if list is growable
+    });
+
+    test('returns a fixed-length list if growable is false', () {
+      final source = [1, null, 3, null];
+      final result = listOfNotNull(source, growable: false);
+      expect(result, equals([1, 3]));
+      expect(
+        () => result.add(4),
+        throwsUnsupportedError,
+      ); // check if list is fixed-length
     });
   });
 }

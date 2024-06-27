@@ -332,6 +332,25 @@ extension ConditionExtension<T> on T? {
       return isFalse();
     }
   }
+
+  /// Executes the [action] if the value is null.
+  ///
+  /// This method is useful when you need to perform an action when a value is null.
+  /// The [action] should be a function that takes no arguments and returns void.
+  ///
+  /// Returns the original value after executing the [action] if it was null.
+  ///
+  /// Example usage:
+  ///
+  /// ```dart
+  /// var nullableInt = null;
+  /// nullableInt = nullableInt.ifNull(() => print('Value was null'));
+  /// // prints: 'Value was null'
+  /// ```
+  T? ifNull(void Function() action) {
+    if (this == null) action();
+    return this;
+  }
 }
 
 /// Extension on `T` to add `takeIf` and `takeUnless` methods.

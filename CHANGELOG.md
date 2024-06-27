@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.6
+- Add `filterNotNullTo`, `filterNotNull`, `listOfNotNull`, `ifNull` functions and extensions
+- Add unit tests
+- Fix code documentation
+
 ## 0.1.5
 - Fix code documentation.
 - Deprecate `notEmpty`, `executeIf`, 'unwrapped' methods.

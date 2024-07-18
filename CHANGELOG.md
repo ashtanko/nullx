@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.7
+- Add nullable map extensions
+- Add nullable future extensions
+
 ## 0.1.6
 - Add `filterNotNullTo`, `filterNotNull`, `listOfNotNull`, `ifNull` functions and extensions
 - Add unit tests

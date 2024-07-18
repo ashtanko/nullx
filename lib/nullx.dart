@@ -5,5 +5,7 @@ library nullx;
 
 export 'src/collections.dart';
 export 'src/exception.dart';
+export 'src/future.dart';
+export 'src/map.dart';
 export 'src/types.dart';
 export 'src/utils.dart';

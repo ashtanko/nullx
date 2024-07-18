@@ -195,6 +195,18 @@ void main() {
 }
 ```
 
+```dart
+void main() {
+    final Map<String, int>? nullableMap = {'a': 1, 'b': 2};
+    print(nullableMap.isNullOrEmpty); // false
+    print(nullableMap.getOrElse('c', 0)); // 0
+    nullableMap.putIfAbsentOrElse('c', 3); // {a: 1, b: 2, c: 3}
+    nullableMap.updateValue('a', (value) => value! + 10); // {a: 11, b: 2, c: 3}
+    final filteredMap = nullableMap.filter((entry) => entry.value > 2);
+    print(filteredMap); // {a: 11, c: 3}
+}
+```
+
 ## Contributing
 
 Contributions are welcome! Please read the contributing guide to learn how to contribute to the project and set up a development environment.

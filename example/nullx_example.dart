@@ -1,6 +1,6 @@
 import 'package:nullx/nullx.dart';
 
-void main() {
+void main() async {
   /// Variables
 
   // ignore: unnecessary_nullable_for_final_variable_declarations
@@ -13,6 +13,12 @@ void main() {
   const String? nullString = null;
   const double? nullDouble = null;
   const bool? nullBool = null;
+  // ignore: unnecessary_nullable_for_final_variable_declarations
+  final Map<String, int>? nullableMap = {'a': 1, 'b': 2};
+  // ignore: unnecessary_nullable_for_final_variable_declarations
+  final Future<int?>? nullableFuture = Future.value(42);
+  // ignore: unnecessary_nullable_for_final_variable_declarations
+  final Future<int?>? failedFuture = Future.error(Exception('Failed'));
 
   // ignore: unnecessary_nullable_for_final_variable_declarations
   final List<int?>? nullableIntList = [1, null, 3, null];
@@ -182,6 +188,103 @@ void main() {
 
   // Performs an operation on the age if it's not null
   age.let((a) => a);
+
+  // Check if the map is null or empty
+  // ignore: avoid_print
+  print(nullableMap.isNullOrEmpty); // false
+
+  // Get value for key or return default
+  // ignore: avoid_print
+  print(nullableMap.getOrElse('c', 0)); // 0
+
+  // Put a value if the key is absent
+  nullableMap.putIfAbsentOrElse('c', 3);
+  // ignore: avoid_print
+  print(nullableMap); // {a: 1, b: 2, c: 3}
+
+  // Update a value using a function
+  nullableMap.updateValue('a', (value) => value! + 10);
+  // ignore: avoid_print
+  print(nullableMap); // {a: 11, b: 2, c: 3}
+  // ignore: avoid_print
+
+  // Filter the map
+  final filteredMap = nullableMap.filter((entry) => entry.value > 2);
+  // ignore: avoid_print
+  print(filteredMap); // {a: 11, c: 3}
+
+  // Map keys and values
+  final mappedMap = nullableMap.mapKeysAndValues(
+    (entry) => MapEntry(entry.key.toUpperCase(), entry.value.toString()),
+  );
+  // ignore: avoid_print
+  print(mappedMap); // {A: 11, B: 2, C: 3}
+
+  // Iterate through the map
+  // ignore: avoid_print
+  nullableMap.forEachEntry((key, value) => print('$key: $value'));
+  // Output:
+  // a: 11
+  // b: 2
+  // c: 3
+
+  // Check if the map contains a key or value
+  // ignore: avoid_print
+  print(nullableMap.containsKeyOrNull('a')); // true
+  // ignore: avoid_print
+  print(nullableMap.containsValueOrNull(4)); // false
+
+  // Return a default value if the Future completes with null
+  final int result2 = await nullableFuture.orDefault(5);
+  // ignore: avoid_print
+  print(result2); // 42
+
+  // Return null if the Future completes with an error
+  final int? errorHandled = await failedFuture.onErrorReturnNull();
+  // ignore: avoid_print
+  print(errorHandled); // null
+
+  // Return a default value if the Future completes with an error
+  final int? errorHandledWithValue = await failedFuture.onErrorReturn(5);
+  // ignore: avoid_print
+  print(errorHandledWithValue); // 5
+
+  // Provide an alternative Future if the original completes with null
+  // ignore: unnecessary_nullable_for_final_variable_declarations
+  final Future<int?>? nullableFutureWithNull = Future.value();
+  final int alternative = await nullableFutureWithNull.orElse(() async => 99);
+  // ignore: avoid_print
+  print(alternative); // 99
+
+  // Execute an action when the Future completes
+  // ignore: avoid_print
+  await nullableFuture.whenComplete(() => print('Completed')); // Completed
+
+  // Ignore any errors the Future may throw
+  await failedFuture.ignoreErrors(); // No output, error ignored
+
+  // Timeout a Future and return null if it doesn't complete in time
+  // ignore: unnecessary_nullable_for_final_variable_declarations
+  final Future<int?>? slowFuture =
+      Future.delayed(const Duration(seconds: 2), () => 10);
+  final int? timedOut =
+      await slowFuture.timeoutWithNull(const Duration(seconds: 1));
+  // ignore: avoid_print
+  print(timedOut); // null
+
+  // Chain another Future using thenOrNull
+  final Future<String?> chained =
+      nullableFuture.thenOrNull((value) => Future.value('Value: $value'));
+  // ignore: avoid_print
+  print(await chained); // Value: 42
+
+  // Catch an error and return null using catchErrorOrNull
+  final int? caughtError = await failedFuture.catchErrorOrNull((error) {
+    // ignore: avoid_print
+    print('Caught error: $error');
+  });
+  // ignore: avoid_print
+  print(caughtError); // Caught error: Exception: Failed, null
 
   // Throws a [NotImplementedError] indicating that an operation is
   try {

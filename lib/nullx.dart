@@ -4,6 +4,7 @@
 library nullx;
 
 export 'src/collections.dart';
+export 'src/either.dart';
 export 'src/exception.dart';
 export 'src/future.dart';
 export 'src/map.dart';

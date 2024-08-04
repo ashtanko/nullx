@@ -2,7 +2,7 @@ name: nullx
 homepage: https://shtanko.dev
 description: >-
   nullx is a collection of elegant extensions for handling null types in Dart.
-version: 0.1.7
+version: 0.1.8
 repository: https://github.com/ashtanko/nullx
 
 topics:
@@ -23,7 +23,7 @@ environment:
   sdk: '>=2.12.0 <4.0.0'
 
 dependencies:
-  # path: ^1.8.0
+  dartz: ^0.10.1
 
 dev_dependencies:
   lint: '>=1.5.0 <3.0.0'

@@ -526,6 +526,12 @@ extension NullableStringExtensions on String? {
   /// Returns `true` if the string is null or an empty string, `false` otherwise.
   bool get isNullOrEmpty => this == null || this!.isEmpty;
 
+  /// Checks if the string is not null or empty.
+  ///
+  /// Returns `true` if the string is not null or an empty string, `false`
+  /// otherwise.
+  bool get isNotNullOrEmpty => !isNullOrEmpty;
+
   /// Returns the string if it's not null, otherwise it returns a default value.
   ///
   /// [defaultValue] is the value to be returned when the string is null.

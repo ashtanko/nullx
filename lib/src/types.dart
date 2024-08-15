@@ -530,7 +530,7 @@ extension NullableStringExtensions on String? {
   ///
   /// Returns `true` if the string is not null or an empty string, `false`
   /// otherwise.
-  bool get isNotNullOrEmpty => !isNullOrEmpty;
+  bool get hasValue => !isNullOrEmpty;
 
   /// Returns the string if it's not null, otherwise it returns a default value.
   ///

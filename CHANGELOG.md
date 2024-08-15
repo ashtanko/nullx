@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.9
+- isNotNullOrEmpty => hasValue
+- Add nullable future extensions
+
 ## 0.1.8
 - Extend NullableStringExtensions by adding new isNotNullOrEmpty method
 - Add dartz Either extensions

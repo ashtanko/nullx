@@ -1,6 +1,8 @@
 import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
+import 'test_data.dart';
+
 void main() {
   // todo remove in v0.1.8
   group('Nullable types tests [DEPRECATED]', () {
@@ -668,6 +670,12 @@ void main() {
       // ignore: unnecessary_nullable_for_final_variable_declarations
       const int? nullableInt = 5;
       expect(nullableInt.or(defaultValue: 10), equals(5));
+    });
+
+    test('or returns the integer in inner nullable class', () {
+      final node = Node();
+      final actual = node.value.or(defaultValue: 10);
+      expect(actual, equals(10));
     });
   });
 

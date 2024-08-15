@@ -86,4 +86,72 @@ extension NullableFutureExtensions<T> on Future<T?>? {
       rethrow;
     }
   }
+
+  /// Returns the future's value if not null; otherwise, returns a default value.
+  ///
+  /// [defaultValue] is the value to be returned when the future's value is null.
+  Future<T> handleNull(T defaultValue) {
+    if (this == null) {
+      return Future.value(defaultValue);
+    }
+    return this!.then((value) => value ?? defaultValue);
+  }
+
+  /// Unwraps the future, throwing an error if the future or its value is null.
+  ///
+  /// Throws an error if the future is null or if the future's value is null.
+  Future<T>? unwrap() {
+    if (this == null) {
+      return Future.error('Future is null');
+    }
+    return this?.then((value) {
+      if (value == null) {
+        throw 'Value is null';
+      }
+      return value;
+    });
+  }
+
+  /// Executes the provided [onSuccess] function if the future completes
+  /// successfully with a non-null value.
+  ///
+  /// [onSuccess] is the function to be executed when the future completes
+  /// successfully with a non-null value.
+  Future<void> onSuccess(void Function(T value) onSuccess) {
+    if (this == null) {
+      return Future.value();
+    }
+    return this!.then((value) {
+      if (value != null) {
+        onSuccess(value);
+      }
+    });
+  }
+
+  /// Executes the provided [onError] function if the future completes with
+  /// an error.
+  ///
+  /// [onError] is the function to be executed when the future completes with
+  /// an error.
+  Future<void> onErrorOrNull(void Function(dynamic error) onError) {
+    if (this == null) {
+      return Future.value();
+    }
+    return this!.catchError((error) {
+      onError(error);
+      return null;
+    });
+  }
+
+  /// Applies the provided [transform] function to the future's value if it is
+  /// not null.
+  ///
+  /// [transform] is the function to be applied to the future's value if it is
+  /// not null.
+  Future<R?> transform<R>(R Function(T value) transform) {
+    if (this == null) {
+      return Future.value();
+    }
+    return this!.then((value) => value != null ? transform(value) : null);
+  }
 }

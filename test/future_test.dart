@@ -82,4 +82,131 @@ void main() {
       expect(onErrorExecuted, isTrue);
     });
   });
+
+  group('handleNull tests', () {
+    test('handleNull returns default value when future is null', () async {
+      Future<int?>? nullFuture;
+      expect(await nullFuture.handleNull(10), equals(10));
+    });
+
+    test('handleNull returns future value when not null', () async {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final Future<int?>? future = Future.value(5);
+      expect(await future.handleNull(10), equals(5));
+    });
+
+    test('handleNull returns default value when future value is null',
+        () async {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final Future<int?>? future = Future.value();
+      expect(await future.handleNull(10), equals(10));
+    });
+  });
+
+  group('unwrap', () {
+    test('unwrap throws error when future is null', () async {
+      Future<int?>? nullFuture;
+      expect(() => nullFuture.unwrap(), throwsA('Future is null'));
+    });
+
+    test('unwrap throws error when future value is null', () async {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final Future<int?>? future = Future.value();
+      expect(() => future.unwrap(), throwsA('Value is null'));
+    });
+
+    test('unwrap returns future value when not null', () async {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final Future<int?>? future = Future.value(5);
+      expect(await future.unwrap(), equals(5));
+    });
+  });
+
+  group('onSuccess', () {
+    test('onSuccess does not call onSuccess when future is null', () async {
+      Future<int?>? nullFuture;
+      bool onSuccessCalled = false;
+      await nullFuture.onSuccess((value) {
+        onSuccessCalled = true;
+      });
+      expect(onSuccessCalled, isFalse);
+    });
+
+    test('onSuccess calls onSuccess when future value is not null', () async {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final Future<int?>? future = Future.value(5);
+      bool onSuccessCalled = false;
+      await future.onSuccess((value) {
+        onSuccessCalled = true;
+        expect(value, equals(5));
+      });
+      expect(onSuccessCalled, isTrue);
+    });
+
+    test('onSuccess does not call onSuccess when future value is null',
+        () async {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final Future<int?>? future = Future.value();
+      bool onSuccessCalled = false;
+      await future.onSuccess((value) {
+        onSuccessCalled = true;
+      });
+      expect(onSuccessCalled, isFalse);
+    });
+  });
+
+  group('onErrorOrNull', () {
+    test('onErrorOrNull does not call onError when future is null', () async {
+      Future<int?>? nullFuture;
+      bool onErrorCalled = false;
+      await nullFuture.onErrorOrNull((error) {
+        onErrorCalled = true;
+      });
+      expect(onErrorCalled, isFalse);
+    });
+
+    test('onErrorOrNull calls onError when future throws an error', () async {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final Future<int?>? future =
+          Future<int?>(() => throw Exception('Test error'));
+      bool onErrorCalled = false;
+      await future.onErrorOrNull((error) {
+        onErrorCalled = true;
+        expect(error, isA<Exception>());
+      });
+      expect(onErrorCalled, isTrue);
+    });
+
+    test(
+        'onErrorOrNull does not call onError when future completes successfully',
+        () async {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final Future<int?>? future = Future.value(5);
+      bool onErrorCalled = false;
+      await future.onErrorOrNull((error) {
+        onErrorCalled = true;
+      });
+      expect(onErrorCalled, isFalse);
+    });
+  });
+
+  group('transform', () {
+    test('transform returns null when future is null', () async {
+      Future<int?>? nullFuture;
+      expect(await nullFuture.transform((value) => value * 2), isNull);
+    });
+
+    test('transform returns null when future value is null', () async {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final Future<int?>? future = Future.value();
+      expect(await future.transform((value) => value * 2), isNull);
+    });
+
+    test('transform applies transformation when future value is not null',
+        () async {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final Future<int?>? future = Future.value(5);
+      expect(await future.transform((value) => value * 2), equals(10));
+    });
+  });
 }

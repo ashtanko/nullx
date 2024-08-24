@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.10
+- Add OrThrow extension function for nullable objects
+- Add OrElseGet extension function for nullable objects
+
 ## 0.1.9
 - isNotNullOrEmpty => hasValue
 - Add nullable future extensions

@@ -630,3 +630,29 @@ extension NullableBoolX on bool? {
     return this ?? defaultValue;
   }
 }
+
+/// Extension on `T?` to add an `orThrow` method.
+extension OrThrow<T> on T? {
+  /// Returns the value if it is not null, otherwise throws an exception with
+  /// the provided [message].
+  ///
+  /// [message] is the custom error message for the exception.
+  T orThrow(String message) {
+    if (this == null) {
+      throw Exception(message);
+    }
+    return this!;
+  }
+}
+
+/// Extension on `T?` to add an `orElseGet` method.
+extension OrElseGet<T> on T? {
+  /// Returns the value if it is not null, otherwise returns the value supplied
+  /// by the [supplier] function.
+  ///
+  /// [supplier] is a function that provides a default value when the original
+  /// value is null.
+  T orElseGet(T Function() supplier) {
+    return this ?? supplier();
+  }
+}

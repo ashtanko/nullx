@@ -4,7 +4,6 @@ import 'package:test/test.dart';
 import 'test_data.dart';
 
 void main() {
-  // todo remove in v0.1.8
   group('Nullable types tests [DEPRECATED]', () {
     setUp(() {
       // Additional setup goes here.
@@ -754,6 +753,63 @@ void main() {
       final result = value.also((item) => value = item.toUpperCase());
       expect(result, equals('Hello'));
       expect(value, equals('HELLO'));
+    });
+  });
+
+  group('OrThrow Extension', () {
+    test('should return the value if not null', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const String? name = 'John';
+      expect(name.orThrow('Name cannot be null'), equals('John'));
+    });
+
+    test('should throw an exception if null', () {
+      String? nullName;
+      expect(() => nullName.orThrow('Name cannot be null'), throwsException);
+    });
+
+    test('should throw the correct exception message', () {
+      String? nullName;
+      expect(
+        () => nullName.orThrow('Custom error message'),
+        throwsA(
+          predicate((e) => e.toString().contains('Custom error message')),
+        ),
+      );
+    });
+  });
+
+  group('OrElseGet Extension', () {
+    test('should return the value if not null', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const String? name = 'John';
+      expect(name.orElseGet(() => 'Default Name'), equals('John'));
+    });
+
+    test('should return the computed value if null', () {
+      String? nullName;
+      expect(nullName.orElseGet(() => 'Default Name'), equals('Default Name'));
+    });
+
+    test('should call the supplier function only if null', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const String? name = 'John';
+      bool wasCalled = false;
+
+      name.orElseGet(() {
+        wasCalled = true;
+        return 'Default Name';
+      });
+
+      expect(wasCalled, isFalse);
+
+      String? nullName;
+      nullName.orElseGet(() {
+        wasCalled = true;
+        return 'Default Name';
+      });
+
+      expect(wasCalled, isTrue);
     });
   });
 }

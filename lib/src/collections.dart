@@ -142,6 +142,74 @@ extension CollectionExtensions<T> on Iterable<T?>? {
   Iterable<T> filterNotNull() {
     return filterNotNullTo(<T>[]);
   }
+
+  /// Returns the last element of the iterable if it is not empty; otherwise,
+  /// returns null.
+  ///
+  /// This method checks if the iterable is empty or null. If it is empty or
+  /// null, it returns null. Otherwise, it returns the last element of the
+  /// iterable.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// var list = [1, 2, 3];
+  /// print(list.lastOrNull()); // prints: 3
+  ///
+  /// var emptyList = [];
+  /// print(emptyList.lastOrNull()); // prints: null
+  /// ```
+  T? lastOrNull() {
+    if (this?.isEmpty == true) {
+      return null;
+    } else {
+      return this?.last!;
+    }
+  }
+
+  /// Reduces the elements of the iterable to a single value using the provided
+  /// [combine] function, or returns null if the iterable is empty.
+  ///
+  /// This method applies the [combine] function to each element of the iterable
+  /// starting with the first two elements, and then combining the result with
+  /// the next element, and so on. If the iterable is empty, it returns null.
+  ///
+  /// [combine] is a function that takes two arguments and returns a single
+  /// value.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// var list = [1, 2, 3];
+  /// print(list.reduceOrNull((a, b) => a! + b!)); // prints: 6
+  ///
+  /// var emptyList = [];
+  /// print(emptyList.reduceOrNull((a, b) => a! + b!)); // prints: null
+  /// ```
+  T? reduceOrNull(T Function(T?, T?) combine) {
+    if (this?.isEmpty == true) return null;
+    return this?.reduce(combine);
+  }
+
+  /// Returns the single element of the iterable if it contains exactly one
+  /// element; otherwise, returns null.
+  ///
+  /// This method checks if the iterable contains exactly one element. If it
+  /// does, it returns that element. If the iterable is null or contains more
+  /// than one element, it returns null.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// var list = [1];
+  /// print(list.singleOrNull()); // prints: 1
+  ///
+  /// var emptyList = [];
+  /// print(emptyList.singleOrNull()); // prints: null
+  ///
+  /// var multipleElementsList = [1, 2, 3];
+  /// print(multipleElementsList.singleOrNull()); // prints: null
+  /// ```
+  T? singleOrNull() {
+    return this?.length == 1 ? this?.single : null;
+  }
 }
 
 /// Creates a new list containing all non-null elements from the provided list.

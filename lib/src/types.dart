@@ -283,7 +283,42 @@ extension ConditionExtension<T> on T? {
   ///
   /// Generic type [R] can be any type and is used for the return type of the
   /// [isTrue] and [isFalse] functions.
+  @Deprecated('use notNullWith instead')
   R conditionNotNullWith<R>({
+    required R Function(T) isTrue,
+    required R Function() isFalse,
+  }) {
+    if (this != null) {
+      return isTrue(this as T);
+    } else {
+      return isFalse();
+    }
+  }
+
+  /// Executes one of two functions based on the nullability of the value and
+  /// returns a value of type [R].
+  ///
+  /// This function takes two functions that return a value of type [R].
+  /// If the value is not null, it executes the [isTrue] function and returns
+  /// its result. If the value is null, it executes the [isFalse] function and
+  /// returns its result.
+  ///
+  /// This function is useful when you need to perform different operations and
+  /// return a result based on the nullability of a value.
+  ///
+  /// Example:
+  /// ```dart
+  /// var nullableInt = 1;
+  /// var result = nullableInt.notNullWith<int>(
+  ///   isTrue: (item) => item * 2,
+  ///   isFalse: () => 0,
+  /// );
+  /// print(result); // prints: 2
+  /// ```
+  ///
+  /// Generic type [R] can be any type and is used for the return type of the
+  /// [isTrue] and [isFalse] functions.
+  R notNullWith<R>({
     required R Function(T) isTrue,
     required R Function() isFalse,
   }) {

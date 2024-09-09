@@ -201,4 +201,60 @@ void main() {
       ); // check if list is fixed-length
     });
   });
+
+  group('lastOrNull', () {
+    test('returns last element when collection is not empty', () {
+      final List<int> numbers = [1, 2, 3];
+      expect(numbers.lastOrNull(), 3);
+    });
+
+    test('returns null when collection is empty', () {
+      final List<int> numbers = [];
+      expect(numbers.lastOrNull(), null);
+    });
+
+    test('returns null when collection is null', () {
+      List<int>? numbers;
+      expect(numbers.lastOrNull(), null);
+    });
+  });
+
+  group('reduceOrNull', () {
+    test('returns result of reduce when collection is not empty', () {
+      final List<int> numbers = [1, 2, 3];
+      expect(numbers.reduceOrNull((a, b) => a! + b!), 6);
+    });
+
+    test('returns null when collection is empty', () {
+      final List<int> numbers = [];
+      expect(numbers.reduceOrNull((a, b) => a! + b!), null);
+    });
+
+    test('returns null when collection is null', () {
+      List<int>? numbers;
+      expect(numbers.reduceOrNull((a, b) => a! + b!), null);
+    });
+  });
+
+  group('singleOrNull', () {
+    test('returns the element when collection has one element', () {
+      final List<int> numbers = [1];
+      expect(numbers.singleOrNull(), 1);
+    });
+
+    test('returns null when collection has more than one element', () {
+      final List<int> numbers = [1, 2];
+      expect(numbers.singleOrNull(), null);
+    });
+
+    test('returns null when collection is empty', () {
+      final List<int> numbers = [];
+      expect(numbers.singleOrNull(), null);
+    });
+
+    test('returns null when collection is null', () {
+      List<int>? numbers;
+      expect(numbers.singleOrNull(), null);
+    });
+  });
 }

@@ -314,50 +314,96 @@ void main() {
     });
   });
 
-  test('conditionNotNullWith - not null', () {
-    // ignore: unnecessary_nullable_for_final_variable_declarations
-    const String? nullableString = 'notNull';
+  group('notNullWith', () {
+    test('returns isTrue when the object is not null', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const String? value = 'test';
+      final result = value.notNullWith(
+        isTrue: (v) => 'Value is $v',
+        isFalse: () => 'Value is null',
+      );
+      expect(result, 'Value is test');
+    });
 
-    final int length = nullableString.conditionNotNullWith(
-      isTrue: (it) => it.length,
-      isFalse: () => 0,
-    );
+    test('returns isFalse when the object is null', () {
+      String? value;
+      final result = value.notNullWith(
+        isTrue: (v) => 'Value is $v',
+        isFalse: () => 'Value is null',
+      );
+      expect(result, 'Value is null');
+    });
 
-    expect(length, 7); // Expecting length to be 7
+    test('handles complex object correctly', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final Map<String, dynamic>? map = {'key': 'value'};
+      final result = map.notNullWith(
+        isTrue: (v) => 'Map is not empty',
+        isFalse: () => 'Map is null',
+      );
+      expect(result, 'Map is not empty');
+    });
+
+    test('handles null complex object', () {
+      Map<String, dynamic>? map;
+      final result = map.notNullWith(
+        isTrue: (v) => 'Map is not empty',
+        isFalse: () => 'Map is null',
+      );
+      expect(result, 'Map is null');
+    });
   });
 
-  test('conditionNotNullWith - null', () {
-    String? nullableString;
+  group('conditionNotNullWith (deprecated)', () {
+    test('conditionNotNullWith - not null', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const String? nullableString = 'notNull';
 
-    final int length = nullableString.conditionNotNullWith(
-      isTrue: (it) => it.length,
-      isFalse: () => 0,
-    );
+      // ignore: deprecated_member_use_from_same_package
+      final int length = nullableString.conditionNotNullWith(
+        isTrue: (it) => it.length,
+        isFalse: () => 0,
+      );
 
-    expect(length, 0); // Expecting length to be 0
-  });
+      expect(length, 7); // Expecting length to be 7
+    });
 
-  test('conditionNotNullWith - custom object', () {
-    //ignore: unnecessary_nullable_for_final_variable_declarations
-    final CustomObject? nullableObject = CustomObject(42);
+    test('conditionNotNullWith - null', () {
+      String? nullableString;
 
-    final int result = nullableObject.conditionNotNullWith(
-      isTrue: (obj) => obj.val * 2,
-      isFalse: () => -1,
-    );
+      // ignore: deprecated_member_use_from_same_package
+      final int length = nullableString.conditionNotNullWith(
+        isTrue: (it) => it.length,
+        isFalse: () => 0,
+      );
 
-    expect(result, 84); // Expecting result to be 84
-  });
+      expect(length, 0); // Expecting length to be 0
+    });
 
-  test('conditionNotNullWith - custom object and null', () {
-    CustomObject? nullableObject;
+    test('conditionNotNullWith - custom object', () {
+      //ignore: unnecessary_nullable_for_final_variable_declarations
+      final CustomObject? nullableObject = CustomObject(42);
 
-    final int result = nullableObject.conditionNotNullWith(
-      isTrue: (obj) => obj.val * 2,
-      isFalse: () => -99,
-    );
+      // ignore: deprecated_member_use_from_same_package
+      final int result = nullableObject.conditionNotNullWith(
+        isTrue: (obj) => obj.val * 2,
+        isFalse: () => -1,
+      );
 
-    expect(result, -99); // Expecting result to be 84
+      expect(result, 84); // Expecting result to be 84
+    });
+
+    test('conditionNotNullWith - custom object and null', () {
+      CustomObject? nullableObject;
+
+      // ignore: deprecated_member_use_from_same_package
+      final int result = nullableObject.conditionNotNullWith(
+        isTrue: (obj) => obj.val * 2,
+        isFalse: () => -99,
+      );
+
+      expect(result, -99); // Expecting result to be 84
+    });
   });
 
   group('TakeIfExtension', () {

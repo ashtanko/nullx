@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.11
+- Add collection extensions: lastOrNull, reduceOrNull, singleOrNull
+- Deprecate conditionNotNullWith, use notNullWith instead
+
 ## 0.1.10
 - Add OrThrow extension function for nullable objects
 - Add OrElseGet extension function for nullable objects

@@ -105,7 +105,7 @@ void main() async {
   nullableString.notEmpty((s) => print(s)); // prints: 'The value is: example'
 
   // Unwraps the nullable string and performs an operation on it
-  final result = nullableInt.conditionNotNullWith<int>(
+  final result = nullableInt.notNullWith<int>(
     isTrue: (item) => item * 2,
     isFalse: () => 0,
   );

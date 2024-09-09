@@ -53,17 +53,90 @@ void main() {
       expect(nullableMap, containsPair('a', 2));
     });
 
-    test('filter retains only entries that match the test', () {
-      final result = nullableMap.filter((entry) => entry.key == 'a');
-      expect(result.length, equals(1));
-      expect(result, containsPair('a', 1));
+    group('Map filter tests', () {
+      test('filter on null should return empty map', () {
+        const Map<String, int>? nullMap = null;
+        final result = nullMap.filter((entry) => entry.key == 'a');
+        expect(result.length, equals(0));
+        expect(result, equals({}));
+      });
+
+      test('filter retains only entries that match the test', () {
+        final result = nullableMap.filter((entry) => entry.key == 'a');
+        expect(result.length, equals(1));
+        expect(result, containsPair('a', 1));
+      });
+
+      test('filters map based on condition', () {
+        final map = <String, int>{
+          'apple': 2,
+          'banana': 5,
+          'orange': 4,
+        };
+
+        final result = map.filter((entry) => entry.value > 3);
+
+        expect(result, {'banana': 5, 'orange': 4});
+      });
+
+      test('returns an empty map if no entries match', () {
+        final map = <String, int>{
+          'apple': 2,
+          'banana': 1,
+          'orange': 3,
+        };
+
+        final result = map.filter((entry) => entry.value > 5);
+
+        expect(result, {});
+      });
+
+      test('returns an empty map if original map is empty', () {
+        final map = <String, int>{};
+
+        final result = map.filter((entry) => entry.value > 0);
+
+        expect(result, {});
+      });
     });
 
-    test('mapKeysAndValues transforms map entries', () {
-      final result = nullableMap.mapKeysAndValues(
-        (entry) => MapEntry(entry.key.toUpperCase(), entry.value * 2),
-      );
-      expect(result, equals({'A': 2, 'B': 4}));
+    group('mapKeysAndValues tests', () {
+      test('mapKeysAndValues on null', () {
+        const Map<String, int>? nullMap = null;
+        final result = nullMap.mapKeysAndValues(
+          (entry) => MapEntry(entry.key.toUpperCase(), entry.value * 2),
+        );
+        expect(result, equals({}));
+      });
+
+      test('mapKeysAndValues transforms map entries', () {
+        final result = nullableMap.mapKeysAndValues(
+          (entry) => MapEntry(entry.key.toUpperCase(), entry.value * 2),
+        );
+        expect(result, equals({'A': 2, 'B': 4}));
+      });
+
+      test('returns an empty map when the original map is empty', () {
+        final map = <String, int>{};
+
+        final result = map.mapKeysAndValues(
+          (entry) => MapEntry(entry.key.length, entry.value * 2),
+        );
+
+        expect(result, {});
+      });
+
+      test('handles different types for keys and values', () {
+        final map = <String, int>{
+          'apple': 2,
+          'banana': 5,
+        };
+
+        final result =
+            map.mapKeysAndValues((entry) => MapEntry(entry.value, entry.key));
+
+        expect(result, {2: 'apple', 5: 'banana'});
+      });
     });
 
     test('forEachEntry executes action for each map entry', () {

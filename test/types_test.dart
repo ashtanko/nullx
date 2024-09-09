@@ -858,6 +858,28 @@ void main() {
       expect(wasCalled, isTrue);
     });
   });
+
+  group('NullableStringExtensions hasValue tests', () {
+    test('returns true when the string is not null and not empty', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const String? value = 'Hello, world!';
+
+      expect(value.hasValue, isTrue);
+    });
+
+    test('returns false when the string is empty', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const String? value = '';
+
+      expect(value.hasValue, isFalse);
+    });
+
+    test('returns false when the string is null', () {
+      String? value;
+
+      expect(value.hasValue, isFalse);
+    });
+  });
 }
 
 class CustomObject {

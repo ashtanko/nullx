@@ -69,7 +69,9 @@ void main() {
         equals(10),
       );
     });
+  });
 
+  group('NullableFutureExtensions catchErrorOrNull tests', () {
     test('catchErrorOrNull returns null and executes onError on error',
         () async {
       bool onErrorExecuted = false;
@@ -80,6 +82,52 @@ void main() {
         isNull,
       );
       expect(onErrorExecuted, isTrue);
+    });
+
+    test('completes successfully when no error occurs', () async {
+      final Future<String?> future = Future.value('Success');
+
+      final result = await future.catchErrorOrNull((error) {});
+
+      expect(result, 'Success');
+    });
+
+    test('catches error when test function matches the error', () async {
+      final Future<String?> future = Future.error(Exception('Test error'));
+
+      final result = await future.catchErrorOrNull(
+        // ignore: avoid_print
+        (error) => print('Error caught: $error'),
+        test: (error) => error is Exception,
+      );
+
+      expect(result, isNull);
+    });
+
+    test('rethrows error when test function does not match the error',
+        () async {
+      final Future<String?> future = Future.error('A string error');
+
+      expect(
+        () async => await future.catchErrorOrNull(
+          // ignore: avoid_print
+          (error) => print('Error caught: $error'),
+          test: (error) =>
+              error is Exception, // Will not match the string error
+        ),
+        throwsA(isA<String>()),
+      );
+    });
+
+    test('catches error when no test function is provided', () async {
+      final Future<String?> future = Future.error('A string error');
+
+      final result = await future.catchErrorOrNull((error) {
+        // ignore: avoid_print
+        print('Error caught: $error');
+      });
+
+      expect(result, isNull);
     });
   });
 

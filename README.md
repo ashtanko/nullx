@@ -1,14 +1,17 @@
-nullx is a Dart toolkit that enhances handling of nullable types, providing utilities for null-checking, navigating nullable structures, and robust error handling, for cleaner and more resilient code.
+<h1 align="center">nullx - dart nullability with confidence</h1></br>
 
-[![Coverage](https://github.com/ashtanko/nullx/actions/workflows/coverage.yml/badge.svg)](https://github.com/ashtanko/nullx/actions/workflows/coverage.yml)
-[![Dart CI](https://github.com/ashtanko/nullx/actions/workflows/build.yml/badge.svg)](https://github.com/ashtanko/nullx/actions/workflows/build.yml)
+<p align="center">
+  <a href="https://github.com/ashtanko/nullx/actions/workflows/coverage.yml"><img alt="Coverage" src="https://github.com/ashtanko/nullx/actions/workflows/coverage.yml/badge.svg"/></a>
+  <a href="https://github.com/ashtanko/nullx/actions/workflows/build.yml"><img alt="Dart CI" src="https://github.com/ashtanko/nullx/actions/workflows/build.yml/badge.svg"/></a>
+  <a href="https://pub.dev/packages/nullx"><img alt="pub.dev" src="https://img.shields.io/pub/v/nullx?label=nullx"/></a>
+  <a href="https://www.codefactor.io/repository/github/ashtanko/nullx"><img alt="CodeFactor" src="https://www.codefactor.io/repository/github/ashtanko/nullx/badge"/></a>
+  <a href="https://app.codacy.com/gh/ashtanko/nullx/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"><img alt="Codacy Badge" src="https://app.codacy.com/project/badge/Grade/badee387cb23488c9091051b572c47f1"/></a>
+  <a href="https://codecov.io/github/ashtanko/nullx"><img alt="Codecov" src="https://codecov.io/github/ashtanko/nullx/graph/badge.svg?token=D4JQVJUE1M"/></a>
+  <a href="https://app.codacy.com/gh/ashtanko/nullx/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage"><img alt="Codacy Badge" src="https://app.codacy.com/project/badge/Coverage/badee387cb23488c9091051b572c47f1"/></a>
+  <a href="https://github.com/ashtanko/the-algorithms/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"/></a>
+</p><br>
 
-[![nullx](https://img.shields.io/pub/v/nullx?label=nullx)](https://pub.dev/packages/nullx)
-
-[![CodeFactor](https://www.codefactor.io/repository/github/ashtanko/nullx/badge)](https://www.codefactor.io/repository/github/ashtanko/nullx)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/badee387cb23488c9091051b572c47f1)](https://app.codacy.com/gh/ashtanko/nullx/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
-[![codecov](https://codecov.io/github/ashtanko/nullx/graph/badge.svg?token=D4JQVJUE1M)](https://codecov.io/github/ashtanko/nullx)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/badee387cb23488c9091051b572c47f1)](https://app.codacy.com/gh/ashtanko/nullx/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
+nullx is a **dart** toolkit that enhances handling of nullable types, providing utilities for null-checking, navigating nullable structures, and robust error handling, for cleaner and more resilient code.
 
 ## Features
 

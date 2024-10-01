@@ -60,4 +60,7 @@ extension NullableMapExtensions<K, V> on Map<K, V>? {
 
   /// Checks if a value exists in the map, safely handling null maps.
   bool containsValueOrNull(V value) => this?.containsValue(value) ?? false;
+
+  /// Returns the length of the map if it's not null, otherwise returns 0.
+  int safeLength() => this?.length ?? 0;
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.12
+
+- Remove deprecated methods
+- Add iterable/map extensions
+- Add int/double extensions
+
 ## 0.1.11
 
 - Add collection extensions: lastOrNull, reduceOrNull, singleOrNull

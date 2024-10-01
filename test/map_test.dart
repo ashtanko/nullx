@@ -162,5 +162,14 @@ void main() {
     test('containsValueOrNull returns false for non-existing value', () {
       expect(nullableMap.containsValueOrNull(3), isFalse);
     });
+
+    test('safeLength returns 0 for null map', () {
+      nullableMap = null;
+      expect(nullableMap.safeLength(), equals(0));
+    });
+
+    test('safeLength returns correct length for non-null map', () {
+      expect(nullableMap.safeLength(), equals(2));
+    });
   });
 }

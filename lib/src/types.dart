@@ -27,99 +27,6 @@ typedef Closure<R, T> = R Function(T it);
 /// ```
 typedef VoidClosure<T> = void Function(T value);
 
-/// Calls the provided [value] function if the [nullableValue] is not null.
-///
-/// This function is useful for ensuring that an action is performed only when
-/// the [nullableValue] contains a non-null value.
-///
-/// Example:
-/// ```dart
-/// void printValue(int value) {
-///   print('The value is: $value');
-/// }
-///
-/// void main() {
-///   int? nullableInt = 42;
-///   unwrapped(nullableInt, printValue); // This will print "The value is: 42"
-/// }
-/// ```
-///
-/// The provided [value] function should accept a single argument of type [T],
-/// which represents the non-null value of [nullableValue].
-///
-/// Generic type [T] can be inferred automatically based on the type of the
-/// provided [nullableValue].
-@Deprecated('use unwrapped extension instead, see [UnwrappedExtension]')
-void unwrapped<T>(T? nullableValue, VoidClosure value) {
-  if (nullableValue != null) {
-    value(nullableValue);
-  }
-}
-
-/// Executes one of two functions based on a condition.
-///
-/// This function takes a condition function that returns a boolean, and two
-/// other functions that are executed based on the result of the condition
-/// function. If the condition function returns true, it executes the
-/// [onConditionMet] function. If the condition function returns false,
-/// it executes the [onConditionNotMet] function.
-///
-/// This function is useful when you need to perform different operations based
-/// on a condition.
-///
-/// Example:
-/// ```dart
-/// executeIf(
-///   () => age >= 18,
-///   onConditionMet: () {
-///     print('You are an adult.');
-///   },
-///   onConditionNotMet: () {
-///     print('You are not an adult.');
-///   },
-/// );
-/// ```
-@Deprecated('use callWhen instead')
-void executeIf(
-  bool Function() condition, {
-  required void Function() onConditionMet,
-  required void Function() onConditionNotMet,
-}) {
-  if (condition()) {
-    onConditionMet();
-  } else {
-    onConditionNotMet();
-  }
-}
-
-/// Executes one of two functions based on a condition.
-/// The [onMet] function is called when the condition is met, and the [onNotMet]
-/// function is called when the condition is not met.
-///
-/// Example:
-/// ```dart
-/// callWhen(
-///  condition: () => age >= 18,
-///  onMet: () {
-///  print('You are an adult.');
-///  },
-///  onNotMet: () {
-///  print('You are not an adult.');
-///  },
-///  );
-///  ```
-void callWhen({
-  required bool Function() condition,
-  required void Function() onMet,
-  required void Function() onNotMet,
-}) {
-  if (condition()) {
-    onMet();
-  } else {
-    onNotMet();
-  }
-}
-
 /// Executes one of two functions based on a condition and returns a value
 /// of type [T].
 ///
@@ -154,33 +61,6 @@ T executeIfAs<T>(
     return ifTrue();
   } else {
     return ifFalse();
-  }
-}
-
-/// Calls the provided [value] function if the [nullableValue] is not null
-/// and not empty.
-///
-/// This function is useful for ensuring that an action is performed only when
-/// the [nullableValue] contains a non-null and non-empty string.
-///
-/// Example:
-/// ```dart
-/// void printValue(String value) {
-///   print('$value');
-/// }
-///
-/// void main() {
-///   String? nullableString = 'Hello';
-///   notEmpty(nullableString, printValue); // This will print "Hello"
-/// }
-/// ```
-///
-/// The provided [value] function should accept a single argument of type [T],
-/// which represents the non-null and non-empty string value.
-@Deprecated('use NotEmptyExtension instead, see [NotEmptyExtension]')
-void notEmpty<T extends String>(T? nullableValue, VoidClosure value) {
-  if (nullableValue != null && nullableValue.isNotEmpty) {
-    value(nullableValue);
   }
 }
 
@@ -602,6 +482,18 @@ extension NullableIntX on int? {
   int or({int defaultValue = 0}) {
     return this ?? defaultValue;
   }
+
+  /// Checks if the integer is positive.
+  ///
+  /// Returns `true` if the integer is not null and greater than zero, `false`
+  /// otherwise.
+  bool isPositive() => this != null && this! > 0;
+
+  /// Checks if the integer is negative.
+  ///
+  /// Returns `true` if the integer is not null and less than zero, `false`
+  /// otherwise.
+  bool isNegativeValue() => this != null && this! < 0;
 }
 
 /// Extension on `double?` to add utility methods.
@@ -633,6 +525,18 @@ extension NullableDoubleX on double? {
   double or({double defaultValue = 0}) {
     return this ?? defaultValue;
   }
+
+  /// Checks if the double is positive.
+  ///
+  /// Returns `true` if the double is not null and greater than zero, `false`
+  /// otherwise.
+  bool isPositive() => this != null && this! > 0.0;
+
+  /// Checks if the double is negative.
+  ///
+  /// Returns `true` if the double is not null and less than zero, `false`
+  /// otherwise.
+  bool isNegativeValue() => this != null && this! < 0.0;
 }
 
 /// Extension on `bool?` to add utility methods.

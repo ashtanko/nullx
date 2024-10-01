@@ -16,7 +16,7 @@
 /// var newList = list.mapNonNull((item) => item * 2);
 /// print(newList); // prints: [2, 6]
 /// ```
-extension NullableMapExtension<T, R> on Iterable<T?> {
+extension NullableIterableExtension<T, R> on Iterable<T?> {
   /// Maps over the iterable, applying [block] to each non-null element.
   ///
   /// The [block] function should take a non-null `T` and return a `R`.
@@ -210,6 +210,21 @@ extension CollectionExtensions<T> on Iterable<T?>? {
   T? singleOrNull() {
     return this?.length == 1 ? this?.single : null;
   }
+
+  /// Returns the length of the iterable if it is not null, otherwise returns 0.
+  ///
+  /// This method checks if the iterable is null. If it is null, it returns 0.
+  /// Otherwise, it returns the length of the iterable.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// List<int>? nullableList = [1, 2, 3];
+  /// print(nullableList.safeLength()); // prints: 3
+  ///
+  /// nullableList = null;
+  /// print(nullableList.safeLength()); // prints: 0
+  /// ```
+  int safeLength() => this?.length ?? 0;
 }
 
 /// Creates a new list containing all non-null elements from the provided list.

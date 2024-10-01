@@ -75,18 +75,6 @@ void main() async {
   nullableBool.orFalse; // Outputs: false
   nullableBool.or(defaultValue: true); // Outputs: true
 
-  /// Types
-  // Unwraps the nullable string and performs an operation on it
-  callWhen(
-    condition: () => userAge >= 18,
-    onMet: () {
-      // prints 'You are an adult.'
-    },
-    onNotMet: () {
-      // prints 'You are not an adult.'
-    },
-  );
-
   // Unwraps the nullable string and performs an operation on it
   final res1 = executeIfAs<String>(
     () => userAge >= 18,

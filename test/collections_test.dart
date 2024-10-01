@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('NullableMapExtension', () {
+  group('NullableIterableExtension', () {
     test('mapNonNull maps non-null values correctly', () {
       final list = [1, null, 3, null];
       final newList = list.mapNonNull((item) => item * 2).toList();
@@ -37,6 +37,25 @@ void main() {
       final Iterable<int?> input = [1, 2, null, 4];
       final result = input.mapNonNullIndexed((item, index) => item * index);
       expect(result, equals([0, 2, 8]));
+    });
+
+    group('safeLength tests', () {
+      test('safeLength returns 0 for null iterable', () {
+        const Iterable<int>? iterable = null;
+        expect(iterable.safeLength(), equals(0));
+      });
+
+      test('safeLength returns correct length for non-null iterable', () {
+        // ignore: unnecessary_nullable_for_final_variable_declarations
+        final Iterable<int>? iterable = [1, 2, 3];
+        expect(iterable.safeLength(), equals(3));
+      });
+
+      test('safeLength returns 0 for empty iterable', () {
+        // ignore: unnecessary_nullable_for_final_variable_declarations
+        final Iterable<int>? iterable = [];
+        expect(iterable.safeLength(), equals(0));
+      });
     });
   });
 

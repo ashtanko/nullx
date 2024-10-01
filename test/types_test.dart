@@ -4,224 +4,6 @@ import 'package:test/test.dart';
 import 'test_data.dart';
 
 void main() {
-  group('Nullable types tests [DEPRECATED]', () {
-    setUp(() {
-      // Additional setup goes here.
-    });
-
-    test('Should call the provided function if the nullableBoolean is not null',
-        () {
-      // ignore: unnecessary_nullable_for_final_variable_declarations
-      const bool? nullableBoolean = true;
-      bool called = false;
-
-      // ignore: deprecated_member_use_from_same_package
-      unwrapped(nullableBoolean, (value) {
-        called = true;
-      });
-
-      expect(called, true);
-    });
-
-    test('Should not call the provided function if the nullableBoolean is null',
-        () {
-      // ignore: avoid_init_to_null
-      const bool? nullableBoolean = null;
-      bool called = false;
-
-      // ignore: deprecated_member_use_from_same_package
-      unwrapped(nullableBoolean, (value) {
-        called = true;
-      });
-
-      expect(called, false);
-    });
-
-    test('Should call the provided function if the nullableInt is not null',
-        () {
-      // ignore: unnecessary_nullable_for_final_variable_declarations
-      const int? nullableInt = 42;
-      bool called = false;
-
-      // ignore: deprecated_member_use_from_same_package
-      unwrapped(nullableInt, (value) {
-        called = true;
-      });
-
-      expect(called, true);
-    });
-
-    test('Should not call the provided function if the nullableInt is null',
-        () {
-      // ignore: avoid_init_to_null
-      const int? nullableInt = null;
-      bool called = false;
-
-      // ignore: deprecated_member_use_from_same_package
-      unwrapped(nullableInt, (value) {
-        called = true;
-      });
-
-      expect(called, false);
-    });
-
-    test('Should call the provided function if the nullableString is not null',
-        () {
-      // ignore: unnecessary_nullable_for_final_variable_declarations
-      const String? nullableString = 'hello';
-      bool called = false;
-
-      // ignore: deprecated_member_use_from_same_package
-      unwrapped(nullableString, (value) {
-        called = true;
-      });
-
-      expect(called, true);
-    });
-
-    test('Should not call the provided function if the nullableString is null',
-        () {
-      // ignore: avoid_init_to_null
-      const String? nullableString = null;
-      bool called = false;
-
-      // ignore: deprecated_member_use_from_same_package
-      unwrapped(nullableString, (value) {
-        called = true;
-      });
-
-      expect(called, false);
-    });
-  });
-
-  // todo remove in v0.1.8
-  group('executeIf tests [DEPRECATED]', () {
-    test('executeIfNotSingleLambdaTest', () {
-      String? nullableString;
-
-      // ignore: deprecated_member_use_from_same_package
-      executeIf(
-        () => nullableString == null || nullableString!.isEmpty,
-        onConditionMet: () => nullableString = 'conditionMet',
-        onConditionNotMet: () => nullableString = 'conditionNotMet',
-      );
-
-      expect(nullableString, 'conditionMet');
-
-      nullableString = '';
-      // ignore: deprecated_member_use_from_same_package
-      executeIf(
-        () => nullableString == null || nullableString!.isNotEmpty,
-        onConditionMet: () => nullableString = 'conditionMet',
-        onConditionNotMet: () => nullableString = 'conditionNotMet',
-      );
-
-      expect(nullableString, 'conditionNotMet');
-    });
-
-    test('executeIf - condition met', () {
-      bool conditionMet = false;
-
-      // ignore: deprecated_member_use_from_same_package
-      executeIf(
-        () => true, // Condition always met
-        onConditionMet: () => conditionMet = true,
-        onConditionNotMet: () => conditionMet = false,
-      );
-
-      expect(conditionMet, true); // Expecting conditionMet to be true
-    });
-
-    test('executeIf - condition not met', () {
-      bool conditionMet = false;
-
-      // ignore: deprecated_member_use_from_same_package
-      executeIf(
-        () => false, // Condition never met
-        onConditionMet: () => conditionMet = true,
-        onConditionNotMet: () => conditionMet = false,
-      );
-
-      expect(conditionMet, false); // Expecting conditionMet to be false
-    });
-  });
-
-  // todo remove in v0.1.8
-  group('String types tests [DEPRECATED]', () {
-    test(
-        'Should call the provided function if the nullableString is not null and not empty',
-        () {
-      // ignore: unnecessary_nullable_for_final_variable_declarations
-      const String? nullableString = 'hello';
-      bool called = false;
-
-      // ignore: deprecated_member_use_from_same_package
-      notEmpty(nullableString, (value) {
-        called = true;
-      });
-
-      expect(called, true);
-    });
-
-    test('Should not call the provided function if the nullableString is null',
-        () {
-      // ignore: avoid_init_to_null
-      const String? nullableString = null;
-      bool called = false;
-
-      // ignore: deprecated_member_use_from_same_package
-      notEmpty(nullableString, (value) {
-        called = true;
-      });
-
-      expect(called, false);
-    });
-
-    test('Should not call the provided function if the nullableString is empty',
-        () {
-      // ignore: unnecessary_nullable_for_final_variable_declarations
-      const String? nullableString = '';
-      bool called = false;
-
-      // ignore: deprecated_member_use_from_same_package
-      notEmpty(nullableString, (value) {
-        called = true;
-      });
-
-      expect(called, false);
-    });
-  });
-
-  group('callWhen', () {
-    test('calls onMet when condition is true', () {
-      var onMetCalled = false;
-      var onNotMetCalled = false;
-
-      callWhen(
-        condition: () => true,
-        onMet: () => onMetCalled = true,
-        onNotMet: () => onNotMetCalled = true,
-      );
-
-      expect(onMetCalled, isTrue);
-      expect(onNotMetCalled, isFalse);
-    });
-
-    test('calls onNotMet when condition is false', () {
-      var onMetCalled = false;
-      var onNotMetCalled = false;
-
-      callWhen(
-        condition: () => false,
-        onMet: () => onMetCalled = true,
-        onNotMet: () => onNotMetCalled = true,
-      );
-
-      expect(onMetCalled, isFalse);
-      expect(onNotMetCalled, isTrue);
-    });
-  });
-
   group('conditionNotNullAs', () {
     test(
         'should return conditionTrue result if object is not null and condition is true',
@@ -724,6 +506,56 @@ void main() {
     });
   });
 
+  group('isPositive tests', () {
+    test('isPositive returns true for positive integer', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const int? value = 5;
+      expect(value.isPositive(), isTrue);
+    });
+
+    test('isPositive returns false for zero', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const int? value = 0;
+      expect(value.isPositive(), isFalse);
+    });
+
+    test('isPositive returns false for negative integer', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const int? value = -5;
+      expect(value.isPositive(), isFalse);
+    });
+
+    test('isPositive returns false for null', () {
+      const int? value = null;
+      expect(value.isPositive(), isFalse);
+    });
+  });
+
+  group('isNegative tests', () {
+    test('isNegative returns true for negative integer', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const int? value = -5;
+      expect(value.isNegativeValue(), isTrue);
+    });
+
+    test('isNegative returns false for zero', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const int? value = 0;
+      expect(value.isNegativeValue(), isFalse);
+    });
+
+    test('isNegative returns false for positive integer', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const int? value = 5;
+      expect(value.isNegativeValue(), isFalse);
+    });
+
+    test('isNegative returns false for null', () {
+      const int? value = null;
+      expect(value.isNegativeValue(), isFalse);
+    });
+  });
+
   group('NullableDoubleX extension', () {
     test('orZero returns zero when double is null', () {
       const double? nullableDouble = null;
@@ -745,6 +577,56 @@ void main() {
       // ignore: unnecessary_nullable_for_final_variable_declarations
       const double? nullableDouble = 5.5;
       expect(nullableDouble.or(defaultValue: 10.5), equals(5.5));
+    });
+
+    group('isPositive tests', () {
+      test('isPositive returns true for positive double', () {
+        // ignore: unnecessary_nullable_for_final_variable_declarations
+        const double? value = 5.5;
+        expect(value.isPositive(), isTrue);
+      });
+
+      test('isPositive returns false for zero', () {
+        // ignore: unnecessary_nullable_for_final_variable_declarations
+        const double? value = 0.0;
+        expect(value.isPositive(), isFalse);
+      });
+
+      test('isPositive returns false for negative double', () {
+        // ignore: unnecessary_nullable_for_final_variable_declarations
+        const double? value = -5.5;
+        expect(value.isPositive(), isFalse);
+      });
+
+      test('isPositive returns false for null', () {
+        const double? value = null;
+        expect(value.isPositive(), isFalse);
+      });
+    });
+
+    group('isNegative tests', () {
+      test('isNegative returns true for negative double', () {
+        // ignore: unnecessary_nullable_for_final_variable_declarations
+        const double? value = -5.5;
+        expect(value.isNegativeValue(), isTrue);
+      });
+
+      test('isNegative returns false for zero', () {
+        // ignore: unnecessary_nullable_for_final_variable_declarations
+        const double? value = 0.0;
+        expect(value.isNegativeValue(), isFalse);
+      });
+
+      test('isNegative returns false for positive double', () {
+        // ignore: unnecessary_nullable_for_final_variable_declarations
+        const double? value = 5.5;
+        expect(value.isNegativeValue(), isFalse);
+      });
+
+      test('isNegative returns false for null', () {
+        const double? value = null;
+        expect(value.isNegativeValue(), isFalse);
+      });
     });
   });
 

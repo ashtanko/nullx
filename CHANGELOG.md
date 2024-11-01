@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.13
+- Add nullable stream extensions
+- Add nullable object extensions
+
 ## 0.1.12
 
 - Remove deprecated methods

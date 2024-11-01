@@ -8,5 +8,7 @@ export 'src/either.dart';
 export 'src/exception.dart';
 export 'src/future.dart';
 export 'src/map.dart';
+export 'src/object.dart';
+export 'src/stream.dart';
 export 'src/types.dart';
 export 'src/utils.dart';

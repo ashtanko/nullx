@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.14
+- Add nullable extensions on runes
+
 ## 0.1.13
 - Add nullable stream extensions
 - Add nullable object extensions

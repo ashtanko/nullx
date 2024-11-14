@@ -173,5 +173,90 @@ void main() {
           nullableStream.filterIfNotNull((value) => value > 3);
       expect(filteredStream, isNull);
     });
+
+    test('onEmpty executes action if stream is null', () async {
+      Stream<int>? nullableStream;
+      bool actionCalled = false;
+
+      nullableStream.onEmpty(() {
+        actionCalled = true;
+      });
+
+      expect(actionCalled, isTrue);
+    });
+
+    test('onEmpty executes action if stream is empty', () async {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const Stream<int>? nullableStream = Stream.empty();
+      bool actionCalled = false;
+
+      nullableStream.onEmpty(() {
+        actionCalled = true;
+      });
+
+      await Future.delayed(const Duration(milliseconds: 10));
+      expect(actionCalled, isTrue);
+    });
+
+    test('onEmpty does not execute action if stream is not empty', () async {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final Stream<int>? nullableStream = Stream.value(1);
+      bool actionCalled = false;
+
+      nullableStream.onEmpty(() {
+        actionCalled = true;
+      });
+
+      await Future.delayed(const Duration(milliseconds: 10));
+      expect(actionCalled, isFalse);
+    });
+
+    test('unwrap throws error if stream contains null value', () async {
+      final Stream<int?> nullableStream = Stream.value(null);
+      expect(() => nullableStream.unwrap().first, throwsA('Value is null'));
+    });
+
+    test('unwrap returns stream if it does not contain null values', () async {
+      final Stream<int?> nullableStream = Stream.value(5);
+      final result = await nullableStream.unwrap().first;
+      expect(result, 5);
+    });
+
+    test('onEmpty executes action if stream is null', () async {
+      Stream<int>? nullableStream;
+      bool actionCalled = false;
+
+      nullableStream.onEmpty(() {
+        actionCalled = true;
+      });
+
+      expect(actionCalled, isTrue);
+    });
+
+    test('onEmpty executes action if stream is empty', () async {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const Stream<int>? nullableStream = Stream.empty();
+      bool actionCalled = false;
+
+      nullableStream.onEmpty(() {
+        actionCalled = true;
+      });
+
+      await Future.delayed(const Duration(milliseconds: 10));
+      expect(actionCalled, isTrue);
+    });
+
+    test('onEmpty does not execute action if stream is not empty', () async {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final Stream<int>? nullableStream = Stream.value(1);
+      bool actionCalled = false;
+
+      nullableStream.onEmpty(() {
+        actionCalled = true;
+      });
+
+      await Future.delayed(const Duration(milliseconds: 10));
+      expect(actionCalled, isFalse);
+    });
   });
 }

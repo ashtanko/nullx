@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.15
+- Split examples by extension type
+- Add nullable list extensions
+- Split collection extensions to iterable, map and list
+- Add unit tests
+- Refactor documentation
+
 ## 0.1.14
 - Add nullable extensions on runes
 

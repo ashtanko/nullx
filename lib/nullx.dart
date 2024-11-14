@@ -3,10 +3,11 @@
 /// and robust error handling, for cleaner and more resilient code
 library nullx;
 
-export 'src/collections.dart';
 export 'src/either.dart';
 export 'src/exception.dart';
 export 'src/future.dart';
+export 'src/iterable.dart';
+export 'src/list.dart';
 export 'src/map.dart';
 export 'src/object.dart';
 export 'src/runes.dart';

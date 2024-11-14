@@ -6,6 +6,13 @@
 /// nuanced manipulations like filtering, updating, and transforming maps safely
 extension NullableMapExtensions<K, V> on Map<K, V>? {
   /// Checks if the map is null or empty.
+  /// Returns true if the map is null or empty, otherwise returns false.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// Map<String, int>? nullableMap = {'a': 1, 'b': 2};
+  /// print(nullableMap.isNullOrEmpty); // prints: false
+  /// ```
   bool get isNullOrEmpty => this == null || this!.isEmpty;
 
   /// Checks if the map is not null and not empty.

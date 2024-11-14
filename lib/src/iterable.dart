@@ -49,45 +49,30 @@ extension NullableIterableExtension<T, R> on Iterable<T?> {
     return where((element) => element != null)
         .map((element) => block(element as T, index++));
   }
-}
 
-/// Extension on `List<T>?`.
-extension WhatIfNotNullOrEmptyExtension<T> on List<T>? {
-  /// Executes the [whatIf] function if the list is not null and not empty,
-  /// otherwise executes the [whatIfNot] function.
+  /// Returns the first non-null element that satisfies the given [test].
   ///
-  /// This function is useful when you need to perform an operation on a list
-  /// that could be null or empty.
-  ///
-  /// The [whatIf] function should accept a single argument of type `List<T>`,
-  /// which represents the non-null and non-empty list.
-  ///
-  /// The [whatIfNot] function should be a function that takes no arguments
-  /// and is called when the list is null or empty.
+  /// This method iterates through the iterable and applies the [test] function
+  /// to each non-null element. If an element satisfies the [test], it returns
+  /// that element. If no elements satisfy the [test], it returns null.
   ///
   /// Example usage:
-  ///
   /// ```dart
-  /// List<int>? nullableList = [1, 2, 3];
-  /// nullableList.whatIfNotNullOrEmpty(
-  ///   (list) => print(list),  // whatIf
-  ///   () => print('List is null or empty'),  // whatIfNot
-  /// );
-  /// // prints: [1, 2, 3]
+  /// var list = [1, null, 3, null];
+  /// var result = list.firstOrNullIndexWhere((item) => item > 2);
+  /// print(result); // prints: 3
   /// ```
-  void whatIfNotNullOrEmpty(
-    void Function(List<T>) whatIf,
-    void Function() whatIfNot,
-  ) {
-    if (this != null && this?.isNotEmpty == true) {
-      whatIf(this!);
-    } else {
-      whatIfNot();
+  T? firstOrNullIndexWhere(bool Function(T) test) {
+    for (final element in this) {
+      if (element != null && test(element)) {
+        return element;
+      }
     }
+    return null;
   }
 }
 
-/// Extension on `Iterable<T>?`.
+/// Extension on `Iterable<T?>?`.
 extension CollectionExtensions<T> on Iterable<T?>? {
   ///
   /// This extension provides a convenient way to check if an iterable is null
@@ -139,6 +124,14 @@ extension CollectionExtensions<T> on Iterable<T?>? {
   }
 
   /// Filters non-null elements of the iterable
+  /// and returns a new list with the non-null elements.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// var list = [1, null, 3, null];
+  /// var newList = list.filterNotNull();
+  /// print(newList); // prints: [1, 3]
+  /// ```
   Iterable<T> filterNotNull() {
     return filterNotNullTo(<T>[]);
   }
@@ -225,26 +218,4 @@ extension CollectionExtensions<T> on Iterable<T?>? {
   /// print(nullableList.safeLength()); // prints: 0
   /// ```
   int safeLength() => this?.length ?? 0;
-}
-
-/// Creates a new list containing all non-null elements from the provided list.
-///
-/// The [elements] list should be a list that may contain null elements.
-///
-/// The [growable] parameter determines whether the returned list is growable.
-/// If [growable] is true, the returned list is growable.
-/// If [growable] is false, the returned list is fixed-length.
-///
-/// Returns a new list with all non-null elements from the original list.
-/// If the original list is null or empty, it returns an empty list.
-///
-/// Example usage:
-///
-/// ```dart
-/// var list = [1, null, 3, null];
-/// var newList = listOfNotNull(list);
-/// print(newList); // prints: [1, 3]
-/// ```
-List<T> listOfNotNull<T>(List<T?> elements, {bool growable = true}) {
-  return elements.filterNotNull().toList(growable: growable);
 }

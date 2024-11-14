@@ -18,6 +18,7 @@ nullx is a **dart** toolkit that enhances handling of nullable types, providing 
 - Provides utilities for null-checking
 - Helps in navigating nullable structures
 - Offers robust error handling
+- Nullable types extensions
 
 ## Getting started 🎉
 

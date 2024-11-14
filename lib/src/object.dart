@@ -23,7 +23,7 @@ extension NullableExtensions on Object? {
   /// Allows performing an action if the object is not null.
   ///
   /// [action] The function to execute if the object is not null.
-  void run(void Function(Object it) action) {
+  void runWithAction(void Function(Object it) action) {
     if (this != null) {
       action(this!);
     }

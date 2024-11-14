@@ -42,14 +42,14 @@ void main() {
       // ignore: unnecessary_nullable_for_final_variable_declarations
       const Object? value = 'World';
       String? result;
-      value.run((it) => result = 'Hello, ${it as String}');
+      value.runWithAction((it) => result = 'Hello, ${it as String}');
       expect(result, 'Hello, World');
     });
 
     test('run should not execute action if object is null', () {
       const Object? value = null;
       String? result = 'Hello';
-      value.run((it) => result = 'World');
+      value.runWithAction((it) => result = 'World');
       expect(result, 'Hello'); // Result should be unchanged
     });
 

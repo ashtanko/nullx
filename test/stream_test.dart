@@ -211,6 +211,11 @@ void main() {
       expect(actionCalled, isFalse);
     });
 
+    test('unwrap throws error if stream is null', () async {
+      const Stream<int?>? nullableStream = null;
+      expect(() => nullableStream.unwrap().first, throwsA('Stream is null'));
+    });
+
     test('unwrap throws error if stream contains null value', () async {
       final Stream<int?> nullableStream = Stream.value(null);
       expect(() => nullableStream.unwrap().first, throwsA('Value is null'));

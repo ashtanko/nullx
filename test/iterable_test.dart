@@ -72,7 +72,9 @@ void main() {
       expect(result, null);
     });
 
-    test('ignores null elements and returns the first non-null element that matches the test', () {
+    test(
+        'ignores null elements and returns the first non-null element that matches the test',
+        () {
       final list = [null, 2, null, 4];
       final result = list.firstOrNullIndexWhere((item) => item > 1);
       expect(result, 2);

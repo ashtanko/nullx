@@ -25,9 +25,9 @@ extension WhatIfNotNullOrEmptyExtension<T> on List<T>? {
   /// // prints: [1, 2, 3]
   /// ```
   void ifNotNullOrEmpty(
-      void Function(List<T>) onNotNullOrEmpty,
-      void Function() onNullOrEmpty,
-      ) {
+    void Function(List<T>) onNotNullOrEmpty,
+    void Function() onNullOrEmpty,
+  ) {
     if (this != null && this?.isNotEmpty == true) {
       onNotNullOrEmpty(this!);
     } else {

@@ -3,7 +3,7 @@ name: very_good_workflow
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
 
 jobs:

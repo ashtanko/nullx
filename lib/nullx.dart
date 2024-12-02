@@ -5,6 +5,7 @@ library nullx;
 
 export 'src/either.dart';
 export 'src/exception.dart';
+export 'src/function.dart';
 export 'src/future.dart';
 export 'src/iterable.dart';
 export 'src/list.dart';

@@ -250,7 +250,8 @@ extension ConditionExtension<T> on T? {
 
   /// Executes the [action] if the value is null.
   ///
-  /// This method is useful when you need to perform an action when a value is null.
+  /// This method is useful when you need to perform an action when a value is
+  /// null.
   /// The [action] should be a function that takes no arguments and returns void.
   ///
   /// Returns the original value after executing the [action] if it was null.
@@ -405,7 +406,8 @@ extension NullableLetExtension<T, R> on T? {
   ///
   /// This function is useful when you need to perform a transformation on a
   /// nullable value. The [block] function should accept a single argument of
-  /// type [T], which represents the non-null value, and return a value of type [R].
+  /// type [T], which represents the non-null value, and return a value of type
+  /// [R].
   ///
   /// If this value is null, the `letNonNull` method returns null.
   ///

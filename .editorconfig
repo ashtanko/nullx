@@ -1,0 +1,38 @@
+# EditorConfig is awesome: https://editorconfig.org
+# This file is for Dart projects to ensure consistent coding styles across different editors and IDEs
+
+# Root is true to indicate this is the root of the EditorConfig configuration
+root = true
+
+# Dart files
+[*.dart]
+# Set the indent style to spaces (Dart community style)
+indent_style = space
+
+# Set the indent size to 2 spaces (Dart community style)
+indent_size = 2
+
+# Set the end of line character to LF (Line Feed)
+end_of_line = lf
+
+# Set the charset to UTF-8
+charset = utf-8
+
+# Ensure files end with a newline
+insert_final_newline = true
+
+# Trim trailing whitespace in Dart files
+trim_trailing_whitespace = true
+
+# Set the maximum line length to 80 characters (Dart community style)
+max_line_length = 80
+
+# Apply the same settings for Dart files under any subfolder
+[**/*.dart]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+insert_final_newline = true
+trim_trailing_whitespace = true
+max_line_length = 80

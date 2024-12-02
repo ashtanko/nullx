@@ -23,7 +23,8 @@ extension NullableRunesExtensions on Runes? {
   /// Maps each rune to a new value using the provided transform function.
   ///
   /// [transform] The function to apply to each rune.
-  /// Returns an iterable of the transformed values or an empty iterable if the runes is null.
+  /// Returns an iterable of the transformed values or an empty iterable if the
+  /// runes is null.
   Iterable<T> map<T>(T Function(int) transform) {
     return this?.map(transform) ?? [];
   }

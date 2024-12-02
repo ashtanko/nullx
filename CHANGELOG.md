@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.16
+
+- Add function nullable extensions
+
 ## 0.1.15
 
 - Add nullable list extensions

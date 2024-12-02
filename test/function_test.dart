@@ -22,21 +22,62 @@ void main() {
           .callIfNotNull(['Hello']); // Should not throw or change state.
     });
 
-    test('callWithOneArg - invokes a single-argument function if not null', () {
-      var capturedMessage = '';
-      void singleArgFunction(String message) {
-        capturedMessage = message;
+    test('callWithOneArg should do nothing when the function is null', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const Function? func = null;
+      expect(() => func.callWithOneArg('test'), returnsNormally);
+    });
+
+    test(
+        'callWithOneArg should do nothing when the function is not callable with one argument',
+        () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      void func() {
+        // ignore: avoid_print
+        print('No args');
+      }
+
+      expect(() => func.callWithOneArg('test'), returnsNormally);
+    });
+
+    test(
+        'callWithOneArg should call the function with one argument when compatible',
+        () {
+      var called = false;
+      Object? receivedArg;
+      void func(Object? arg1) {
+        called = true;
+        receivedArg = arg1;
       }
 
       // ignore: unnecessary_nullable_for_final_variable_declarations
-      final Function? nullableFunction = singleArgFunction;
-      nullableFunction.callWithOneArg('Test Message');
-      expect(capturedMessage, '');
+      final Function? nullableFunc = func;
+      nullableFunc.callWithOneArg('test');
+
+      expect(called, isTrue);
+      expect(receivedArg, 'test');
     });
 
-    test('callWithOneArg - does nothing if the function is null', () {
-      const Function? nullableFunction = null;
-      nullableFunction.callWithOneArg('Should not crash'); // Should do nothing.
+    test(
+        'callWithOneArg should do nothing when the function expects more than one argument',
+        () {
+      void func(Object? arg1, Object? arg2) {
+        // Should not be called
+      }
+
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final Function? nullableFunc = func;
+      expect(() => nullableFunc.callWithOneArg('test'), returnsNormally);
+    });
+
+    test('should do nothing when the function expects no arguments', () {
+      void func() {
+        // Should not be called
+      }
+
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      final Function? nullableFunc = func;
+      expect(() => nullableFunc.callWithOneArg('test'), returnsNormally);
     });
 
     test('callOrDefault - returns result when function is not null', () {

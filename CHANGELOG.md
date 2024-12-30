@@ -1,0 +1,128 @@
+# Changelog
+
+# Release Notes: Nullx Workspace Refactoring
+
+## Overview
+This release introduces a comprehensive refactoring of the Nullx toolkit, breaking down the monolithic package into modular, focused libraries for handling nullable types in Dart.
+
+## New Features
+- Modularized package structure with dedicated libraries for different type extensions
+- Improved null safety handling across multiple Dart types
+- Enhanced type-specific null handling extensions
+
+## Package Changes
+- Created individual packages for:
+  - Nullable Either types
+  - Nullable Function types
+  - Nullable Future types
+  - Nullable Iterable types
+  - Nullable List types
+  - Nullable Map types
+  - Nullable Object types
+  - Nullable Runes types
+  - Nullable Stream types
+  - Nullable Types utilities
+  - General Utilities
+
+## Breaking Changes
+- Replaced single `nullx` package with multiple specialized packages
+- Updated import statements in example and test files
+- Minimum Dart SDK version updated to 3.5.0
+
+## Improvements
+- Added comprehensive test coverage
+- Implemented consistent CI/CD workflows
+- Added Apache 2.0 licensing for all packages
+
+## Migration Guide
+Update your imports from `package:nullx/nullx.dart` to the specific package, e.g.:
+- `package:nullx_future/nullx_future.dart`
+- `package:nullx_list/nullx_list.dart`
+
+## 0.1.16
+
+- Add function nullable extensions
+
+## 0.1.15
+
+- Add nullable list extensions
+- Split collection extensions to iterable, map and list
+- Add unit tests
+- Refactor documentation
+
+## 0.1.14
+
+
+## 0.1.13
+
+- Add nullable object extensions
+
+## 0.1.12
+
+- Remove deprecated methods
+- Add iterable/map extensions
+- Add int/double extensions
+
+## 0.1.11
+
+- Add collection extensions: lastOrNull, reduceOrNull, singleOrNull
+- Deprecate conditionNotNullWith, use notNullWith instead
+
+## 0.1.10
+
+- Add OrThrow extension function for nullable objects
+- Add OrElseGet extension function for nullable objects
+
+## 0.1.9
+
+- isNotNullOrEmpty => hasValue
+- Add nullable future extensions
+
+## 0.1.8
+
+- Extend NullableStringExtensions by adding new isNotNullOrEmpty method
+- Add dartz Either extensions
+
+## 0.1.7
+
+- Add nullable map extensions
+- Add nullable future extensions
+
+## 0.1.6
+
+- Add `filterNotNullTo`, `filterNotNull`, `listOfNotNull`, `ifNull` functions and extensions
+- Add unit tests
+- Fix code documentation
+
+## 0.1.5
+
+- Fix code documentation.
+- Deprecate `notEmpty`, `executeIf`, 'unwrapped' methods.
+- Add new extension `callWhen` on nullable objects.
+- Make examples more readable.
+
+## 0.1.4
+
+- Fix code documentation.
+- Add LetX extension functions.
+- Add AlsoX extension functions.
+
+## 0.1.3
+
+- Add extension functions on nullable int, double, and bool.
+- Add getter `orZero` and method `or` on int, double, and bool.
+
+## 0.1.2
+
+- Change the parameter names of `conditionNotNullAs` and `conditionNotNullWith`
+  methods to improve readability.
+- Add more examples.
+
+## 0.1.1
+
+- Add new util functions.
+- Add nullable string extensions.
+
+## 0.1.0+1
+
+- Initial release.

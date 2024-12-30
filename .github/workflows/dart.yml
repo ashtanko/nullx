@@ -1,0 +1,976 @@
+# Created with package:mono_repo v6.6.2
+name: Dart CI
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  schedule:
+    - cron: "0 0 * * 0"
+defaults:
+  run:
+    shell: bash
+env:
+  PUB_ENVIRONMENT: bot.github
+permissions: read-all
+
+jobs:
+  job_001:
+    name: mono_repo self validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
+        with:
+          sdk: stable
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - name: mono_repo self validate
+        run: dart pub global activate mono_repo 6.6.2
+      - name: mono_repo self validate
+        run: dart pub global run mono_repo generate --validate
+  job_002:
+    name: "analyze_and_format; linux; Dart 3.5.0; PKG: example; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.5.0;packages:example;commands:format-analyze"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.5.0;packages:example
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.5.0
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
+        with:
+          sdk: "3.5.0"
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - id: example_pub_upgrade
+        name: example; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: example
+      - name: "example; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.example_pub_upgrade.conclusion == 'success'"
+        working-directory: example
+      - name: "example; dart analyze --fatal-infos ."
+        run: dart analyze --fatal-infos .
+        if: "always() && steps.example_pub_upgrade.conclusion == 'success'"
+        working-directory: example
+  job_003:
+    name: "analyze_and_format; linux; Dart dev; PKGS: example, nullx_either, nullx_function, nullx_future, nullx_iterable, nullx_list, nullx_map, nullx_object, nullx_runes, nullx_stream, nullx_types, nullx_utils; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:example-nullx_either-nullx_function-nullx_future-nullx_iterable-nullx_list-nullx_map-nullx_object-nullx_runes-nullx_stream-nullx_types-nullx_utils;commands:format-analyze"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:example-nullx_either-nullx_function-nullx_future-nullx_iterable-nullx_list-nullx_map-nullx_object-nullx_runes-nullx_stream-nullx_types-nullx_utils
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
+        with:
+          sdk: dev
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - id: example_pub_upgrade
+        name: example; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: example
+      - name: "example; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.example_pub_upgrade.conclusion == 'success'"
+        working-directory: example
+      - name: "example; dart analyze --fatal-infos ."
+        run: dart analyze --fatal-infos .
+        if: "always() && steps.example_pub_upgrade.conclusion == 'success'"
+        working-directory: example
+      - id: nullx_either_pub_upgrade
+        name: nullx_either; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_either
+      - name: "nullx_either; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.nullx_either_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_either
+      - name: "nullx_either; dart analyze --fatal-infos ."
+        run: dart analyze --fatal-infos .
+        if: "always() && steps.nullx_either_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_either
+      - id: nullx_function_pub_upgrade
+        name: nullx_function; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_function
+      - name: "nullx_function; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.nullx_function_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_function
+      - name: "nullx_function; dart analyze --fatal-infos ."
+        run: dart analyze --fatal-infos .
+        if: "always() && steps.nullx_function_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_function
+      - id: nullx_future_pub_upgrade
+        name: nullx_future; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_future
+      - name: "nullx_future; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.nullx_future_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_future
+      - name: "nullx_future; dart analyze --fatal-infos ."
+        run: dart analyze --fatal-infos .
+        if: "always() && steps.nullx_future_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_future
+      - id: nullx_iterable_pub_upgrade
+        name: nullx_iterable; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_iterable
+      - name: "nullx_iterable; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.nullx_iterable_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_iterable
+      - name: "nullx_iterable; dart analyze --fatal-infos ."
+        run: dart analyze --fatal-infos .
+        if: "always() && steps.nullx_iterable_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_iterable
+      - id: nullx_list_pub_upgrade
+        name: nullx_list; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_list
+      - name: "nullx_list; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.nullx_list_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_list
+      - name: "nullx_list; dart analyze --fatal-infos ."
+        run: dart analyze --fatal-infos .
+        if: "always() && steps.nullx_list_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_list
+      - id: nullx_map_pub_upgrade
+        name: nullx_map; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_map
+      - name: "nullx_map; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.nullx_map_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_map
+      - name: "nullx_map; dart analyze --fatal-infos ."
+        run: dart analyze --fatal-infos .
+        if: "always() && steps.nullx_map_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_map
+      - id: nullx_object_pub_upgrade
+        name: nullx_object; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_object
+      - name: "nullx_object; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.nullx_object_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_object
+      - name: "nullx_object; dart analyze --fatal-infos ."
+        run: dart analyze --fatal-infos .
+        if: "always() && steps.nullx_object_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_object
+      - id: nullx_runes_pub_upgrade
+        name: nullx_runes; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_runes
+      - name: "nullx_runes; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.nullx_runes_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_runes
+      - name: "nullx_runes; dart analyze --fatal-infos ."
+        run: dart analyze --fatal-infos .
+        if: "always() && steps.nullx_runes_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_runes
+      - id: nullx_stream_pub_upgrade
+        name: nullx_stream; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_stream
+      - name: "nullx_stream; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.nullx_stream_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_stream
+      - name: "nullx_stream; dart analyze --fatal-infos ."
+        run: dart analyze --fatal-infos .
+        if: "always() && steps.nullx_stream_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_stream
+      - id: nullx_types_pub_upgrade
+        name: nullx_types; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_types
+      - name: "nullx_types; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.nullx_types_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_types
+      - name: "nullx_types; dart analyze --fatal-infos ."
+        run: dart analyze --fatal-infos .
+        if: "always() && steps.nullx_types_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_types
+      - id: nullx_utils_pub_upgrade
+        name: nullx_utils; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_utils
+      - name: "nullx_utils; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.nullx_utils_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_utils
+      - name: "nullx_utils; dart analyze --fatal-infos ."
+        run: dart analyze --fatal-infos .
+        if: "always() && steps.nullx_utils_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_utils
+  job_004:
+    name: "unit_test; linux; Dart 3.5.0; PKGS: nullx_either, nullx_function, nullx_future, nullx_iterable, nullx_list, nullx_map, nullx_object, nullx_runes, nullx_stream, nullx_types, nullx_utils; `dart test --test-randomize-ordering-seed=random`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.5.0;packages:nullx_either-nullx_function-nullx_future-nullx_iterable-nullx_list-nullx_map-nullx_object-nullx_runes-nullx_stream-nullx_types-nullx_utils;commands:test"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.5.0;packages:nullx_either-nullx_function-nullx_future-nullx_iterable-nullx_list-nullx_map-nullx_object-nullx_runes-nullx_stream-nullx_types-nullx_utils
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.5.0
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
+        with:
+          sdk: "3.5.0"
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - id: nullx_either_pub_upgrade
+        name: nullx_either; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_either
+      - name: "nullx_either; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_either_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_either
+      - id: nullx_function_pub_upgrade
+        name: nullx_function; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_function
+      - name: "nullx_function; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_function_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_function
+      - id: nullx_future_pub_upgrade
+        name: nullx_future; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_future
+      - name: "nullx_future; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_future_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_future
+      - id: nullx_iterable_pub_upgrade
+        name: nullx_iterable; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_iterable
+      - name: "nullx_iterable; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_iterable_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_iterable
+      - id: nullx_list_pub_upgrade
+        name: nullx_list; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_list
+      - name: "nullx_list; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_list_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_list
+      - id: nullx_map_pub_upgrade
+        name: nullx_map; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_map
+      - name: "nullx_map; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_map_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_map
+      - id: nullx_object_pub_upgrade
+        name: nullx_object; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_object
+      - name: "nullx_object; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_object_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_object
+      - id: nullx_runes_pub_upgrade
+        name: nullx_runes; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_runes
+      - name: "nullx_runes; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_runes_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_runes
+      - id: nullx_stream_pub_upgrade
+        name: nullx_stream; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_stream
+      - name: "nullx_stream; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_stream_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_stream
+      - id: nullx_types_pub_upgrade
+        name: nullx_types; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_types
+      - name: "nullx_types; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_types_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_types
+      - id: nullx_utils_pub_upgrade
+        name: nullx_utils; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_utils
+      - name: "nullx_utils; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_utils_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_utils
+    needs:
+      - job_001
+      - job_002
+      - job_003
+  job_005:
+    name: "unit_test; linux; Dart dev; PKGS: nullx_either, nullx_function, nullx_future, nullx_iterable, nullx_list, nullx_map, nullx_object, nullx_runes, nullx_stream, nullx_types, nullx_utils; `dart test --test-randomize-ordering-seed=random`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:nullx_either-nullx_function-nullx_future-nullx_iterable-nullx_list-nullx_map-nullx_object-nullx_runes-nullx_stream-nullx_types-nullx_utils;commands:test"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:nullx_either-nullx_function-nullx_future-nullx_iterable-nullx_list-nullx_map-nullx_object-nullx_runes-nullx_stream-nullx_types-nullx_utils
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
+        with:
+          sdk: dev
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - id: nullx_either_pub_upgrade
+        name: nullx_either; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_either
+      - name: "nullx_either; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_either_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_either
+      - id: nullx_function_pub_upgrade
+        name: nullx_function; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_function
+      - name: "nullx_function; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_function_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_function
+      - id: nullx_future_pub_upgrade
+        name: nullx_future; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_future
+      - name: "nullx_future; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_future_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_future
+      - id: nullx_iterable_pub_upgrade
+        name: nullx_iterable; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_iterable
+      - name: "nullx_iterable; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_iterable_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_iterable
+      - id: nullx_list_pub_upgrade
+        name: nullx_list; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_list
+      - name: "nullx_list; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_list_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_list
+      - id: nullx_map_pub_upgrade
+        name: nullx_map; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_map
+      - name: "nullx_map; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_map_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_map
+      - id: nullx_object_pub_upgrade
+        name: nullx_object; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_object
+      - name: "nullx_object; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_object_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_object
+      - id: nullx_runes_pub_upgrade
+        name: nullx_runes; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_runes
+      - name: "nullx_runes; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_runes_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_runes
+      - id: nullx_stream_pub_upgrade
+        name: nullx_stream; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_stream
+      - name: "nullx_stream; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_stream_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_stream
+      - id: nullx_types_pub_upgrade
+        name: nullx_types; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_types
+      - name: "nullx_types; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_types_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_types
+      - id: nullx_utils_pub_upgrade
+        name: nullx_utils; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_utils
+      - name: "nullx_utils; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_utils_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_utils
+    needs:
+      - job_001
+      - job_002
+      - job_003
+  job_006:
+    name: "unit_test; macos; Dart 3.5.0; PKGS: nullx_either, nullx_function, nullx_future, nullx_iterable, nullx_list, nullx_map, nullx_object, nullx_runes, nullx_stream, nullx_types, nullx_utils; `dart test --test-randomize-ordering-seed=random`"
+    runs-on: macos-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:macos-latest;pub-cache-hosted;sdk:3.5.0;packages:nullx_either-nullx_function-nullx_future-nullx_iterable-nullx_list-nullx_map-nullx_object-nullx_runes-nullx_stream-nullx_types-nullx_utils;commands:test"
+          restore-keys: |
+            os:macos-latest;pub-cache-hosted;sdk:3.5.0;packages:nullx_either-nullx_function-nullx_future-nullx_iterable-nullx_list-nullx_map-nullx_object-nullx_runes-nullx_stream-nullx_types-nullx_utils
+            os:macos-latest;pub-cache-hosted;sdk:3.5.0
+            os:macos-latest;pub-cache-hosted
+            os:macos-latest
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
+        with:
+          sdk: "3.5.0"
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - id: nullx_either_pub_upgrade
+        name: nullx_either; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_either
+      - name: "nullx_either; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_either_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_either
+      - id: nullx_function_pub_upgrade
+        name: nullx_function; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_function
+      - name: "nullx_function; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_function_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_function
+      - id: nullx_future_pub_upgrade
+        name: nullx_future; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_future
+      - name: "nullx_future; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_future_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_future
+      - id: nullx_iterable_pub_upgrade
+        name: nullx_iterable; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_iterable
+      - name: "nullx_iterable; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_iterable_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_iterable
+      - id: nullx_list_pub_upgrade
+        name: nullx_list; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_list
+      - name: "nullx_list; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_list_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_list
+      - id: nullx_map_pub_upgrade
+        name: nullx_map; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_map
+      - name: "nullx_map; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_map_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_map
+      - id: nullx_object_pub_upgrade
+        name: nullx_object; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_object
+      - name: "nullx_object; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_object_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_object
+      - id: nullx_runes_pub_upgrade
+        name: nullx_runes; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_runes
+      - name: "nullx_runes; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_runes_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_runes
+      - id: nullx_stream_pub_upgrade
+        name: nullx_stream; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_stream
+      - name: "nullx_stream; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_stream_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_stream
+      - id: nullx_types_pub_upgrade
+        name: nullx_types; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_types
+      - name: "nullx_types; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_types_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_types
+      - id: nullx_utils_pub_upgrade
+        name: nullx_utils; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_utils
+      - name: "nullx_utils; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_utils_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_utils
+    needs:
+      - job_001
+      - job_002
+      - job_003
+  job_007:
+    name: "unit_test; macos; Dart dev; PKGS: nullx_either, nullx_function, nullx_future, nullx_iterable, nullx_list, nullx_map, nullx_object, nullx_runes, nullx_stream, nullx_types, nullx_utils; `dart test --test-randomize-ordering-seed=random`"
+    runs-on: macos-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:macos-latest;pub-cache-hosted;sdk:dev;packages:nullx_either-nullx_function-nullx_future-nullx_iterable-nullx_list-nullx_map-nullx_object-nullx_runes-nullx_stream-nullx_types-nullx_utils;commands:test"
+          restore-keys: |
+            os:macos-latest;pub-cache-hosted;sdk:dev;packages:nullx_either-nullx_function-nullx_future-nullx_iterable-nullx_list-nullx_map-nullx_object-nullx_runes-nullx_stream-nullx_types-nullx_utils
+            os:macos-latest;pub-cache-hosted;sdk:dev
+            os:macos-latest;pub-cache-hosted
+            os:macos-latest
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
+        with:
+          sdk: dev
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - id: nullx_either_pub_upgrade
+        name: nullx_either; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_either
+      - name: "nullx_either; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_either_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_either
+      - id: nullx_function_pub_upgrade
+        name: nullx_function; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_function
+      - name: "nullx_function; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_function_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_function
+      - id: nullx_future_pub_upgrade
+        name: nullx_future; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_future
+      - name: "nullx_future; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_future_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_future
+      - id: nullx_iterable_pub_upgrade
+        name: nullx_iterable; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_iterable
+      - name: "nullx_iterable; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_iterable_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_iterable
+      - id: nullx_list_pub_upgrade
+        name: nullx_list; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_list
+      - name: "nullx_list; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_list_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_list
+      - id: nullx_map_pub_upgrade
+        name: nullx_map; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_map
+      - name: "nullx_map; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_map_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_map
+      - id: nullx_object_pub_upgrade
+        name: nullx_object; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_object
+      - name: "nullx_object; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_object_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_object
+      - id: nullx_runes_pub_upgrade
+        name: nullx_runes; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_runes
+      - name: "nullx_runes; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_runes_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_runes
+      - id: nullx_stream_pub_upgrade
+        name: nullx_stream; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_stream
+      - name: "nullx_stream; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_stream_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_stream
+      - id: nullx_types_pub_upgrade
+        name: nullx_types; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_types
+      - name: "nullx_types; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_types_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_types
+      - id: nullx_utils_pub_upgrade
+        name: nullx_utils; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_utils
+      - name: "nullx_utils; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_utils_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_utils
+    needs:
+      - job_001
+      - job_002
+      - job_003
+  job_008:
+    name: "unit_test; windows; Dart 3.5.0; PKGS: nullx_either, nullx_function, nullx_future, nullx_iterable, nullx_list, nullx_map, nullx_object, nullx_runes, nullx_stream, nullx_types, nullx_utils; `dart test --test-randomize-ordering-seed=random`"
+    runs-on: windows-latest
+    steps:
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
+        with:
+          sdk: "3.5.0"
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - id: nullx_either_pub_upgrade
+        name: nullx_either; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_either
+      - name: "nullx_either; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_either_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_either
+      - id: nullx_function_pub_upgrade
+        name: nullx_function; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_function
+      - name: "nullx_function; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_function_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_function
+      - id: nullx_future_pub_upgrade
+        name: nullx_future; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_future
+      - name: "nullx_future; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_future_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_future
+      - id: nullx_iterable_pub_upgrade
+        name: nullx_iterable; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_iterable
+      - name: "nullx_iterable; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_iterable_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_iterable
+      - id: nullx_list_pub_upgrade
+        name: nullx_list; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_list
+      - name: "nullx_list; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_list_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_list
+      - id: nullx_map_pub_upgrade
+        name: nullx_map; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_map
+      - name: "nullx_map; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_map_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_map
+      - id: nullx_object_pub_upgrade
+        name: nullx_object; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_object
+      - name: "nullx_object; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_object_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_object
+      - id: nullx_runes_pub_upgrade
+        name: nullx_runes; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_runes
+      - name: "nullx_runes; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_runes_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_runes
+      - id: nullx_stream_pub_upgrade
+        name: nullx_stream; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_stream
+      - name: "nullx_stream; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_stream_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_stream
+      - id: nullx_types_pub_upgrade
+        name: nullx_types; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_types
+      - name: "nullx_types; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_types_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_types
+      - id: nullx_utils_pub_upgrade
+        name: nullx_utils; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_utils
+      - name: "nullx_utils; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_utils_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_utils
+    needs:
+      - job_001
+      - job_002
+      - job_003
+  job_009:
+    name: "unit_test; windows; Dart dev; PKGS: nullx_either, nullx_function, nullx_future, nullx_iterable, nullx_list, nullx_map, nullx_object, nullx_runes, nullx_stream, nullx_types, nullx_utils; `dart test --test-randomize-ordering-seed=random`"
+    runs-on: windows-latest
+    steps:
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
+        with:
+          sdk: dev
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - id: nullx_either_pub_upgrade
+        name: nullx_either; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_either
+      - name: "nullx_either; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_either_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_either
+      - id: nullx_function_pub_upgrade
+        name: nullx_function; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_function
+      - name: "nullx_function; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_function_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_function
+      - id: nullx_future_pub_upgrade
+        name: nullx_future; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_future
+      - name: "nullx_future; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_future_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_future
+      - id: nullx_iterable_pub_upgrade
+        name: nullx_iterable; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_iterable
+      - name: "nullx_iterable; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_iterable_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_iterable
+      - id: nullx_list_pub_upgrade
+        name: nullx_list; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_list
+      - name: "nullx_list; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_list_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_list
+      - id: nullx_map_pub_upgrade
+        name: nullx_map; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_map
+      - name: "nullx_map; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_map_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_map
+      - id: nullx_object_pub_upgrade
+        name: nullx_object; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_object
+      - name: "nullx_object; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_object_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_object
+      - id: nullx_runes_pub_upgrade
+        name: nullx_runes; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_runes
+      - name: "nullx_runes; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_runes_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_runes
+      - id: nullx_stream_pub_upgrade
+        name: nullx_stream; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_stream
+      - name: "nullx_stream; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_stream_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_stream
+      - id: nullx_types_pub_upgrade
+        name: nullx_types; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_types
+      - name: "nullx_types; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_types_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_types
+      - id: nullx_utils_pub_upgrade
+        name: nullx_utils; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: nullx_utils
+      - name: "nullx_utils; dart test --test-randomize-ordering-seed=random"
+        run: "dart test --test-randomize-ordering-seed=random"
+        if: "always() && steps.nullx_utils_pub_upgrade.conclusion == 'success'"
+        working-directory: nullx_utils
+    needs:
+      - job_001
+      - job_002
+      - job_003

@@ -1,5 +1,44 @@
 # Changelog
 
+# Release Notes: Nullx Workspace Refactoring
+
+## Overview
+This release introduces a comprehensive refactoring of the Nullx toolkit, breaking down the monolithic package into modular, focused libraries for handling nullable types in Dart.
+
+## New Features
+- Modularized package structure with dedicated libraries for different type extensions
+- Improved null safety handling across multiple Dart types
+- Enhanced type-specific null handling extensions
+
+## Package Changes
+- Created individual packages for:
+  - Nullable Either types
+  - Nullable Function types
+  - Nullable Future types
+  - Nullable Iterable types
+  - Nullable List types
+  - Nullable Map types
+  - Nullable Object types
+  - Nullable Runes types
+  - Nullable Stream types
+  - Nullable Types utilities
+  - General Utilities
+
+## Breaking Changes
+- Replaced single `nullx` package with multiple specialized packages
+- Updated import statements in example and test files
+- Minimum Dart SDK version updated to 3.5.0
+
+## Improvements
+- Added comprehensive test coverage
+- Implemented consistent CI/CD workflows
+- Added Apache 2.0 licensing for all packages
+
+## Migration Guide
+Update your imports from `package:nullx/nullx.dart` to the specific package, e.g.:
+- `package:nullx_future/nullx_future.dart`
+- `package:nullx_list/nullx_list.dart`
+
 ## 0.1.16
 
 - Add function nullable extensions

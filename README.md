@@ -14,6 +14,21 @@
 
 nullx is a **dart** toolkit that enhances handling of nullable types, providing utilities for null-checking, navigating nullable structures, and robust error handling, for cleaner and more resilient code.
 
+| Package | Description | Version |
+|---|---|---|
+| [example](example/) |  |  |
+| [nullx_either](nullx_either/) | nullx_either is a collection of elegant extensions for handling null types on dartz either types. | [![pub package](https://img.shields.io/pub/v/nullx_either.svg)](https://pub.dev/packages/nullx_either) |
+| [nullx_function](nullx_function/) | nullx_function is a collection of elegant extensions for handling null types on Dart function types. | [![pub package](https://img.shields.io/pub/v/nullx_function.svg)](https://pub.dev/packages/nullx_function) |
+| [nullx_future](nullx_future/) | nullx_future is a collection of elegant extensions for handling null types on Dart future types. | [![pub package](https://img.shields.io/pub/v/nullx_future.svg)](https://pub.dev/packages/nullx_future) |
+| [nullx_iterable](nullx_iterable/) | nullx_iterable is a collection of elegant extensions for handling null types on Dart iterable types. | [![pub package](https://img.shields.io/pub/v/nullx_iterable.svg)](https://pub.dev/packages/nullx_iterable) |
+| [nullx_list](nullx_list/) | nullx_list is a collection of elegant extensions for handling null types on Dart collection types. |  |
+| [nullx_map](nullx_map/) | nullx_stream is a collection of elegant extensions for handling null types on Dart map types. | [![pub package](https://img.shields.io/pub/v/nullx_map.svg)](https://pub.dev/packages/nullx_map) |
+| [nullx_object](nullx_object/) | nullx_stream is a collection of elegant extensions for handling null types on Dart any types. | [![pub package](https://img.shields.io/pub/v/nullx_object.svg)](https://pub.dev/packages/nullx_object) |
+| [nullx_runes](nullx_runes/) | nullx_stream is a collection of elegant extensions for handling null types on Dart rune types. | [![pub package](https://img.shields.io/pub/v/nullx_runes.svg)](https://pub.dev/packages/nullx_runes) |
+| [nullx_stream](nullx_stream/) | nullx_stream is a collection of elegant extensions for handling null types on Dart stream API. | [![pub package](https://img.shields.io/pub/v/nullx_stream.svg)](https://pub.dev/packages/nullx_stream) |
+| [nullx_types](nullx_types/) | nullx_types is a collection of elegant extensions for handling null types. | [![pub package](https://img.shields.io/pub/v/nullx_types.svg)](https://pub.dev/packages/nullx_types) |
+| [nullx_utils](nullx_utils/) | nullx_utils is a collection of utils for handling null types on Dart. | [![pub package](https://img.shields.io/pub/v/nullx_utils.svg)](https://pub.dev/packages/nullx_utils) |
+
 ## Features
 
 - Provides utilities for null-checking

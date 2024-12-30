@@ -1,0 +1,31 @@
+name: example
+publish_to: none
+environment:
+  sdk: ^3.5.0
+resolution: workspace
+
+dependencies:
+  analyzer: ">=5.0.0 <8.0.0"
+  dartz: ^0.10.1
+  nullx_either:
+    path: ../nullx_either
+  nullx_function:
+    path: ../nullx_function
+  nullx_future:
+    path: ../nullx_future
+  nullx_iterable:
+    path: ../nullx_iterable
+  nullx_list:
+    path: ../nullx_list
+  nullx_map:
+    path: ../nullx_map
+  nullx_object:
+    path: ../nullx_object
+  nullx_runes:
+    path: ../nullx_runes
+  nullx_stream:
+    path: ../nullx_stream
+  nullx_types:
+    path: ../nullx_types
+  nullx_utils:
+    path: ../nullx_utils

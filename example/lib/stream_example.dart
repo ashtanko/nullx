@@ -4,6 +4,7 @@ void main() async {
   // Example 1: orDefault
   Stream<int>? stream1;
   final Stream<int> streamWithDefault = stream1.orDefault(0);
+  // ignore: avoid_print
   streamWithDefault.listen(print); // Output: 0
 
   // Example 2: mapIfNotNull
@@ -38,6 +39,7 @@ void main() async {
   // ignore: unnecessary_nullable_for_final_variable_declarations
   final Stream<int>? stream8 = Stream.fromIterable([3, 4]);
   final Stream<int> mergedStream = stream7.mergeWith(stream8!);
+  // ignore: avoid_print
   mergedStream.listen(print); // Output: 1, 2, 3, 4
 
   // Example 6: handleNull

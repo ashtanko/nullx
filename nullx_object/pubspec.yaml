@@ -2,7 +2,7 @@ name: nullx_object
 homepage: https://shtanko.dev
 description: >-
   nullx_stream is a collection of elegant extensions for handling null types on Dart any types.
-version: 0.2.0
+version: 0.2.1
 repository: https://github.com/ashtanko/nullx/nullx_object
 resolution: workspace
 

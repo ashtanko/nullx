@@ -2,10 +2,9 @@ name: nullx_list
 homepage: https://shtanko.dev
 description: >-
   nullx_list is a collection of elegant extensions for handling null types on Dart collection types.
-version: 0.2.0
+version: 0.2.1
 repository: https://github.com/ashtanko/nullx/nullx_list
 resolution: workspace
-publish_to: none
 
 environment:
   sdk: ^3.5.0

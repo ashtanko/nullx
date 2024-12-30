@@ -2,7 +2,7 @@ name: nullx_types
 homepage: https://shtanko.dev
 description: >-
   nullx_types is a collection of elegant extensions for handling null types.
-version: 0.2.0
+version: 0.2.1
 repository: https://github.com/ashtanko/nullx/nullx_types
 resolution: workspace
 

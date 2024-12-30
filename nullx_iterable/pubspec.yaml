@@ -2,7 +2,7 @@ name: nullx_iterable
 homepage: https://shtanko.dev
 description: >-
   nullx_iterable is a collection of elegant extensions for handling null types on Dart iterable types.
-version: 0.2.0
+version: 0.2.1
 repository: https://github.com/ashtanko/nullx/nullx_iterable
 resolution: workspace
 

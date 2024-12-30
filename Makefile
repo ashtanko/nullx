@@ -3,36 +3,36 @@
 # Format the Dart code using dart_style package
 # https://pub.dev/packages/dart_style/install
 format fmt:
-	dart format .
+	mono_repo dart format .
 
 # Generate documentation using dartdoc package
 # https://pub.dev/packages/dartdoc
 doc d:
-	dart doc .
+	mono_repo dart doc .
 
 # Analyze the Dart code to find issues and warnings
 analyze a:
-	dart analyze
+	mono_repo dart analyze
 
 # Display information about the Dart project
 info f:
-	dart info
+	mono_repo dart info
 
 # Run all tests in the Dart project
 test t:
-	dart test
+	mono_repo dart test
 
 # Publish the Dart package to pub.dev
 publish p:
-	dart pub publish
+	mono_repo pub publish
 
 # Generate test coverage report using the coverage package
 coverage cvg:
-	dart pub global run coverage:test_with_coverage
+	mono_repo pub global run coverage:test_with_coverage
 
 # Count lines of code in the lib and test directories using cloc
 code cd:
-	cloc lib test
+	cloc ./
 
 all:
 	@echo "Available tasks:"

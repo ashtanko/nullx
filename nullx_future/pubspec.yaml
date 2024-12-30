@@ -2,7 +2,7 @@ name: nullx_future
 homepage: https://shtanko.dev
 description: >-
   nullx_future is a collection of elegant extensions for handling null types on Dart future types.
-version: 0.2.1
+version: 0.2.2
 repository: https://github.com/ashtanko/nullx/nullx_future
 resolution: workspace
 

@@ -2,7 +2,7 @@ name: nullx_function
 homepage: https://shtanko.dev
 description: >-
   nullx_function is a collection of elegant extensions for handling null types on Dart function types.
-version: 0.2.1
+version: 0.2.2
 repository: https://github.com/ashtanko/nullx/nullx_function
 resolution: workspace
 

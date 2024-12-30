@@ -2,7 +2,7 @@ name: nullx_map
 homepage: https://shtanko.dev
 description: >-
   nullx_stream is a collection of elegant extensions for handling null types on Dart map types.
-version: 0.2.1
+version: 0.2.2
 repository: https://github.com/ashtanko/nullx/nullx_map
 resolution: workspace
 

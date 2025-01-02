@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('WhatIfNotNullOrEmptyExtension', () {
+  group('WhatIfNotNullOrEmptyExtension tests', () {
     test('whatIfNotNullOrEmpty calls whatIf if list is not null and not empty',
         () {
       // ignore: unnecessary_nullable_for_final_variable_declarations

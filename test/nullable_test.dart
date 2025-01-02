@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Nullable Extension', () {
+  group('NullableExtension tests', () {
     test('should return the value if not null', () {
       // ignore: unnecessary_nullable_for_final_variable_declarations
       const String? name = 'John';

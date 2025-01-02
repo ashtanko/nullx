@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('NullableFunctionExtensions', () {
+  group('NullableFunctionExtensions tests', () {
     test('callIfNotNull - invokes the function if not null', () {
       var wasCalled = false;
       void testFunction(String message) {

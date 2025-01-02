@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Run extension', () {
+  group('RunExtension tests', () {
     test('run applies closure to non-null value', () {
       const nonNullInt = 1;
       final result = nonNullInt.run((item) => item * 2);

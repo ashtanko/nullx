@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'test_data.dart';
 
 void main() {
-  group('NullableIntX extension', () {
+  group('NullableIntX extension tests', () {
     test('orZero returns zero when integer is null', () {
       const int? nullableInt = null;
       expect(nullableInt.orZero, equals(0));

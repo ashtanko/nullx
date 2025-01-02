@@ -3,7 +3,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('EitherX', () {
+  group('EitherExtension tests', () {
     test('getOrNull returns value when Right', () {
       const either = Right<String, int>(42);
       expect(either.getOrNull(), equals(42));

@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('NotImplementedError', () {
+  group('NotImplementedError tests', () {
     test('default message is used if no custom message is provided', () {
       final error = NotImplementedError();
       expect(error.message, 'An operation is not implemented.');

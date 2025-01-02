@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('LetExtension', () {
+  group('LetExtension tests', () {
     test('let should return result of block if object is not null', () {
       const nullableString = 'Hello';
       final result = nullableString.let((value) => value.toUpperCase());

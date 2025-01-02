@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Condition extensions', () {
+  group('ConditionExtension tests', () {
     test(
         'should return conditionTrue result if object is not null and condition is true',
         () {

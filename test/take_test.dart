@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Take Extensions', () {
+  group('Take Extensions tests', () {
     test('takeIf should return value if predicate is true', () {
       const value = 10;
       final result = value.takeIf((value) => value > 5);

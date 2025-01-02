@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('NullableExtensions', () {
+  group('NullableExtensions tests', () {
     test('isNull should return true if the object is null', () {
       const Object? value = null;
       expect(value.isNull, isTrue);

@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('NullableDoubleX extension', () {
+  group('NullableDoubleExtension tests', () {
     test('orZero returns zero when double is null', () {
       const double? nullableDouble = null;
       expect(nullableDouble.orZero, equals(0.0));

@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('isPositive tests', () {
+  group('NullableIntExtension tests', () {
     test('isPositive returns true for positive integer', () {
       // ignore: unnecessary_nullable_for_final_variable_declarations
       const int? value = 5;
@@ -25,9 +25,7 @@ void main() {
       const int? value = null;
       expect(value.isPositive(), isFalse);
     });
-  });
 
-  group('isNegative tests', () {
     test('isNegative returns true for negative integer', () {
       // ignore: unnecessary_nullable_for_final_variable_declarations
       const int? value = -5;

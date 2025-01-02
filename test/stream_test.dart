@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('NullableStreamExtensions', () {
+  group('NullableStreamExtensions tests', () {
     test('orDefault provides default value when stream is null', () async {
       Stream<int>? nullableStream;
       final result = await nullableStream.orDefault(10).first;

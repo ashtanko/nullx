@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('NullableFutureExtensions', () {
+  group('NullableFutureExtensions tests', () {
     test('orDefault returns default value when future is null', () async {
       Future<int?>? nullFuture;
       expect(await nullFuture.orDefault(10), equals(10));

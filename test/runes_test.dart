@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('NullableRunesExtensions', () {
+  group('NullableRunesExtensions tests', () {
     test('orEmpty() should return empty Runes when null', () {
       Runes? nullRunes;
       expect(nullRunes.orEmpty(), equals(Runes('')));

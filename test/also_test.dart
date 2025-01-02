@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('AlsoX extension', () {
+  group('AlsoExtension tests', () {
     test('also applies closure to value and returns the same value', () {
       var value = 1;
       final result = value.also((item) => value = item * 2);

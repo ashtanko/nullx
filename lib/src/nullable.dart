@@ -1,6 +1,6 @@
 import 'package:nullx/nullx.dart';
 
-/// Extension on `T?`.
+/// Extensions for the [T] class.
 extension NullableExtension<T> on T? {
   /// Returns the value if it is not null, otherwise returns the value supplied
   /// by the [supplier] function.
@@ -35,10 +35,31 @@ extension NullableExtension<T> on T? {
   /// the provided [message].
   ///
   /// [message] is the custom error message for the exception.
+  ///
+  /// Example usage:
+  /// ``` dart
+  /// var nullableInt = 1;
+  /// print(nullableInt.orThrow('Value is null')); // Outputs: 1
+  /// ```
   T orThrow(String message) {
     if (this == null) {
       throw Exception(message);
     }
     return this!;
   }
+
+  /// Maps the value to another value if it's not null.
+  /// Returns null if the value is null.
+  ///
+  /// [mapper] is a function that takes the non-null value and returns a new
+  /// value.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// var nullableInt = 1;
+  /// var result = nullableInt.map((item) => item * 2);
+  /// print(result); // prints: 2
+  /// ```
+  R? mapNullable<R>(R Function(T value) mapper) =>
+      this != null ? mapper(this as T) : null;
 }

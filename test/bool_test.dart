@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('NullableBoolX extension', () {
+  group('NullableBoolExtension tests', () {
     test('orFalse returns false when boolean is null', () {
       const bool? nullableBool = null;
       expect(nullableBool.orFalse, isFalse);

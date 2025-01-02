@@ -1,21 +1,4 @@
-/// Extension on `Iterable<T?>` to add a `mapNonNull` method.
-///
-/// This extension provides a convenient way to map over an iterable
-/// where the elements may be null, ignoring those null values.
-///
-/// The `mapNonNull` method takes a function that is applied to each
-/// non-null element of the iterable, and returns a new iterable
-/// with the results.
-///
-/// The function should take a non-null `T` and return a `R`.
-///
-/// Example usage:
-///
-/// ```dart
-/// var list = [1, null, 3, null];
-/// var newList = list.mapNonNull((item) => item * 2);
-/// print(newList); // prints: [2, 6]
-/// ```
+/// Extensions for the [Iterable] class.
 extension NullableIterableExtension<T, R> on Iterable<T?> {
   /// Maps over the iterable, applying [block] to each non-null element.
   ///
@@ -23,6 +6,13 @@ extension NullableIterableExtension<T, R> on Iterable<T?> {
   ///
   /// Returns a new iterable with the results of applying [block] to
   /// each non-null element of the original iterable.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// var list = [1, null, 3, null];
+  /// var newList = list.mapNonNull((item) => item * 2);
+  /// print(newList); // prints: [2, 6]
+  /// ```
   Iterable<R> mapNonNull(R Function(T) block) {
     return where((element) => element != null)
         .map((element) => block(element as T));
@@ -72,7 +62,7 @@ extension NullableIterableExtension<T, R> on Iterable<T?> {
   }
 }
 
-/// Extension on `Iterable<T?>?`.
+/// Extensions for the [Iterable] class.
 extension CollectionExtensions<T> on Iterable<T?>? {
   ///
   /// This extension provides a convenient way to check if an iterable is null

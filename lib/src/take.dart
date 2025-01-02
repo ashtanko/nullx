@@ -1,4 +1,4 @@
-/// Extension on `T` to add `takeIf` and `takeUnless` methods.
+/// Extensions for the [T] class.
 extension TakeIfExtension<T> on T {
   /// Evaluates the given [predicate] function on the value of type [T] and
   /// returns the value if the [predicate] is true, otherwise returns null.

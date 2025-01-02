@@ -86,5 +86,20 @@ void main() {
 
       expect(wasCalled, isTrue);
     });
+
+    test('map should return mapped value when not null', () {
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const int? value = 5;
+      int mapper(int x) => x * 2;
+      final int? result = value.mapNullable(mapper);
+      expect(result, 10);
+    });
+
+    test('map should return null when value is null', () {
+      const int? value = null;
+      int mapper(int x) => x * 2;
+      final int? result = value.mapNullable(mapper);
+      expect(result, isNull);
+    });
   });
 }

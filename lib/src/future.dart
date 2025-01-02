@@ -1,13 +1,6 @@
 import 'dart:async';
 
-/// Extension on `Future<T?>?` providing additional null-aware and error
-/// handling operations.
-///
-/// This extension adds methods to nullable `Future<T?>` objects, allowing for
-/// more expressive handling of asynchronous operations that could result in
-/// null or error states. It includes methods for providing default values,
-/// handling errors gracefully, and more nuanced manipulations like executing
-/// alternative futures or suppressing errors.
+/// Extensions for the [Future] class.
 extension NullableFutureExtensions<T> on Future<T?>? {
   /// Returns the future's value if not null; otherwise, returns a default value
   ///

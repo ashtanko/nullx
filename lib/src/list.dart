@@ -1,6 +1,6 @@
 import 'package:nullx/nullx.dart';
 
-/// Extension on `List<T>?`.
+/// Extensions for the [List] class.
 extension NullableListExtension<T> on List<T>? {
   /// Executes the [whatIf] function if the list is not null and not empty,
   /// otherwise executes the [whatIfNot] function.

@@ -1,4 +1,4 @@
-/// Extension on `T?` to add a `let` method.
+/// Extensions for the [T] class.
 extension LetExtension<T, R> on T? {
   /// Applies the [block] function to this value and returns the result if this
   /// value is not null.

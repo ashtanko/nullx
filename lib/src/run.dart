@@ -1,6 +1,6 @@
 import 'package:nullx/nullx.dart';
 
-/// Extension on `T` to add a `run` method.
+/// Extensions for the `run` method.
 extension RunExtension<T extends Object> on T {
   /// Extension on `T` where `T` extends `Object` to add a `run` method.
   ///

@@ -1,6 +1,6 @@
 import 'package:nullx/nullx.dart';
 
-/// Extension on `T` to add an `also` method.
+/// Extensions for the `also` method.
 extension AlsoExtension<T extends Object?> on T {
   /// Extension on `T` to add an `also` method.
   ///

@@ -1,9 +1,4 @@
-/// Extension on `Map<K, V>?` providing additional null-aware operations.
-///
-/// This extension adds methods to `Map` objects that allow for more expressive
-/// handling of operations that could involve `null` maps. It includes methods
-/// for checking if a map is null or empty, providing default values, and more
-/// nuanced manipulations like filtering, updating, and transforming maps safely
+/// Extensions for the [Map] class.
 extension NullableMapExtension<K, V> on Map<K, V>? {
   /// Checks if the map is null or empty.
   /// Returns true if the map is null or empty, otherwise returns false.
@@ -17,7 +12,7 @@ extension NullableMapExtension<K, V> on Map<K, V>? {
 
   /// Checks if the map is not null and not empty.
   ///
-  /// Example:
+  /// Example usage:
   /// ```dart
   /// Map<String, int>? map = {'a': 1, 'b': 2};
   /// print(map.isNotNullOrEmpty); // true
@@ -29,7 +24,7 @@ extension NullableMapExtension<K, V> on Map<K, V>? {
 
   /// Returns the map if it's not null, otherwise returns the provided default value.
   ///
-  /// Example:
+  /// Example usage:
   /// ```dart
   /// Map<String, int>? map = null;
   /// print(map.orDefault({'defaultKey': 42})); // {'defaultKey': 42}
@@ -42,7 +37,7 @@ extension NullableMapExtension<K, V> on Map<K, V>? {
   /// Returns the value for the given key if it exists, otherwise returns the
   /// provided default value.
   ///
-  /// Example:
+  /// Example usage:
   /// ```dart
   /// Map<String, int>? map = {'a': 1, 'b': 2};
   /// print(map.getOrElse('a', 42)); // 1
@@ -55,7 +50,7 @@ extension NullableMapExtension<K, V> on Map<K, V>? {
 
   /// Puts the default value for the given key if the key is absent in the map.
   ///
-  /// Example:
+  /// Example usage:
   /// ```dart
   /// Map<String, int>? map = {'a': 1};
   /// map.putIfAbsentOrElse('b', 42);
@@ -72,7 +67,7 @@ extension NullableMapExtension<K, V> on Map<K, V>? {
 
   /// Updates the value for the given key using the provided update function.
   ///
-  /// Example:
+  /// Example usage:
   /// ```dart
   /// Map<String, int>? map = {'a': 1};
   /// map.updateValue('a', (value) => (value ?? 0) + 5);
@@ -92,7 +87,7 @@ extension NullableMapExtension<K, V> on Map<K, V>? {
 
   /// Returns a new map containing the entries that satisfy the provided test.
   ///
-  /// Example:
+  /// Example usage:
   /// ```dart
   /// Map<String, int>? map = {'a': 1, 'b': 2, 'c': 3};
   /// print(map.filter((entry) => entry.value > 1)); // {'b': 2, 'c': 3}
@@ -108,7 +103,7 @@ extension NullableMapExtension<K, V> on Map<K, V>? {
   /// Maps the keys and values of the map using the provided convert function
   /// and returns a new map.
   ///
-  /// Example:
+  /// Example usage:
   /// ```dart
   /// Map<String, int>? map = {'a': 1, 'b': 2};
   /// print(
@@ -131,7 +126,7 @@ extension NullableMapExtension<K, V> on Map<K, V>? {
 
   /// Performs an action for each key-value pair in the map.
   ///
-  /// Example:
+  /// Example usage:
   /// ```dart
   /// Map<String, int>? map = {'a': 1, 'b': 2};
   /// map.forEachEntry((key, value) {
@@ -152,7 +147,7 @@ extension NullableMapExtension<K, V> on Map<K, V>? {
 
   /// Checks if a key exists in the map, safely handling null maps.
   ///
-  /// Example:
+  /// Example usage:
   /// ```dart
   /// Map<String, int>? map = {'a': 1, 'b': 2};
   /// print(map.containsKeyOrNull('a')); // true
@@ -165,7 +160,7 @@ extension NullableMapExtension<K, V> on Map<K, V>? {
 
   /// Checks if a value exists in the map, safely handling null maps.
   ///
-  /// Example:
+  /// Example usage:
   /// ```dart
   /// Map<String, int>? map = {'a': 1, 'b': 2};
   /// print(map.containsValueOrNull(2)); // true
@@ -178,7 +173,7 @@ extension NullableMapExtension<K, V> on Map<K, V>? {
 
   /// Returns the length of the map if it's not null, otherwise returns 0.
   ///
-  /// Example:
+  /// Example usage:
   /// ```dart
   /// Map<String, int>? map = {'a': 1, 'b': 2};
   /// print(map.safeLength()); // 2

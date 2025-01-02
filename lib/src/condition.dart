@@ -1,4 +1,4 @@
-/// Extension on `T?` to add condition-based methods.
+/// Extensions for the generic type [T].
 extension ConditionExtension<T> on T? {
   /// Executes one of two functions based on the nullability of the value and
   /// returns a value of type [R].
@@ -11,7 +11,7 @@ extension ConditionExtension<T> on T? {
   /// This function is useful when you need to perform different operations and
   /// return a result based on the nullability of a value.
   ///
-  /// Example:
+  /// Example usage:
   /// ```dart
   /// var nullableInt = 1;
   /// var result = nullableInt.notNullWith<int>(
@@ -47,7 +47,7 @@ extension ConditionExtension<T> on T? {
   /// This function is useful when you need to perform different operations and
   /// return a result based on a condition and the nullability of a value.
   ///
-  /// Example:
+  /// Example usage:
   /// ```dart
   /// var nullableInt = 1;
   /// var result = nullableInt.conditionNotNullAs<int>(

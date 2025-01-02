@@ -4,6 +4,8 @@
 - Refactor types of nullable extensions to separate files
 - Remove deprecated methods
 - Remove nullable extensions
+- Add nullable extensions
+- Refactor documentation
 
 ## 0.1.16
 

@@ -1,15 +1,17 @@
 import 'package:nullx/nullx.dart';
 
-/// Extension on `String?` to add utility methods.
-///
-/// This extension provides two methods:
-/// - `isNullOrEmpty`: a getter that checks if the string is null or empty.
-/// - `orDefault`: a method that returns the string if it's not null, otherwise
-/// it returns a default value.
+/// Extensions for the [String] class.
 extension NullableStringExtension on String? {
   /// Checks if the string is null or empty.
   ///
-  /// Returns `true` if the string is null or an empty string, `false` otherwise.
+  /// Returns `true` if the string is null or an empty string, `false`
+  /// otherwise.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// String? nullableString = 'Hello';
+  /// print(nullableString.isNullOrEmpty); // prints: false
+  /// ```
   bool get isNullOrEmpty => this == null || this!.isEmpty;
 
   /// Checks if the string is not null or empty.

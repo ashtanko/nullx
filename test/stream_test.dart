@@ -58,8 +58,7 @@ void main() {
       // ignore: unnecessary_nullable_for_final_variable_declarations
       final Stream<int>? stream3 = Stream.value(3);
 
-      final combined =
-          NullableStreamExtensions.combineStreams([stream1, stream2, stream3]);
+      final combined = [stream1, stream2, stream3].combineStreams();
       final result = await combined.first;
       expect(result, [1, 2, 3]);
     });
@@ -71,8 +70,7 @@ void main() {
       // ignore: unnecessary_nullable_for_final_variable_declarations
       final Stream<int>? stream3 = Stream.value(3);
 
-      final combined =
-          NullableStreamExtensions.combineStreams([stream1, stream2, stream3]);
+      final combined = [stream1, stream2, stream3].combineStreams();
       final result = await combined.first;
       expect(result, [2, 3]);
     });
@@ -81,8 +79,7 @@ void main() {
       Stream<int>? stream1;
       Stream<int>? stream2;
 
-      final combined =
-          NullableStreamExtensions.combineStreams([stream1, stream2]);
+      final combined = [stream1, stream2].combineStreams();
       final result = await combined.first;
       expect(result, []);
     });

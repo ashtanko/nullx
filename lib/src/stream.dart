@@ -1,6 +1,18 @@
 import 'package:async/async.dart' show StreamGroup, StreamZip;
 
-extension NullableStreamExtensions<T> on Stream<T>? {
+extension NullableStreamListExtension<T> on List<Stream<T>?> {
+  /// Combines multiple streams into a single stream of lists of values.
+  ///
+  /// [streams] The list of streams to combine.
+  /// Returns a stream of lists of values from the combined streams.
+  Stream<List<T>> combineStreams() {
+    final nonNullStreams = whereType<Stream<T>>().toList();
+    if (nonNullStreams.isEmpty) return Stream.value([]);
+    return StreamZip(nonNullStreams).asBroadcastStream();
+  }
+}
+
+extension NullableStreamExtension<T> on Stream<T>? {
   /// Returns the stream if it is not null, otherwise returns a stream with the
   /// default value.
   ///
@@ -23,16 +35,6 @@ extension NullableStreamExtensions<T> on Stream<T>? {
   /// [onData] The function to handle data events from the stream.
   void listenIfNotNull(void Function(T) onData) {
     this?.listen(onData);
-  }
-
-  /// Combines multiple streams into a single stream of lists of values.
-  ///
-  /// [streams] The list of streams to combine.
-  /// Returns a stream of lists of values from the combined streams.
-  static Stream<List<T>> combineStreams<T>(List<Stream<T>?> streams) {
-    final nonNullStreams = streams.whereType<Stream<T>>().toList();
-    if (nonNullStreams.isEmpty) return Stream.value([]);
-    return StreamZip(nonNullStreams).asBroadcastStream();
   }
 
   /// Unwraps the stream, throwing an error if the stream or any value in the

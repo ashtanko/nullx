@@ -1,4 +1,4 @@
-extension NullableRunesExtensions on Runes? {
+extension NullableRunesExtension on Runes? {
   /// Returns the runes if it is not null, otherwise returns an empty runes.
   ///
   /// Returns the runes or an empty runes.

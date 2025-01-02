@@ -4,7 +4,7 @@
 /// handling of operations that could involve `null` maps. It includes methods
 /// for checking if a map is null or empty, providing default values, and more
 /// nuanced manipulations like filtering, updating, and transforming maps safely
-extension NullableMapExtensions<K, V> on Map<K, V>? {
+extension NullableMapExtension<K, V> on Map<K, V>? {
   /// Checks if the map is null or empty.
   /// Returns true if the map is null or empty, otherwise returns false.
   ///

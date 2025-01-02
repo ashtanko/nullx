@@ -1,5 +1,5 @@
 /// Extensions for null-aware handling of `Function` types in Dart.
-extension NullableFunctionExtensions<T> on Function? {
+extension NullableFunctionExtension<T> on Function? {
   /// Safely invokes the function if it is not null.
   ///
   /// - [positionalArguments]: A list of positional arguments for the function.

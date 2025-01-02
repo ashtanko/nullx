@@ -1,4 +1,4 @@
-extension NullableExtensions on Object? {
+extension NullableObjectExtension on Object? {
   /// Checks if the object is null.
   ///
   /// Returns `true` if the object is null, `false` otherwise.

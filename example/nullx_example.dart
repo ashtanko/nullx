@@ -28,9 +28,6 @@ void main() async {
   // A dynamic constant
   const dynamic value = 'Hello';
 
-  const int userAge = 20;
-  // prints: 'You are an adult.'
-
   const double? nullableDouble = null;
   nullableDouble.orZero; // Outputs: 0.0
   nullableDouble.or(defaultValue: 5.5); // Outputs: 5.5
@@ -38,16 +35,6 @@ void main() async {
   const bool? nullableBool = null;
   nullableBool.orFalse; // Outputs: false
   nullableBool.or(defaultValue: true); // Outputs: true
-
-  // Unwraps the nullable string and performs an operation on it
-  final res1 = executeIfAs<String>(
-    () => userAge >= 18,
-    ifTrue: () => 'You are an adult.',
-    ifFalse: () => 'You are not an adult.',
-  );
-
-  // ignore: avoid_print
-  print(res1); // prints: 'You are an adult.'
 
   // Unwraps the nullable string and performs an operation on it
   nullableString.unwrapped((value) {}); // prints: 'example'

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.17
+- Refactor types of nullable extensions to separate files
+- Remove deprecated methods
+- Remove nullable extensions
+
 ## 0.1.16
 
 - Add function nullable extensions

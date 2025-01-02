@@ -1,11 +1,7 @@
 import 'package:dartz/dartz.dart';
 
-/// Extension on `Either<K, V>` providing additional utility methods.
-///
-/// This extension adds methods to `Either<K, V>` objects, allowing for more
-/// expressive handling of `Either` types, particularly in scenarios where the
-/// value might be null.
-extension EitherX<K, V> on Either<K, V> {
+/// Extensions for the [Either] class.
+extension EitherExtension<K, V> on Either<K, V> {
   /// Returns the value if the `Either` is `Right`; otherwise, returns null.
   ///
   /// Example usage:

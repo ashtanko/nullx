@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('NullableMapExtensions', () {
+  group('NullableMapExtensions tests', () {
     Map<String, int>? nullableMap;
     setUp(() {
       nullableMap = {'a': 1, 'b': 2};

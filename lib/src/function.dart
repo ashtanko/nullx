@@ -1,5 +1,5 @@
-/// Extensions for null-aware handling of `Function` types in Dart.
-extension NullableFunctionExtensions<T> on Function? {
+/// Extensions for the [Function] class.
+extension NullableFunctionExtension<T> on Function? {
   /// Safely invokes the function if it is not null.
   ///
   /// - [positionalArguments]: A list of positional arguments for the function.
@@ -7,7 +7,7 @@ extension NullableFunctionExtensions<T> on Function? {
   ///
   /// If the function is null, this method does nothing.
   ///
-  /// Example:
+  /// Example usage:
   /// ```dart
   /// void greet(String name) {
   ///   print('Hello, $name!');
@@ -37,7 +37,7 @@ extension NullableFunctionExtensions<T> on Function? {
   /// If the function is null or does not accept one argument, this method does
   /// nothing.
   ///
-  /// Example:
+  /// Example usage:
   /// ```dart
   /// void printMessage(String message) {
   ///   print(message);
@@ -64,7 +64,7 @@ extension NullableFunctionExtensions<T> on Function? {
   /// - [defaultValue]: A value to return if the function is null.
   /// - [namedArguments]: An optional map of named arguments for the function.
   ///
-  /// Example:
+  /// Example usage:
   /// ```dart
   /// int doubleValue(int value) => value * 2;
   ///
@@ -95,7 +95,7 @@ extension NullableFunctionExtensions<T> on Function? {
   /// - [positionalArguments]: A list of positional arguments for the function.
   /// - [namedArguments]: An optional map of named arguments for the function.
   ///
-  /// Example:
+  /// Example usage:
   /// ```dart
   /// int tripleValue(int value) => value * 3;
   ///

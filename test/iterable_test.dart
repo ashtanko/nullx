@@ -2,7 +2,7 @@ import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('NullableIterableExtension', () {
+  group('NullableIterableExtension tests', () {
     test('mapNonNull maps non-null values correctly', () {
       final list = [1, null, 3, null];
       final newList = list.mapNonNull((item) => item * 2).toList();

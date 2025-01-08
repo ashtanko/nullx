@@ -75,4 +75,32 @@ void main() {
       });
     });
   });
+
+  group('DoubleExtension tests (client code)', () {
+    test('notNullOrZero returns list with zeros for null values', () {
+      final list = <double?>[null, 1.5, null, 2.5];
+      final result = list.notNullOrZero();
+      expect(result, equals([0.0, 1.5, 0.0, 2.5]));
+    });
+
+    test('notNullOrZero returns list with original values for non-null values',
+        () {
+      final list = <double?>[1.0, 2.0, 3.0];
+      final result = list.notNullOrZero();
+      expect(result, equals([1.0, 2.0, 3.0]));
+    });
+
+    test('notNullOrZero returns empty list for empty input', () {
+      final list = <double?>[];
+      final result = list.notNullOrZero();
+      expect(result, isEmpty);
+    });
+  });
+}
+
+/// Client code example
+extension DoubleExtension on List<double?> {
+  List<double?> notNullOrZero() {
+    return map((e) => e.orZero).toList();
+  }
 }

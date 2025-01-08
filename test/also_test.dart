@@ -17,4 +17,34 @@ void main() {
       expect(value, equals('HELLO'));
     });
   });
+
+  group('String uppercasedNumbers (client code tests)', () {
+    test('should extract and uppercase numbers from a string', () {
+      expect('abc123def456'.uppercasedNumbers(), '123456');
+    });
+
+    test('should handle empty string', () {
+      expect(''.uppercasedNumbers(), '');
+    });
+
+    test('should handle string with only numbers', () {
+      expect('123456'.uppercasedNumbers(), '123456');
+    });
+
+    test('should handle string with no numbers', () {
+      expect('abcdef'.uppercasedNumbers(), '');
+    });
+
+    test('should handle string with mixed characters', () {
+      expect('a1b2c3d'.uppercasedNumbers(), '123');
+    });
+  });
+}
+
+/// Client code example
+extension AlsoLibExtension on String {
+  String uppercasedNumbers() {
+    // ignore: avoid_print
+    return toUpperCase().replaceAll(RegExp('[^0-9]'), '').also(print);
+  }
 }

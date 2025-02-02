@@ -1,6 +1,9 @@
 # Changelog
 
 ## 0.1.17
+- Rename listOfNotNull -> nonNullListOf
+
+## 0.1.17
 - Refactor types of nullable extensions to separate files
 - Remove deprecated methods
 - Remove nullable extensions

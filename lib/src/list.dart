@@ -51,9 +51,9 @@ extension NullableListExtension<T> on List<T>? {
 ///
 /// ```dart
 /// var list = [1, null, 3, null];
-/// var newList = listOfNotNull(list);
+/// var newList = nonNullListOf(list);
 /// print(newList); // prints: [1, 3]
 /// ```
-List<T> listOfNotNull<T>(List<T?> elements, {bool growable = true}) {
+List<T> nonNullListOf<T>(List<T?> elements, {bool growable = true}) {
   return elements.filterNotNull().toList(growable: growable);
 }

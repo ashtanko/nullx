@@ -24,4 +24,30 @@ extension NullableBoolExtension on bool? {
   bool or({bool defaultValue = false}) {
     return this ?? defaultValue;
   }
+
+  /// Executes the [action] function if the boolean is true.
+  ///
+  /// [action] is the function to execute if the boolean is true.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// bool? nullableBool = true;
+  /// nullableBool.ifTrue(() => print('Boolean is true'));
+  /// ```
+  void ifTrue(void Function() action) {
+    if (this == true) action();
+  }
+
+  /// Executes the [action] function if the boolean is false.
+  ///
+  /// [action] is the function to execute if the boolean is false.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// bool? nullableBool = false;
+  /// nullableBool.ifFalse(() => print('Boolean is false'));
+  /// ```
+  void ifFalse(void Function() action) {
+    if (this == false) action();
+  }
 }

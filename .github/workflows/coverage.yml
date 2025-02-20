@@ -10,7 +10,7 @@ jobs:
       image: dart:3.0
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install dependencies
         run: dart pub get
       - name: Collect coverage

@@ -45,7 +45,7 @@ jobs:
       image: dart:${{ matrix.version }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install dependencies
         run: dart pub get
       - name: Run tests
@@ -59,7 +59,7 @@ jobs:
       - name: Install dart
         run: |
           choco install dart-sdk
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install dependencies
         run: C:\tools\dart-sdk\bin\dart.exe pub get
       - name: Run tests
@@ -70,7 +70,7 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Tap Google's Dart formula repository
         run: brew tap dart-lang/dart
       - name: Install the Dart formula

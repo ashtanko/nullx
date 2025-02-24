@@ -1,6 +1,6 @@
 import 'package:nullx/nullx.dart';
 
-void main() async {
+void main() {
   /// Variables
   // ignore: unnecessary_nullable_for_final_variable_declarations
   final List<String?>? nullableStringList = [null, 'one', null, 'two', null];

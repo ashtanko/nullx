@@ -104,8 +104,7 @@ void main() {
       expect(result, isNull);
     });
 
-    test('rethrows error when test function does not match the error',
-        () async {
+    test('rethrows error when test function does not match the error', () {
       final Future<String?> future = Future.error('A string error');
 
       expect(
@@ -152,12 +151,12 @@ void main() {
   });
 
   group('unwrap', () {
-    test('unwrap throws error when future is null', () async {
+    test('unwrap throws error when future is null', () {
       Future<int?>? nullFuture;
       expect(() => nullFuture.unwrap(), throwsA('Future is null'));
     });
 
-    test('unwrap throws error when future value is null', () async {
+    test('unwrap throws error when future value is null', () {
       // ignore: unnecessary_nullable_for_final_variable_declarations
       final Future<int?>? future = Future.value();
       expect(() => future.unwrap(), throwsA('Value is null'));

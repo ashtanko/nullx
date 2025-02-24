@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:nullx/nullx.dart';
 import 'package:test/test.dart';
 
@@ -15,6 +17,21 @@ void main() {
       final result = value.also((item) => value = item.toUpperCase());
       expect(result, equals('Hello'));
       expect(value, equals('HELLO'));
+    });
+
+    test('also applies closure to null value and returns null', () {
+      int? value;
+      final result = value.also((item) => value = (item ?? 0) + 1);
+      expect(result, isNull);
+      expect(value, equals(1));
+    });
+
+    test('also applies closure to complex object and returns the same object',
+        () {
+      var value = const Point(2, 3);
+      final result = value.also((item) => value = Point(item.x * 2, item.y));
+      expect(result, equals(const Point(2, 3)));
+      expect(value, equals(const Point(4, 3)));
     });
   });
 

@@ -41,7 +41,7 @@ extension NullableExtension<T> on T? {
   /// var nullableInt = 1;
   /// print(nullableInt.orThrow('Value is null')); // Outputs: 1
   /// ```
-  T orThrow(String message) {
+  T orThrow([String message = 'Value cannot be null']) {
     if (this == null) {
       throw Exception(message);
     }

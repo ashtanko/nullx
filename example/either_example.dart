@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:nullx/nullx.dart';
 
-void main() async {
+void main() {
   const rightEither = Right<String, int>(42);
   final int? valueOrNull = rightEither.getOrNull();
   final int valueOrElse = rightEither.getValueOrElse(0);

@@ -14,12 +14,12 @@ end_of_record
 SF:lib/src/bool.dart
 DA:12,2
 DA:24,1
-DA:37,0
-DA:38,0
-DA:50,0
-DA:51,0
+DA:37,1
+DA:38,2
+DA:50,1
+DA:51,2
 LF:6
-LH:2
+LH:6
 end_of_record
 SF:lib/src/condition.dart
 DA:26,1

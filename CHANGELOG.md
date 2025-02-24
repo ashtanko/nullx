@@ -1,7 +1,8 @@
 # Changelog
 
-## 0.1.17
+## 0.1.18
 - Rename listOfNotNull -> nonNullListOf
+- Add isTrue and isFalse extensions for nullable booleans
 
 ## 0.1.17
 - Refactor types of nullable extensions to separate files

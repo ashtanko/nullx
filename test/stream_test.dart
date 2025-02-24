@@ -131,7 +131,7 @@ void main() {
       expect(result, [3, 4]);
     });
 
-    test('handleNull executes action if stream is null', () async {
+    test('handleNull executes action if stream is null', () {
       Stream<int>? nullableStream;
       bool actionCalled = false;
 
@@ -142,7 +142,7 @@ void main() {
       expect(actionCalled, isTrue);
     });
 
-    test('handleNull does not execute action if stream is non-null', () async {
+    test('handleNull does not execute action if stream is non-null', () {
       // ignore: unnecessary_nullable_for_final_variable_declarations
       final Stream<int>? nullableStream = Stream.value(5);
       bool actionCalled = false;
@@ -171,7 +171,7 @@ void main() {
       expect(filteredStream, isNull);
     });
 
-    test('onEmpty executes action if stream is null', () async {
+    test('onEmpty executes action if stream is null', () {
       Stream<int>? nullableStream;
       bool actionCalled = false;
 
@@ -208,12 +208,12 @@ void main() {
       expect(actionCalled, isFalse);
     });
 
-    test('unwrap throws error if stream is null', () async {
+    test('unwrap throws error if stream is null', () {
       const Stream<int?>? nullableStream = null;
       expect(() => nullableStream.unwrap().first, throwsA('Stream is null'));
     });
 
-    test('unwrap throws error if stream contains null value', () async {
+    test('unwrap throws error if stream contains null value', () {
       final Stream<int?> nullableStream = Stream.value(null);
       expect(() => nullableStream.unwrap().first, throwsA('Value is null'));
     });
@@ -224,7 +224,7 @@ void main() {
       expect(result, 5);
     });
 
-    test('onEmpty executes action if stream is null', () async {
+    test('onEmpty executes action if stream is null', () {
       Stream<int>? nullableStream;
       bool actionCalled = false;
 

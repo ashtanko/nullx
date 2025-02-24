@@ -38,6 +38,54 @@ void main() {
       expect(list.notNullOrFalse, [true, false, true]);
     });
   });
+
+  group('NullableBoolExtension ifTrue and ifFalse tests', () {
+    test('ifTrue executes action when boolean is true', () {
+      bool actionExecuted = false;
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const bool? nullableBool = true;
+      nullableBool.ifTrue(() => actionExecuted = true);
+      expect(actionExecuted, isTrue);
+    });
+
+    test('ifTrue does not execute action when boolean is false', () {
+      bool actionExecuted = false;
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const bool? nullableBool = false;
+      nullableBool.ifTrue(() => actionExecuted = true);
+      expect(actionExecuted, isFalse);
+    });
+
+    test('ifTrue does not execute action when boolean is null', () {
+      bool actionExecuted = false;
+      const bool? nullableBool = null;
+      nullableBool.ifTrue(() => actionExecuted = true);
+      expect(actionExecuted, isFalse);
+    });
+
+    test('ifFalse executes action when boolean is false', () {
+      bool actionExecuted = false;
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const bool? nullableBool = false;
+      nullableBool.ifFalse(() => actionExecuted = true);
+      expect(actionExecuted, isTrue);
+    });
+
+    test('ifFalse does not execute action when boolean is true', () {
+      bool actionExecuted = false;
+      // ignore: unnecessary_nullable_for_final_variable_declarations
+      const bool? nullableBool = true;
+      nullableBool.ifFalse(() => actionExecuted = true);
+      expect(actionExecuted, isFalse);
+    });
+
+    test('ifFalse does not execute action when boolean is null', () {
+      bool actionExecuted = false;
+      const bool? nullableBool = null;
+      nullableBool.ifFalse(() => actionExecuted = true);
+      expect(actionExecuted, isFalse);
+    });
+  });
 }
 
 /// Client code example

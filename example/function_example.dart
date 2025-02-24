@@ -1,6 +1,6 @@
 import 'package:nullx/nullx.dart';
 
-void main() async {
+void main() {
   // Example 1: callIfNotNull
   void greet(String name) {
     // ignore: avoid_print

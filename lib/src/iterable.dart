@@ -104,7 +104,7 @@ extension CollectionExtensions<T> on Iterable<T?>? {
   /// print(destination); // prints: [1, 3]
   /// ```
   C filterNotNullTo<C extends List<T>>(C destination) {
-    if (this.isNullOrEmpty) return destination;
+    if (isNullOrEmpty) return destination;
     for (final element in this!) {
       if (element != null) {
         destination.add(element);

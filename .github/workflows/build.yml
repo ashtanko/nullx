@@ -6,7 +6,7 @@ jobs:
   correctness:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
+      - uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
       - uses: dart-lang/setup-dart@c8d9f105c780f626b21f6929fec7e8162014f5ad
         with:
           sdk: dev
@@ -24,7 +24,7 @@ jobs:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
         sdk: [ stable, beta, dev ]
     steps:
-      - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
+      - uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
       - uses: dart-lang/setup-dart@c8d9f105c780f626b21f6929fec7e8162014f5ad
         with:
           sdk: ${{ matrix.sdk }}

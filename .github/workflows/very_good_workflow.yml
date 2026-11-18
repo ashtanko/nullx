@@ -12,7 +12,7 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v2
     with:
-      dart_sdk: 3.1.0
+      dart_sdk: stable
       min_coverage: 90
   pana:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/pana.yml@v2

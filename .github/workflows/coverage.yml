@@ -11,6 +11,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
+      - name: Install system dependencies
+        run: apt-get update && apt-get install -y --no-install-recommends gpg curl git
       - name: Install dependencies
         run: dart pub get
       - name: Collect coverage

@@ -72,7 +72,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Tap Google's Dart formula repository
-        run: brew tap dart-lang/dart
+        run: |
+          brew tap dart-lang/dart
+          brew trust dart-lang/dart
       - name: Install the Dart formula
         run: brew install dart
       - name: Install dependencies
